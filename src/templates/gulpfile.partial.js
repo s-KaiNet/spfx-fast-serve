@@ -1,9 +1,3 @@
-'use strict';
-
-const build = require('@microsoft/sp-build-web');
-
-build.addSuppression(`Warning - [sass] The local CSS class 'ms-Grid' is not camelCase and will not be type-safe.`);
-
 const argv = build.rig.getYargs().argv;
 const useCustomServe = argv['custom-serve'];
 const fs = require("fs");
@@ -20,14 +14,6 @@ if (useCustomServe) {
   });
 
   build.rig.addPostBundleTask(build.task('ensure-workbench', ensureWorkbenchSubtask));
-
-  build.configureWebpack.mergeConfig({
-    additionalConfiguration: (generatedConfiguration) => {
-      fs.writeFileSync("./temp/_webpack_config.json", JSON.stringify(generatedConfiguration, null, 2));
-      return generatedConfiguration;
-    }
-  });
-
 }
 
 build.initialize(require('gulp'));
