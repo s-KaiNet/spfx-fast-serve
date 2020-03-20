@@ -14,7 +14,6 @@ let baseConfig = {
     extensions: ['.ts', '.tsx', '.js'],
     modules: ["node_modules"]
   },
-
   context: path.resolve(__dirname),
   module: {
     rules: [
@@ -41,8 +40,7 @@ let baseConfig = {
       {
         use: [{
           loader: "html-loader"
-        }
-        ],
+        }],
         test: /\\.html$/
       },
       {
@@ -86,12 +84,13 @@ let baseConfig = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'process.env.DEBUG': JSON.stringify(true)
+      'process.env.DEBUG': JSON.stringify(true),
+      'DEBUG': JSON.stringify(true)
     })],
   devServer: {
     hot: false,
     contentBase: resolve(__dirname),
-    publicPath: "/temp/",
+    publicPath: "/dist/",
     host: "localhost",
     port: 4321,
     disableHostCheck: true,
@@ -137,8 +136,7 @@ const createConfig = function () {
     if (originalWebpackConfig.entry.hasOwnProperty(key)) {
 
       let entry = originalWebpackConfig.entry[key];
-      entry = entry.replace(pathToSearch, pathToReplace);
-      entry = entry.slice(0, -3) + ".ts";
+      entry = entry.replace(pathToSearch, pathToReplace).slice(0, -3) + ".ts";
       newEntry[key] = entry;
     }
   }

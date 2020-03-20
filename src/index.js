@@ -11,11 +11,29 @@ console.log('');
 createWebpackFile();
 patchGulpFile();
 patchPackageJson();
+pathcGitIgnoreFile();
 
 console.log(logSymbols.success, chalk.green("All done!"));
 console.log('');
 
 console.log(logSymbols.warning, chalk.bgRed("Now you should run 'npm install'. When you're done, simply execute 'npm run serve'"));
+
+function pathcGitIgnoreFile() {
+    const gitIgnorePath = path.join(process.cwd(), ".gitignore");
+    const gitIgnorePathFile = fs.readFileSync(gitIgnorePath).toString();
+    const lineToAdd = "*.scss.d.ts";
+
+    if (gitIgnorePathFile.indexOf(lineToAdd) !== -1) {
+        console.log(logSymbols.success, chalk.blueBright("It looks like .gitignore was patched before, skipping...."));
+        console.log('');
+        return;
+    }
+
+    fs.appendFileSync(gitIgnorePath, lineToAdd);
+
+    console.log(logSymbols.success, chalk.blueBright("Updated .gitignore...."));
+    console.log('');
+}
 
 function createWebpackFile() {
     fs.copyFileSync(path.join(__dirname, "templates/webpack.js"), path.join(process.cwd(), "webpack.js"));
@@ -31,14 +49,12 @@ function patchPackageJson() {
     const package = require(packagePath);
 
     for (const dependency in templateDeps) {
-        if (templateDeps.hasOwnProperty(dependency)) {
-            const version = templateDeps[dependency];
-            if (package.devDependencies[dependency] && package.devDependencies[dependency] !== version) {
-                console.log(logSymbols.warning, chalk.yellowBright("Your dependency '" + dependency + "' version '" + package.devDependencies[dependency] + "' will be replaced with version '" + version + "'"));
-            }
-
-            package.devDependencies[dependency] = version;
+        const version = templateDeps[dependency];
+        if (package.devDependencies[dependency] && package.devDependencies[dependency] !== version) {
+            console.log(logSymbols.warning, chalk.yellowBright("Your dependency '" + dependency + "' version '" + package.devDependencies[dependency] + "' will be replaced with version '" + version + "'"));
         }
+
+        package.devDependencies[dependency] = version;
     }
 
     package.scripts = package.scripts || {};
@@ -67,7 +83,7 @@ function patchGulpFile() {
     if (currentGulpFile.indexOf("build.configureWebpack.mergeConfig") !== -1) {
         replaceContent = fs.readFileSync(path.join(__dirname, "templates/gulpfile.partial.js")).toString();
 
-        console.log(logSymbols.warning, chalk.red("You use webpack 'mergeConfig' feature in your gulpfile.js. Manual merge required."));
+        console.log(logSymbols.warning, chalk.red("You use webpack's task 'mergeConfig' feature in your gulpfile.js. Manual merge required."));
         console.log(chalk.red("Please read https://github.com/s-KaiNet/spfx-fast-serve#ManualMerge for details."));
         console.log('');
         hasErrors = true;

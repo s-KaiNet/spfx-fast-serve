@@ -86,12 +86,13 @@ let baseConfig = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'process.env.DEBUG': JSON.stringify(true)
+      'process.env.DEBUG': JSON.stringify(true),
+      'DEBUG': JSON.stringify(true)
     })],
   devServer: {
     hot: false,
     contentBase: resolve(__dirname),
-    publicPath: "/temp/",
+    publicPath: "/dist/",
     host: "localhost",
     port: 4321,
     disableHostCheck: true,
