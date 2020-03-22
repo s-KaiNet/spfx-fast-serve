@@ -126,7 +126,7 @@ let baseConfig = {
       "errors-only": true
     },
     proxy: { // url re-write for resources to be served directly from src folder
-      "/lib/webparts/**/loc/*.js": {
+      "/lib/**/loc/*.js": {
         target: host,
         pathRewrite: { '^/lib': '/src' },
         secure: false

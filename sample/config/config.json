@@ -9,10 +9,19 @@
           "manifest": "./src/webparts/fastServeSample/FastServeSampleWebPart.manifest.json"
         }
       ]
+    },
+    "fast-app-customizer-application-customizer": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/fastAppCustomizer/FastAppCustomizerApplicationCustomizer.js",
+          "manifest": "./src/extensions/fastAppCustomizer/FastAppCustomizerApplicationCustomizer.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "FastServeSampleWebPartStrings": "lib/webparts/fastServeSample/loc/{locale}.js"
+    "FastServeSampleWebPartStrings": "lib/webparts/fastServeSample/loc/{locale}.js",
+    "FastAppCustomizerApplicationCustomizerStrings": "lib/extensions/fastAppCustomizer/loc/{locale}.js"
   }
 }

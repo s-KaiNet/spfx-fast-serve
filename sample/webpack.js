@@ -6,6 +6,29 @@ const CertificateStore = CertStore.CertificateStore || CertStore.default;
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const host = "https://localhost:4321";
 
+///
+// Transforms define("<guid>", ...) to web part specific define("<web part id_version", ...)
+// the same approach is used inside copyAssets SPFx build step
+///
+class DynamicLibraryPlugin {
+  constructor(options) {
+    this.opitons = options;
+  }
+
+  apply(compiler) {
+    compiler.hooks.emit.tap("DynamicLibraryPlugin", compilation => {
+      for (const assetId in this.opitons.modulesMap) {
+        const moduleMap = this.opitons.modulesMap[assetId];
+
+        if (compilation.assets[assetId]) {
+          const rawValue = compilation.assets[assetId].children[0]._value;
+          compilation.assets[assetId].children[0]._value = rawValue.replace(this.opitons.libraryName, moduleMap.id + "_" + moduleMap.version);
+        }
+      }
+    });
+  }
+}
+
 let baseConfig = {
   target: "web",
   mode: "development",
@@ -14,7 +37,6 @@ let baseConfig = {
     extensions: ['.ts', '.tsx', '.js'],
     modules: ["node_modules"]
   },
-
   context: path.resolve(__dirname),
   module: {
     rules: [
@@ -41,9 +63,8 @@ let baseConfig = {
       {
         use: [{
           loader: "html-loader"
-        }
-        ],
-        test: /\\.html$/
+        }],
+        test: /\.html$/
       },
       {
         test: /\.css$/,
@@ -92,7 +113,7 @@ let baseConfig = {
   devServer: {
     hot: false,
     contentBase: resolve(__dirname),
-    publicPath: "/dist/",
+    publicPath: host + "/dist/",
     host: "localhost",
     port: 4321,
     disableHostCheck: true,
@@ -105,7 +126,7 @@ let baseConfig = {
       "errors-only": true
     },
     proxy: { // url re-write for resources to be served directly from src folder
-      "/lib/webparts/**/loc/*.js": {
+      "/lib/**/loc/*.js": {
         target: host,
         pathRewrite: { '^/lib': '/src' },
         secure: false
@@ -114,7 +135,7 @@ let baseConfig = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    https: { // use SPFx certs trusted certs for secure connection
+    https: {
       cert: CertificateStore.instance.certificateData,
       key: CertificateStore.instance.keyData
     }
@@ -133,18 +154,36 @@ const createConfig = function () {
   let newEntry = {};
   const pathToSearch = path.sep + "lib" + path.sep;
   const pathToReplace = path.sep + "src" + path.sep;
+  const originalEntries = Object.keys(originalWebpackConfig.entry);
 
   for (const key in originalWebpackConfig.entry) {
-    if (originalWebpackConfig.entry.hasOwnProperty(key)) {
-
-      let entry = originalWebpackConfig.entry[key];
-      entry = entry.replace(pathToSearch, pathToReplace);
-      entry = entry.slice(0, -3) + ".ts";
-      newEntry[key] = entry;
-    }
+    let entry = originalWebpackConfig.entry[key];
+    entry = entry.replace(pathToSearch, pathToReplace).slice(0, -3) + ".ts";
+    newEntry[key] = entry;
   }
 
   baseConfig.entry = newEntry;
+
+  baseConfig.output.publicPath = host + "/dist/";
+
+  const manifest = require("./temp/manifests.json");
+  const modulesMap = {};
+
+  for (const jsModule of manifest) {
+    if (jsModule.loaderConfig
+      && jsModule.loaderConfig.entryModuleId
+      && originalEntries.indexOf(jsModule.loaderConfig.entryModuleId) !== -1) {
+      modulesMap[jsModule.loaderConfig.entryModuleId + ".js"] = {
+        id: jsModule.id,
+        version: jsModule.version
+      }
+    }
+  }
+
+  baseConfig.plugins.push(new DynamicLibraryPlugin({
+    modulesMap: modulesMap,
+    libraryName: originalWebpackConfig.output.library
+  }));
 
   return baseConfig;
 }

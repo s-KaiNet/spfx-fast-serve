@@ -66,6 +66,9 @@ function patchPackageJson() {
     }
 
     package.scripts = package.scripts || {};
+    if (package.scripts["serve"]) {
+        console.log(logSymbols.warning, chalk.yellowBright("Your npm 'serve' command will be repalced."));
+    }
     package.scripts["serve"] = "gulp bundle --custom-serve && webpack-dev-server --mode development --config ./webpack.js --env.env=dev";
 
     fs.writeFileSync(packagePath, JSON.stringify(package, null, 2));
@@ -92,7 +95,7 @@ function patchGulpFile() {
         replaceContent = fs.readFileSync(path.join(__dirname, "templates/gulpfile.partial.js")).toString();
 
         console.log(logSymbols.warning, chalk.redBright("You use webpack's task 'mergeConfig' feature in your gulpfile.js. Manual merge required."));
-        console.log(chalk.redBright("Please read https://github.com/s-KaiNet/spfx-fast-serve#ManualMerge for details."));
+        console.log(chalk.redBright("Please read https://github.com/s-KaiNet/spfx-fast-serve#manual-merge-warning for details."));
         console.log('');
         hasErrors = true;
     } else {

@@ -21,7 +21,10 @@
     "@microsoft/sp-lodash-subset": "1.10.0",
     "@microsoft/sp-office-ui-fabric-core": "1.10.0",
     "@types/webpack-env": "1.13.1",
-    "@types/es6-promise": "0.0.33"
+    "@types/es6-promise": "0.0.33",
+    "@microsoft/decorators": "1.10.0",
+    "@microsoft/sp-dialog": "1.10.0",
+    "@microsoft/sp-application-base": "1.10.0"
   },
   "resolutions": {
     "@types/react": "16.8.8"
