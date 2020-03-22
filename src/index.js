@@ -20,8 +20,16 @@ console.log(logSymbols.warning, chalk.bgRed("Now you should run 'npm install'. W
 
 function pathcGitIgnoreFile() {
     const gitIgnorePath = path.join(process.cwd(), ".gitignore");
-    const gitIgnorePathFile = fs.readFileSync(gitIgnorePath).toString();
     const lineToAdd = "*.scss.d.ts";
+
+    if (!fs.existsSync(gitIgnorePath)) {
+        console.log(logSymbols.warning, chalk.yellowBright(".gitignore file is not found under " + gitIgnorePath + ". Skipping the step."));
+        console.log(logSymbols.warning, chalk.yellowBright("Manually add '" + lineToAdd + "' to your .gitignore"));
+        console.log('');
+        return;
+    }
+    const gitIgnorePathFile = fs.readFileSync(gitIgnorePath).toString();
+
 
     if (gitIgnorePathFile.indexOf(lineToAdd) !== -1) {
         console.log(logSymbols.success, chalk.blueBright("It looks like .gitignore was patched before, skipping...."));
@@ -83,8 +91,8 @@ function patchGulpFile() {
     if (currentGulpFile.indexOf("build.configureWebpack.mergeConfig") !== -1) {
         replaceContent = fs.readFileSync(path.join(__dirname, "templates/gulpfile.partial.js")).toString();
 
-        console.log(logSymbols.warning, chalk.red("You use webpack's task 'mergeConfig' feature in your gulpfile.js. Manual merge required."));
-        console.log(chalk.red("Please read https://github.com/s-KaiNet/spfx-fast-serve#ManualMerge for details."));
+        console.log(logSymbols.warning, chalk.redBright("You use webpack's task 'mergeConfig' feature in your gulpfile.js. Manual merge required."));
+        console.log(chalk.redBright("Please read https://github.com/s-KaiNet/spfx-fast-serve#ManualMerge for details."));
         console.log('');
         hasErrors = true;
     } else {

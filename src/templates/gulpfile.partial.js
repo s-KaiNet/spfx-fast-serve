@@ -1,6 +1,5 @@
 const argv = build.rig.getYargs().argv;
 const useCustomServe = argv['custom-serve'];
-const fs = require("fs");
 const workbenchApi = require("@microsoft/sp-webpart-workbench/lib/api");
 
 if (useCustomServe) {
