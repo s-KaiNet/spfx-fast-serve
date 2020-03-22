@@ -12,7 +12,7 @@ if (useCustomServe) {
     done();
   });
 
-  build.rig.addPostBundleTask(build.task('ensure-workbench', ensureWorkbenchSubtask));
+  build.rig.addPostBuildTask(build.task('ensure-workbench', ensureWorkbenchSubtask));
 }
 
 build.initialize(require('gulp'));

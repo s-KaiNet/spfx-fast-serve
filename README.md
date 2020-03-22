@@ -45,6 +45,7 @@ With `spfx-fast-serve` you will be able to significantly reduce the time from co
 
 - you may loose formatting in your `package.json` and `gulpfile.js` because the tool doesn't respect original file formatting (tabs vs whitespace, size, etc.). You have to fix it afterwards, if needed. 
 - every time you introduce a new dependency for your solution, you should re-run `npm run serve` command, so that it picks up all new dependencies correctly. 
+- when you modify localization .js files, live reload doesn't work. You should reload manually
 
 ## Manual merge warning
 

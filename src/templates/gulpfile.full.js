@@ -14,7 +14,7 @@ if (useCustomServe) {
     done();
   });
 
-  build.rig.addPostBundleTask(build.task('ensure-workbench', ensureWorkbenchSubtask));
+  build.rig.addPostBuildTask(build.task('ensure-workbench', ensureWorkbenchSubtask));
 
   build.configureWebpack.mergeConfig({
     additionalConfiguration: (generatedConfiguration) => {
