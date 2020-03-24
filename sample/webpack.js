@@ -4,6 +4,7 @@ const resolve = require("path").resolve;
 const CertStore = require('@microsoft/gulp-core-build-serve/lib/CertificateStore');
 const CertificateStore = CertStore.CertificateStore || CertStore.default;
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const del = require('del');
 const host = "https://localhost:4321";
 
 ///
@@ -143,6 +144,8 @@ let baseConfig = {
 }
 
 const createConfig = function () {
+  // remove old css module TypeScript definitions:
+  del.sync(["src/**/*.module.scss.ts"]);
 
   // we need only 'externals', 'output' and 'entry' from the original webpack config
   let originalWebpackConfig = require("./temp/_webpack_config.json");
