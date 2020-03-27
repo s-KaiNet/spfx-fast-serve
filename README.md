@@ -53,7 +53,9 @@ With `spfx-fast-serve` you will be able to significantly reduce the time from co
 
 ## FAQs / known issues
 
-#### 1. When I run `npm run serve` I see `ERROR in <Component>.tsx Cannot find module './<Component>.module.scss'`:
+#### 1. When I run `npm run serve` I see 
+> `ERROR in <Component>.tsx Cannot find module './<Component>.module.scss'`:
+
 ![Error](img/missing-module-error.png)
 
 *a*. Try to explicitly change and then save any of `.tsx` files in the solution in order to trigger the build. Maybe the error will disappear automatically. If not, go to `#b`  
