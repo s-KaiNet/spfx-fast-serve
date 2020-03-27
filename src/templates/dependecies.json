@@ -9,5 +9,6 @@
     "webpack": "4.42.0",
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.10.3",
-    "del": "5.1.0"
+    "del": "5.1.0",
+    "cross-env": "7.0.2"
 }

@@ -1,13 +1,12 @@
 {
   "@microsoft/generator-sharepoint": {
-    "isCreatingSolution": false,
+    "isCreatingSolution": true,
     "environment": "spo",
     "version": "1.10.0",
     "libraryName": "sample",
-    "libraryId": "02611cae-ba8c-463b-b16d-713090324996",
+    "libraryId": "e24fbaa4-e1d6-4757-bf87-d13f19b7c14c",
     "packageManager": "npm",
     "isDomainIsolated": false,
-    "componentType": "extension",
-    "extensionType": "ApplicationCustomizer"
+    "componentType": "webpart"
   }
 }

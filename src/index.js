@@ -69,7 +69,7 @@ function patchPackageJson() {
     if (package.scripts["serve"]) {
         console.log(logSymbols.warning, chalk.yellowBright("Your npm 'serve' command will be repalced."));
     }
-    package.scripts["serve"] = "gulp bundle --custom-serve && webpack-dev-server --mode development --config ./webpack.js --env.env=dev";
+    package.scripts["serve"] = "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev";
 
     fs.writeFileSync(packagePath, JSON.stringify(package, null, 2));
 

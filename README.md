@@ -46,6 +46,7 @@ Also
 
 - supports local and hosted workbench
 - live reloading (for hosted workbench as well)
+- debugging from VSCode with Chrome Debugger extension
 - doesn't mess up your default SPFx build. If you have troubles, simply switch back to regular `gulp serve`
 
 With `spfx-fast-serve` you will be able to significantly reduce the time from code change to a page refresh in a browser (a few times faster than the  default `gulp serve` command).
@@ -56,6 +57,7 @@ With `spfx-fast-serve` you will be able to significantly reduce the time from co
 - every time you introduce a new dependency for your solution, you should re-run `npm run serve` command, so that it picks up all new dependencies correctly.
 - when you modify localization .js files, live reload doesn't work. You should reload manually
 - if you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.js` file created by the cli to make everything work
+- React Hot Module Replacement (aka HMR) is not supported. I tried different things, but was not able to make it work. If you have ideas, please welcome to issues or PRs :)
 
 ## Manual merge warning
 
