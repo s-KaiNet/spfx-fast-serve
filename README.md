@@ -84,6 +84,14 @@ With `spfx-fast-serve` you will be able to significantly reduce the time from co
 
 - HMR is not supported. I tried different things, but was not able to make it work. If you have ideas, please welcome to issues or PRs :)
 
+### 7. Webpack generates a lot of output, I want only errors or just minimal of information in my console
+
+- in `webpack.js` find settings for `devServer` and update `stats` variable to any of the values from [webpack docs here](https://webpack.js.org/configuration/stats/)
+
+### 8. How to debug with Chrome Debugger extension from VSCode?
+
+- just refer to the official [documentation](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/debug-in-vscode). The only difference is that instead of `gulp serve` you will use `npm run serve`
+
 ## Manual merge warning
 
 As part of the steps, `spfx-fast-serve` modifies your `gulpfile.js`. In most cases it smoothly merges all required stuff. However, in case if you use `build.configureWebpack.mergeConfig` in your code, the tool is unable to perform merge correctly. In that case you should do manual merge.  

@@ -165,9 +165,11 @@ let baseConfig = {
     open: true,
     openPage: host + "/temp/workbench.html",
     stats: {
+      preset: "errors-only",
       colors: true,
       chunks: false,
-      "errors-only": true
+      modules: false,
+      assets: false
     },
     proxy: { // url re-write for resources to be served directly from src folder
       "/lib/**/loc/*.js": {

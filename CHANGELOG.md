@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.10.3] - 28 Mar 2020
+
+### Features
+
+- minimized webpack output - small performance gain
+
 ## [1.10.2] - 28 Mar 2020
 
 ### Fixed
