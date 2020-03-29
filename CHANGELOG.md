@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.10.4] - 29 Mar 2020
+
+### Features
+
+- refactored to support different SharePoint Framework versions in the same branch
+
 ## [1.10.3] - 28 Mar 2020
 
 ### Features

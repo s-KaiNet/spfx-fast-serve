@@ -5,6 +5,7 @@ const chalk = require('chalk');
 const path = require('path');
 const logSymbols = require('log-symbols');
 const replace = require('replace-in-file');
+const { getTemplatesPath } = require("./templateResolver");
 
 console.log('');
 
@@ -30,7 +31,6 @@ function pathcGitIgnoreFile() {
     }
     const gitIgnorePathFile = fs.readFileSync(gitIgnorePath).toString();
 
-
     if (gitIgnorePathFile.indexOf(lineToAdd) !== -1) {
         console.log(logSymbols.success, chalk.blueBright("It looks like .gitignore was patched before, skipping...."));
         console.log('');
@@ -44,15 +44,14 @@ function pathcGitIgnoreFile() {
 }
 
 function createWebpackFile() {
-    fs.copyFileSync(path.join(__dirname, "templates/webpack.js"), path.join(process.cwd(), "webpack.js"));
+    fs.copyFileSync(getTemplatesPath("webpack.js"), path.join(process.cwd(), "webpack.js"));
 
     console.log(logSymbols.success, chalk.blueBright("Created webpack.js file...."));
     console.log('');
 }
 
 function patchPackageJson() {
-
-    const templateDeps = require(path.join(__dirname, "templates/dependecies.json"));
+    const templateDeps = require(getTemplatesPath("dependecies.json"));
     const packagePath = path.join(process.cwd(), "package.json");
     const package = require(packagePath);
 
@@ -67,7 +66,7 @@ function patchPackageJson() {
 
     package.scripts = package.scripts || {};
     if (package.scripts["serve"]) {
-        console.log(logSymbols.warning, chalk.yellowBright("Your npm 'serve' command will be repalced."));
+        console.log(logSymbols.warning, chalk.yellowBright("Your npm 'serve' command will be replaced."));
     }
     package.scripts["serve"] = "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev";
 
@@ -92,14 +91,14 @@ function patchGulpFile() {
     let replaceContent;
     // if gulpfile.js contains call to build.configureWebpack.mergeConfig, we need manual merge
     if (currentGulpFile.indexOf("build.configureWebpack.mergeConfig") !== -1) {
-        replaceContent = fs.readFileSync(path.join(__dirname, "templates/gulpfile.partial.js")).toString();
+        replaceContent = fs.readFileSync(getTemplatesPath("gulpfile.partial.js")).toString();
 
         console.log(logSymbols.warning, chalk.redBright("You use webpack's task 'mergeConfig' feature in your gulpfile.js. Manual merge required."));
         console.log(chalk.redBright("Please read https://github.com/s-KaiNet/spfx-fast-serve#manual-merge-warning for details."));
         console.log('');
         hasErrors = true;
     } else {
-        replaceContent = fs.readFileSync(path.join(__dirname, "templates/gulpfile.full.js")).toString();
+        replaceContent = fs.readFileSync(getTemplatesPath("gulpfile.full.js")).toString();
     }
 
     const options = {

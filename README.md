@@ -25,12 +25,7 @@ Read more info in my [blog post here](https://spblog.net/post/2020/03/24/spfx-ov
 
 ## Which SharePoint Framework versions are supported
 
-If you develop for SharePoint Online, simply use the latests version of the tool.  
-If you target is SharePoint 2019 (which uses SharePoint Framework 1.4.1), then run specific `spfx-fast-serve` version with SP 2019 support:
-
-```bash
-npx spfx-fast-serve@1.4.x
-```
+SharePoint Online and SharePoint 2019, which basically means SharePoint Framework 1.4.1 and above.
 
 SharePoint 2016 is **NOT** supported.
 
@@ -48,12 +43,14 @@ Also
 - live reloading (for hosted workbench as well)
 - debugging from VSCode with Chrome Debugger extension
 - doesn't mess up your default SPFx build. If you have troubles, simply switch back to regular `gulp serve`
+- adds only ~30 MB to your `node_modules` folder
 
-With `spfx-fast-serve` you will be able to significantly reduce the time from code change to a page refresh in a browser (a few times faster than the  default `gulp serve` command).
+With `spfx-fast-serve` you will be able to significantly reduce the time from code change to a page refresh in a browser (a few times faster than the default `gulp serve` command).
 
 ## FAQs / known issues
 
-### 1. When I run `npm run serve` I see 
+### 1. When I run `npm run serve` I see
+
 > `ERROR in <Component>.tsx Cannot find module './<Component>.module.scss'`:
 
 ![Error](img/missing-module-error.png)
