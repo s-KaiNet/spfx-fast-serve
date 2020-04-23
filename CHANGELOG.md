@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.10.5] - 24 Apr 2020
+
+### Fixed
+
+- Bundles loading issue [#4](https://github.com/s-KaiNet/spfx-fast-serve/issues/4)
+
 ## [1.10.4] - 29 Mar 2020
 
 ### Features

@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const webpack = require("webpack");
 const resolve = require("path").resolve;
 const CertStore = require("@microsoft/gulp-core-build-serve/lib/CertificateStore");
@@ -197,25 +198,13 @@ const createConfig = function () {
   baseConfig.externals = originalWebpackConfig.externals;
   baseConfig.output = originalWebpackConfig.output;
 
-  // fix: ".js" entry needs to be ".ts"
-  // also replaces the path form /lib/* to /src/*
-  let newEntry = {};
-  const pathToSearch = path.sep + "lib" + path.sep;
-  const pathToReplace = path.sep + "src" + path.sep;
-  const originalEntries = Object.keys(originalWebpackConfig.entry);
-
-  for (const key in originalWebpackConfig.entry) {
-    let entry = originalWebpackConfig.entry[key];
-    entry = entry.replace(pathToSearch, pathToReplace).slice(0, -3) + ".ts";
-    newEntry[key] = entry;
-  }
-
-  baseConfig.entry = newEntry;
+  baseConfig.entry = getEntryPoints(originalWebpackConfig.entry);
 
   baseConfig.output.publicPath = host + "/dist/";
 
   const manifest = require("./temp/manifests.json");
   const modulesMap = {};
+  const originalEntries = Object.keys(originalWebpackConfig.entry);
 
   for (const jsModule of manifest) {
     if (jsModule.loaderConfig
@@ -234,6 +223,35 @@ const createConfig = function () {
   }));
 
   return baseConfig;
+}
+
+function getEntryPoints(entry) {
+  // fix: ".js" entry needs to be ".ts"
+  // also replaces the path form /lib/* to /src/*
+  let newEntry = {};
+  let libSearchRegexp;
+  if (path.sep === "/") {
+    libSearchRegexp = /\/lib\//gi;
+  } else {
+    libSearchRegexp = /\\lib\\/gi;
+  }
+
+  const srcPathToReplace = path.sep + "src" + path.sep;
+
+  for (const key in entry) {
+    let entryPath = entry[key];
+    if (entryPath.indexOf("bundle-entries") === -1) {
+      entryPath = entryPath.replace(libSearchRegexp, srcPathToReplace).slice(0, -3) + ".ts";
+    } else {
+      // replace paths and extensions in bundle file
+      let bundleContent = fs.readFileSync(entryPath).toString();
+      bundleContent = bundleContent.replace(libSearchRegexp, srcPathToReplace).replace(/\.js/gi, ".ts");
+      fs.writeFileSync(entryPath, bundleContent);
+    }
+    newEntry[key] = entryPath;
+  }
+
+  return newEntry;
 }
 
 module.exports = createConfig();
