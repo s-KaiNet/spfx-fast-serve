@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.10.6] - 24 Apr 2020
+
+### Fixed
+
+- webpack config for SPFx 1.7.x and 1.4.x
+
 ## [1.10.5] - 24 Apr 2020
 
 ### Fixed
