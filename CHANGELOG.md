@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.10.7] - 29 Apr 2020
+
+### Fixed
+
+- an error is thrown when trying to generate files for library components
+
 ## [1.10.6] - 24 Apr 2020
 
 ### Fixed

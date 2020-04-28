@@ -4,7 +4,8 @@ const package = require(packagePath);
 
 module.exports = {
     getTemplatesPath(fileName) {
-        const minorVersion = parseInt(package.dependencies["@microsoft/sp-core-library"].split(".")[1]);
+        const dependecyToCheck = "@microsoft/sp-webpart-workbench";
+        const minorVersion = parseInt(package.devDependencies[dependecyToCheck].split(".")[1]);
         let basePath = "templates/";
 
         if (minorVersion >= 9) {
@@ -14,7 +15,7 @@ module.exports = {
         } else if (minorVersion === 4) {
             basePath += "1.4.1/";
         } else {
-            throw new Error("SharePoint Framework with version " + package.dependencies["@microsoft/sp-core-library"] + "is not supported.");
+            throw new Error("SharePoint Framework with version " + package.devDependencies[dependecyToCheck] + "is not supported.");
         }
 
         return path.join(__dirname, basePath + fileName);
