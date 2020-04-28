@@ -1,6 +1,6 @@
 {
   "name": "spfx-fast-serve",
-  "version": "1.10.7",
+  "version": "1.10.8",
   "author": "Sergei Sergeev (https://github.com/s-KaiNet)",
   "description": "Improve your SharePoint Framework development by speeding up 'serve' command",
   "main": "src/index.js",

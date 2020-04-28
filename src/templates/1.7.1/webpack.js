@@ -6,7 +6,8 @@ const CertStore = require("@microsoft/gulp-core-build-serve/lib/CertificateStore
 const CertificateStore = CertStore.CertificateStore || CertStore.default;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const del = require("del");
-const host = "https://localhost:4321";
+const port = 4321;
+const host = "https://localhost:" + port;
 
 ///
 // Transforms define("<guid>", ...) to web part specific define("<web part id_version", ...)
@@ -157,7 +158,7 @@ let baseConfig = {
     contentBase: resolve(__dirname),
     publicPath: host + "/dist/",
     host: "localhost",
-    port: 4321,
+    port: port,
     disableHostCheck: true,
     historyApiFallback: true,
     open: true,
