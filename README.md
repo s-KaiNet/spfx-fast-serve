@@ -89,6 +89,10 @@ With `spfx-fast-serve` you will be able to significantly reduce the time from co
 
 - just refer to the official [documentation](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/debug-in-vscode). The only difference is that instead of `gulp serve` you will use `npm run serve`
 
+### 9. How to use it with library components? 
+
+- please refer to [my comment here](https://github.com/s-KaiNet/spfx-fast-serve/issues/5#issuecomment-621529505)
+
 ## Manual merge warning
 
 As part of the steps, `spfx-fast-serve` modifies your `gulpfile.js`. In most cases it smoothly merges all required stuff. However, in case if you use `build.configureWebpack.mergeConfig` in your code, the tool is unable to perform merge correctly. In that case you should do manual merge.  
