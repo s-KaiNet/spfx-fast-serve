@@ -1,19 +1,24 @@
 # Change Log
 
-## [1.10.9] - 30 Apr 2020
+## [1.10.9 - 1.10.10] - 30 Apr 2020
+
+### Features
+
+- added `writeToDisk:false` by default
 
 ### Fixed
 
 - prevent deletion of .manifest files from `/dist` since they needed for library components
 
-## [1.10.7-1.10.8] - 29 Apr 2020
+
+## [1.10.7 - 1.10.8] - 29 Apr 2020
 
 ### Fixed
 
 - an error is thrown when trying to generate files for library components
 - simplified port settings inside webpack.js file
 
-## [1.10.5-1.10.6] - 24 Apr 2020
+## [1.10.5 - 1.10.6] - 24 Apr 2020
 
 ### Fixed
 

@@ -162,6 +162,7 @@ let baseConfig = {
     disableHostCheck: true,
     historyApiFallback: true,
     open: true,
+    writeToDisk: false,
     openPage: host + "/temp/workbench.html",
     stats: {
       preset: "errors-only",
