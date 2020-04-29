@@ -189,7 +189,7 @@ let baseConfig = {
 
 const createConfig = function () {
   // remove old css module TypeScript definitions
-  del.sync(["dist/*.*"]);
+  del.sync(["dist/*.js", "dist/*.map"]);
 
   // we need only "externals", "output" and "entry" from the original webpack config
   let originalWebpackConfig = require("./temp/_webpack_config.json");

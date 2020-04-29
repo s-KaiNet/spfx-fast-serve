@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.10.9] - 30 Apr 2020
+
+### Fixed
+
+- prevent deletion of .manifest files from `/dist` since they needed for library components
+
 ## [1.10.7-1.10.8] - 29 Apr 2020
 
 ### Fixed
