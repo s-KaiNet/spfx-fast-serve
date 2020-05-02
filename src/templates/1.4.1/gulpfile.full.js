@@ -5,6 +5,7 @@ const workbenchApi = require("@microsoft/sp-webpart-workbench/lib/api");
 const del = require('del');
 
 if (useCustomServe) {
+  build.tslintCmd.enabled = false;
   
   const ensureWorkbenchSubtask = build.subTask('ensure-workbench-task', function (gulp, buildOptions, done) {
     this.log('Creating workbench.html file...');
