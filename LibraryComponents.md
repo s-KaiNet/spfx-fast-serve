@@ -3,7 +3,7 @@
 There are two supported ways of managing library components with `spfx-fast-serve`:
 
 - [the easiest and the most common approach](#the-easiest-approach)
-- [using Lerna.js](#using-lernajshttpslernajsorg)
+- [using Lerna.js](#using-lernajs)
 
 ## The easiest approach
 
