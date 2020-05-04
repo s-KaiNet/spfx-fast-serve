@@ -6,6 +6,11 @@ const path = require('path');
 const logSymbols = require('log-symbols');
 const replace = require('replace-in-file');
 const { getTemplatesPath } = require("./templateResolver");
+const { generateWebpackFile } = require("./webpackProcessor");
+const args = process.argv.slice(2);
+
+const libComponentParamName = "--library-component";
+const isLibComponent = args[0] === libComponentParamName;
 
 console.log('');
 
@@ -44,7 +49,9 @@ function pathcGitIgnoreFile() {
 }
 
 function createWebpackFile() {
-    fs.copyFileSync(getTemplatesPath("webpack.js"), path.join(process.cwd(), "webpack.js"));
+    let webpackContent = fs.readFileSync(getTemplatesPath("webpack.js")).toString();
+    webpackContent = generateWebpackFile(isLibComponent, webpackContent);
+    fs.writeFileSync(path.join(process.cwd(), "webpack.js"), webpackContent);
 
     console.log(logSymbols.success, chalk.blueBright("Created webpack.js file...."));
     console.log('');
@@ -54,6 +61,10 @@ function patchPackageJson() {
     const templateDeps = require(getTemplatesPath("dependecies.json"));
     const packagePath = path.join(process.cwd(), "package.json");
     const package = require(packagePath);
+
+    if (isLibComponent) {
+        templateDeps["concurrently"] = "5.2.0";
+    }
 
     for (const dependency in templateDeps) {
         const version = templateDeps[dependency];
@@ -68,7 +79,11 @@ function patchPackageJson() {
     if (package.scripts["serve"]) {
         console.log(logSymbols.warning, chalk.yellowBright("Your npm 'serve' command will be replaced."));
     }
-    package.scripts["serve"] = "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev";
+    if (isLibComponent) {
+        package.scripts["serve"] = "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently -k \"webpack-dev-server --mode development --config ./webpack.js --env.env=dev\" \"tsc -p tsconfig.json -w --preserveWatchOutput\"";
+    } else {
+        package.scripts["serve"] = "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev";
+    }
 
     fs.writeFileSync(packagePath, JSON.stringify(package, null, 2));
 

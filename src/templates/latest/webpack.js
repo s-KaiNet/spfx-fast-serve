@@ -6,7 +6,7 @@ const CertStore = require("@microsoft/gulp-core-build-serve/lib/CertificateStore
 const CertificateStore = CertStore.CertificateStore || CertStore.default;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const del = require("del");
-const port = 4321;
+const port = "<#port#>";
 const host = "https://localhost:" + port;
 
 ///
@@ -164,8 +164,8 @@ let baseConfig = {
     port: port,
     disableHostCheck: true,
     historyApiFallback: true,
-    open: true,
-    writeToDisk: false,
+    open: "<#open#>",
+    writeToDisk: "<#writeToDisk#>",
     openPage: host + "/temp/workbench.html",
     stats: {
       preset: "errors-only",
