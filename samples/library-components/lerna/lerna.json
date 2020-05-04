@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "spfx-library/**",
+	"spfx-webparts/**"
+  ],
+  "version": "0.0.0"
+}

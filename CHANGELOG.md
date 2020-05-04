@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.10.11] - 04 May 2020
+
+### Features
+
+- simplified library components configuration
+
 ## [1.10.9 - 1.10.10] - 30 Apr 2020
 
 ### Features
@@ -9,7 +15,6 @@
 ### Fixed
 
 - prevent deletion of .manifest files from `/dist` since they needed for library components
-
 
 ## [1.10.7 - 1.10.8] - 29 Apr 2020
 

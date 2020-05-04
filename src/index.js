@@ -17,14 +17,14 @@ console.log('');
 createWebpackFile();
 patchGulpFile();
 patchPackageJson();
-pathcGitIgnoreFile();
+patchGitIgnoreFile();
 
 console.log(logSymbols.success, chalk.green("All done!"));
 console.log('');
 
 console.log(logSymbols.warning, chalk.bgRed("Now you should run 'npm install'. When you're done, simply execute 'npm run serve'"));
 
-function pathcGitIgnoreFile() {
+function patchGitIgnoreFile() {
     const gitIgnorePath = path.join(process.cwd(), ".gitignore");
     const lineToAdd = "*.scss.d.ts";
 

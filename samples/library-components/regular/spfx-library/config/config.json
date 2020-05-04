@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "my-api-library": {
+      "components": [
+        {
+          "entrypoint": "./lib/libraries/myApi/MyApiLibrary.js",
+          "manifest": "./src/libraries/myApi/MyApiLibrary.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "MyApiLibraryStrings": "lib/libraries/myApi/loc/{locale}.js"
+  }
+}
