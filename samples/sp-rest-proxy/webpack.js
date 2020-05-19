@@ -6,8 +6,9 @@ const CertStore = require("@microsoft/gulp-core-build-serve/lib/CertificateStore
 const CertificateStore = CertStore.CertificateStore || CertStore.default;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const del = require("del");
-const port = "<#port#>";
+const port = 4321;
 const host = "https://localhost:" + port;
+const RestProxy = require('sp-rest-proxy');
 
 ///
 // Transforms define("<guid>", ...) to web part specific define("<web part id_version", ...)
@@ -70,7 +71,10 @@ let baseConfig = {
         test: /\.tsx?$/,
         loader: "ts-loader",
         options: {
-          transpileOnly: true
+          transpileOnly: true,
+          compilerOptions: {
+            declarationMap: false
+          }
         },
         exclude: /node_modules/
       },
@@ -161,8 +165,14 @@ let baseConfig = {
     port: port,
     disableHostCheck: true,
     historyApiFallback: true,
-    open: "<#open#>",
-    writeToDisk: "<#writeToDisk#>",
+    open: true,
+    writeToDisk: false,
+    before: (app) => {
+      new RestProxy({
+        port,
+        logLevel: "Off"
+      }, app).serveProxy();
+    },
     openPage: host + "/temp/workbench.html",
     stats: {
       preset: "errors-only",

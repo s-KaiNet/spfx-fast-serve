@@ -51,6 +51,18 @@ With `spfx-fast-serve` you will be able to significantly reduce the time from co
 
 Please use [this guide](/LibraryComponents.md) to configure `spfx-fast-serve` with library components.
 
+## SharePoint Rest Proxy aka [sp-rest-proxy](https://github.com/koltyakov/sp-rest-proxy) support
+
+If you want to use `sp-rest-proxy`, simply run
+
+```bash
+spfx-fast-serve --rest-proxy
+```
+
+It will add `sp-rest-proxy` support. You can find an example with [PnPjs](https://pnp.github.io/pnpjs) and built-in `SPHttpClient` under `samples/sp-rest-proxy`  
+
+**NOTE**: to make it work, you should have `config/private.json` credential file available with your credentials for SharePoint site. Alternatively, you can modify generated `webpack.js` and provide path or credentials explicitly.
+
 ## Having troubles? Please try to find the answer under [FAQs](/FAQ.md) or raise an issue
 
 ## Manual merge warning

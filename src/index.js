@@ -5,12 +5,13 @@ const chalk = require('chalk');
 const path = require('path');
 const logSymbols = require('log-symbols');
 const replace = require('replace-in-file');
+const ejs = require("ejs");
+
 const { getTemplatesPath } = require("./templateResolver");
-const { generateWebpackFile } = require("./webpackProcessor");
 const args = process.argv.slice(2);
 
-const libComponentParamName = "--library-component";
-const isLibComponent = args[0] === libComponentParamName;
+const isLibComponent = args.indexOf("--library-component") !== -1;
+const isRestProxy = args.indexOf("--rest-proxy") !== -1;
 
 console.log('');
 
@@ -49,8 +50,8 @@ function patchGitIgnoreFile() {
 }
 
 function createWebpackFile() {
-    let webpackContent = fs.readFileSync(getTemplatesPath("webpack.js")).toString();
-    webpackContent = generateWebpackFile(isLibComponent, webpackContent);
+    let webpackContent = fs.readFileSync(getTemplatesPath("webpack.ejs")).toString();
+    webpackContent = ejs.render(webpackContent, { isLibComponent, isRestProxy });
     fs.writeFileSync(path.join(process.cwd(), "webpack.js"), webpackContent);
 
     console.log(logSymbols.success, chalk.blueBright("Created webpack.js file...."));
@@ -64,6 +65,10 @@ function patchPackageJson() {
 
     if (isLibComponent) {
         templateDeps["concurrently"] = "5.2.0";
+    }
+
+    if (isRestProxy) {
+        templateDeps["sp-rest-proxy"] = "2.11.1";
     }
 
     for (const dependency in templateDeps) {

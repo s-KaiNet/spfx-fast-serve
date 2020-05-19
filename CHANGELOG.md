@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.10.12] - 20 May 2020
+
+### Features
+
+- added support for sp-rest-proxy
+
 ## [1.10.11] - 04 May 2020
 
 ### Features
