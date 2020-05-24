@@ -84,7 +84,7 @@ let baseConfig = {
             name: "[name:lower]_[hash].[ext]"
           }
         }],
-        test: /.(jpg|png|woff|eot|ttf|svg|gif|dds)((\\?|\\#).+)?$/
+        test: /\.(jpe?g|png|woff|eot|ttf|svg|gif|dds)$/i
       },
       {
         use: [{

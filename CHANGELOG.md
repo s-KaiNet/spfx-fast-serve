@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.10.13] - 24 May 2020
+
+### Fixed
+
+- wrong file loader Regexp
+
 ## [1.10.12] - 20 May 2020
 
 ### Features
