@@ -63,7 +63,7 @@ Lerna simplifies a lot of things, when it comes to management of multi-packaged 
    spfx-fast-serve --library-component
    ```
 
-4. Update `spfx-webparts/package.json` and add dependency on `"spfx-library": "0.0.1"`
+4. Update `spfx-webparts/package.json` and add dependency on `"corporate-library": "0.0.1"`
 
 5. In the parent folder for both `spfx-library` and `spfx-webparts` run 
 
