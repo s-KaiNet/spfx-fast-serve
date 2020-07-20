@@ -8,7 +8,8 @@
 - [6. Does it support React Hot Module Replacement (aka HMR)?](#6-does-it-support-react-hot-module-replacement-aka-hmr)
 - [7. Webpack generates a lot of output, I want only errors or just minimal of information in my console](#7-webpack-generates-a-lot-of-output-i-want-only-errors-or-just-minimal-of-information-in-my-console)
 - [8. How to debug with Chrome Debugger extension from VSCode?](#8-how-to-debug-with-chrome-debugger-extension-from-vscode)
-
+- [9. How to prevent browser to open the default url (equivalent to `gulp serve --nobrowser`)?](#9-how-to-prevent-browser-to-open-the-default-url-equivalent-to-gulp-serve---nobrowser)
+- [10. How to run with different locale?](#10-how-to-run-with-different-locale)
 
 ## 1. When I run `npm run serve` I see the error
 
@@ -28,15 +29,15 @@
 
 ## 3. I added a new dependency in my solution (or started using new import from "@microsoft/*" modules) and now I see some strange errors
 
-every time you introduce a new dependency for your solution, you should re-run `npm run serve` command, so that it picks up all new dependencies correctly.
+Every time you introduce a new dependency for your solution, you should re-run `npm run serve` command, so that it picks up all new dependencies correctly.
 
 ## 4. When I modify localization files, live reload doesn't work
 
-this scenario isn't supported, thus in that case you have to reload page manually
+This scenario isn't supported, thus in that case you have to reload page manually
 
 ## 5. I use custom loaders and / or webpack modifications in my `gulpfile.js`
 
-if you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.js` file created by the cli to make everything work
+If you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.js` file created by the cli to make everything work
   
 ## 6. Does it support React Hot Module Replacement (aka HMR)?
 
@@ -44,8 +45,35 @@ HMR is not supported. I tried different things, but was not able to make it work
 
 ## 7. Webpack generates a lot of output, I want only errors or just minimal of information in my console
 
-in `webpack.js` find settings for `devServer` and update `stats` variable to any of the values from [webpack docs here](https://webpack.js.org/configuration/stats/)
+In `webpack.js` find settings for `devServer` and update `stats` variable to any of the values from [webpack docs here](https://webpack.js.org/configuration/stats/)
 
 ## 8. How to debug with Chrome Debugger extension from VSCode?
 
-just refer to the official [documentation](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/debug-in-vscode). The only difference is that instead of `gulp serve` you will use `npm run serve`
+Just refer to the official [documentation](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/debug-in-vscode). The only difference is that instead of `gulp serve` you will use `npm run serve`
+
+## 9. How to prevent browser to open the default url (equivalent to `gulp serve --nobrowser`)?
+
+Modify the default `webpack.js` file and update `devServer.open` property. By default the value is `true`, which opens your browser, change it to `false`.
+
+## 10. How to run with different locale?
+
+You have two options here. If you support only one or two additional locales, you can create additional npm serve scripts (inside `package.json`) with different locales support, i.e.
+
+```json
+"serve-nl": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=nl-nl && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev",
+```
+
+Take a note that I added `--locale=nl-nl` to support NL locale.
+
+Alternatively, if you need a lot of locales, you can create dynamic solution with environmental variables. To support this scenario, set a new environmental varable to be your locale code, i.e.
+
+```bash
+set SPFX_LOCALE=nl-nl
+```
+
+Then update npm script to use this variable:
+
+```json
+"serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev"
+```
+Take a note on `--locale=$SPFX_LOCALE` special syntax and using `cross-env-shell` (part of `cross-env` package, you don't need to install anything additionally).

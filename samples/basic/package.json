@@ -10,7 +10,9 @@
     "build": "gulp bundle",
     "clean": "gulp clean",
     "test": "gulp test",
-    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev"
+    "serve-nl": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=nl-nl && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev",
+    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev",
+    "serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev"
   },
   "dependencies": {
     "react": "16.8.5",
