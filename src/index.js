@@ -12,6 +12,7 @@ const args = process.argv.slice(2);
 
 const isLibComponent = args.indexOf("--library-component") !== -1;
 const isRestProxy = args.indexOf("--rest-proxy") !== -1;
+const usePnpm = args.indexOf("--pnpm") !== -1;
 
 console.log('');
 
@@ -64,11 +65,16 @@ function patchPackageJson() {
     const package = require(packagePath);
 
     if (isLibComponent) {
-        templateDeps["concurrently"] = "5.2.0";
+        templateDeps["concurrently"] = "5.3.0";
     }
 
     if (isRestProxy) {
-        templateDeps["sp-rest-proxy"] = "2.11.1";
+        templateDeps["sp-rest-proxy"] = "3.0.2";
+    }
+
+    if(usePnpm) {
+      templateDeps["@microsoft/loader-load-themed-styles"] = "1.7.191";
+      templateDeps["@microsoft/loader-cased-file"] = "1.10.0";
     }
 
     for (const dependency in templateDeps) {

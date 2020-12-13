@@ -63,6 +63,10 @@ It will add `sp-rest-proxy` support. You can find an example with [PnPjs](https:
 
 **NOTE**: to make it work, you should have `config/private.json` credential file available with your credentials for SharePoint site. Alternatively, you can modify generated `webpack.js` and provide path or credentials explicitly.
 
+## [pnpm](https://pnpm.js.org/) support
+
+pnpm resolves modules a bit differently, when it comes to nested modules. Thus if you use pnpm as your package manager, add `--pnpm` parameter when running `spfx-fast-serve`
+
 ## Having troubles? Please try to find the answer under [FAQs](/FAQ.md) or raise an issue
 
 ## Manual merge warning
