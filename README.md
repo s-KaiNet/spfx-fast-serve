@@ -65,7 +65,7 @@ It will add `sp-rest-proxy` support. You can find an example with [PnPjs](https:
 
 ## [pnpm](https://pnpm.js.org/) support
 
-pnpm resolves modules a bit differently, when it comes to nested modules. Thus if you use pnpm as your package manager, add `--pnpm` parameter when running `spfx-fast-serve`
+`pnpm` resolves modules a bit differently, when it comes to nested modules. Thus if you use `pnpm` as your package manager, add `--pnpm` parameter when running `spfx-fast-serve`
 
 ## Having troubles? Please try to find the answer under [FAQs](/FAQ.md) or raise an issue
 
