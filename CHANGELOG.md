@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.11.0] - 13 Dec 2020
+
+### Features
+
+- added better support for pnpm package manager
+
 ## [1.10.13] - 24 May 2020
 
 ### Fixed
