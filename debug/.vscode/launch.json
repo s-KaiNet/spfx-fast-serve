@@ -7,14 +7,15 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Debug clean",
+      "preLaunchTask": "npm: clean",
       "runtimeArgs": [
         "-r",
         "ts-node/register"
       ],
       "args": [
-        "${workspaceFolder}/src/index.ts"
+        "${workspaceFolder}/../src/index.ts"
       ],
-    }
+    },
   ]
 }
