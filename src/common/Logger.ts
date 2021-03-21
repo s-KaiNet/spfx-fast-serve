@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import logSymbols from 'log-symbols';
+import * as logSymbols from 'log-symbols';
 
 class Logger {
   private logger: (...args: any[]) => void;

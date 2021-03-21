@@ -19,5 +19,5 @@ export function getTemplatesPath(fileName: string) {
     throw new Error('SharePoint Framework with version ' + packageJson.devDependencies[dependecyToCheck] + 'is not supported.');
   }
 
-  return path.join(__dirname, basePath + fileName);
+  return path.join(__dirname, '..', basePath + fileName);
 }

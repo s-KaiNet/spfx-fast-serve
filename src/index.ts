@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 import { logger } from './common/Logger';
 import { CreateWebPackFile, PatchGitIgnoreFile, PatchGulpFile, PatchPackageJson, Pipeline } from './commands';
