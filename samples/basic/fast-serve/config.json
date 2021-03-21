@@ -1,0 +1,10 @@
+{
+  "cli": {
+    "isLibraryComponent": false,
+    "usePnpm": false,
+    "useRestProxy": false
+  },
+  "serve": {
+    "open": true
+  }
+}

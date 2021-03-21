@@ -10,7 +10,9 @@
     "copy": "cpy **/*.* ../../lib/templates --parents --cwd=src/templates",
     "lint": "eslint -c .eslintrc.json --ext .ts src",
     "prepublishOnly": "rimraf -- lib && npm run build",
-    "dev": "npm run copy && tsc -p . --watch"
+    "dev": "npm run copy && concurrently \"npm run watch:ts\" \"npm run watch:template\"",
+    "watch:ts": "tsc -p . --watch",
+    "watch:template": "onchange \"src/templates/**/*.*\" -- npm run copy"
   },
   "keywords": [
     "sharepoint framework",
@@ -34,8 +36,10 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
+    "concurrently": "^6.0.0",
     "cpy-cli": "^3.1.1",
     "eslint": "^7.22.0",
+    "onchange": "^7.1.0",
     "rimraf": "^3.0.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3"

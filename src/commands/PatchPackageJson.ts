@@ -6,6 +6,7 @@ import { logger } from '../common/Logger';
 import { getTemplatesPath } from '../common/utils';
 import { Settings } from '../interfaces/settings';
 import { BaseCommand } from './BaseCommand';
+import { FastServeFolderName } from '../common/consts';
 
 export class PatchPackageJson extends BaseCommand {
   public execute({ cli: { isLibraryComponent, usePnpm, useRestProxy } }: Settings): void {
@@ -42,9 +43,9 @@ export class PatchPackageJson extends BaseCommand {
       logger.warning(chalk.yellowBright('Your npm \'serve\' command will be replaced.'));
     }
     if (isLibraryComponent) {
-      packageJson.scripts['serve'] = 'cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently -k "webpack-dev-server --mode development --config ./webpack.js --env.env=dev" "tsc -p tsconfig.json -w --preserveWatchOutput"';
+      packageJson.scripts['serve'] = `cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently -k "webpack-dev-server --mode development --config ./${FastServeFolderName}/webpack.js --env.env=dev" "tsc -p tsconfig.json -w --preserveWatchOutput"`;
     } else {
-      packageJson.scripts['serve'] = 'cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev';
+      packageJson.scripts['serve'] = `cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./${FastServeFolderName}/webpack.js --env.env=dev`;
     }
 
     fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, 2));

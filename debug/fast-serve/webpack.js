@@ -6,10 +6,16 @@ const CertStore = require("@microsoft/gulp-core-build-serve/lib/CertificateStore
 const CertificateStore = CertStore.CertificateStore || CertStore.default;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const del = require("del");
-const port = <% if (isLibComponent) { %>4320<% } else { %>4321<% } %>;
+let RestProxy;
+
+const settings = require("./config.json");
+
+const port = settings.isLibraryComponent ? 4320 : 4321;
 const host = "https://localhost:" + port;
-<% if (isRestProxy) { %>const RestProxy = require('sp-rest-proxy');
-<% } %>
+if (settings.useRestProxy) {
+  RestProxy = require('sp-rest-proxy');
+}
+
 ///
 // Transforms define("<guid>", ...) to web part specific define("<web part id_version", ...)
 // the same approach is used inside copyAssets SPFx build step
@@ -71,7 +77,10 @@ let baseConfig = {
         test: /\.tsx?$/,
         loader: "ts-loader",
         options: {
-          transpileOnly: true
+          transpileOnly: true,
+          compilerOptions: {
+            declarationMap: false
+          }
         },
         exclude: /node_modules/
       },
@@ -162,15 +171,9 @@ let baseConfig = {
     port: port,
     disableHostCheck: true,
     historyApiFallback: true,
-    open: <% if (isLibComponent) { %>false<% } else { %>true<% } %>,
-    writeToDisk: <% if (isLibComponent) { %>true<% } else { %>false<% } %>,<% if (isRestProxy) { %>
-    before: (app) => {
-      new RestProxy({
-        port,
-        logLevel: "Off"
-      }, app).serveProxy();
-    },<% } %>
-    openPage: host + "/temp/workbench.html",
+    open: settings.open,
+    writeToDisk: settings.isLibraryComponent,
+    openPage: settings.openUrl ? settings.openUrl : host + "/temp/workbench.html",
     stats: {
       preset: "errors-only",
       colors: true,
@@ -193,6 +196,15 @@ let baseConfig = {
       key: CertificateStore.instance.keyData
     }
   },
+}
+
+if (settings.useRestProxy) {
+  baseConfig.devServer.before = function (app) {
+    new RestProxy({
+      port,
+      logLevel: "Off"
+    }, app).serveProxy();
+  }
 }
 
 const createConfig = function () {
