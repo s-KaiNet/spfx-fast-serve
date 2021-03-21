@@ -1,4 +1,5 @@
 export interface Settings {
+  $schema: string,
   cli: {
     usePnpm: boolean;
     isLibraryComponent: boolean;

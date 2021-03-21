@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf -- fast-serve && cpy _gulpfile.js ./ --rename gulpfile.js && cpy _package.json ./ --rename package.json",
-    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev"
+    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./fast-serve/webpack.js --env.env=dev"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +27,7 @@
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.10.3",
     "del": "5.1.0",
-    "cross-env": "7.0.2"
+    "cross-env": "7.0.2",
+    "webpack-merge": "4.2.2"
   }
 }

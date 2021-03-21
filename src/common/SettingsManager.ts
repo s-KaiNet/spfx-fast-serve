@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Settings } from '../interfaces/settings';
-import { ConfigFileName, FastServeFolderName } from './consts';
+import { ConfigFileName, FastServeFolderName, SchemaUrl } from './consts';
 
 export class SettingsManager {
   public static createSettings(): Settings {
@@ -16,6 +16,7 @@ export class SettingsManager {
     Object.keys(cliArgs).forEach((key: keyof Settings['cli']) => cliArgs[key] === undefined && delete cliArgs[key]);
 
     const defaultSettings: Settings = {
+      $schema: SchemaUrl,
       cli: {
         isLibraryComponent: false,
         usePnpm: false,
@@ -27,7 +28,12 @@ export class SettingsManager {
       }
     };
 
-    return this.ensureSettings(defaultSettings, cliArgs);
+    const settings = this.ensureSettings(defaultSettings, cliArgs);
+
+    const fastServeFolder = path.join(process.cwd(), FastServeFolderName);
+    fs.writeFileSync(path.join(fastServeFolder, ConfigFileName), JSON.stringify(settings, null, 2));
+
+    return settings;
   }
 
   private static ensureSettings(defaultSettings: Settings, cliArgs:  Settings['cli']): Settings {
@@ -37,7 +43,6 @@ export class SettingsManager {
     }
     const configPath = path.join(fastServeFolder, ConfigFileName);
     if (!fs.existsSync(configPath)) {
-      fs.writeFileSync(configPath, JSON.stringify(defaultSettings, null, 2));
       return defaultSettings;
     }
 
@@ -49,7 +54,7 @@ export class SettingsManager {
       ...existingConfig.cli,
       ...cliArgs
     }
-
+    existingConfig.$schema = SchemaUrl;
     return existingConfig;
   }
 }
