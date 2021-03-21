@@ -1,12 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as chalk from 'chalk';
-import * as replace from 'replace-in-file';
+import chalk from 'chalk';
+import replace from 'replace-in-file';
 
 import { logger } from '../common/Logger';
 import { BaseCommand } from './BaseCommand';
 import { getTemplatesPath } from '../common/utils';
-type replaceInFile = typeof import('replace-in-file').default;
 
 export class PatchGulpFile extends BaseCommand {
   public execute(): void {
@@ -40,7 +39,7 @@ export class PatchGulpFile extends BaseCommand {
       to: replaceContent,
     };
 
-    (replace as unknown as replaceInFile).sync(options);
+    replace.sync(options);
 
     if (!hasErrors) {
       logger.success(chalk.blueBright('Patched gulpfile.js.'));

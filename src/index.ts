@@ -1,12 +1,20 @@
 #!/usr/bin/env node
 
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
 import { logger } from './common/Logger';
-import { CreateWebPackFile, PatchGitIgnoreFile, PatchGulpFile, PatchPackageJson, Pipeline } from './commands';
+import {
+  CreateWebPackFile,
+  PatchGitIgnoreFile,
+  PatchGulpFile,
+  PatchPackageJson,
+  Pipeline,
+  CreateWebPackExtendFile
+} from './commands';
 
 const pipeline = new Pipeline(
   new CreateWebPackFile(),
+  new CreateWebPackExtendFile(),
   new PatchGulpFile(),
   new PatchPackageJson(),
   new PatchGitIgnoreFile());

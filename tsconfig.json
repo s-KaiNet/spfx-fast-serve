@@ -6,6 +6,7 @@
     "declaration": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "noImplicitAny": true,
     "removeComments": true,
     "skipLibCheck": true,

@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import * as path from 'path';
 
 import { logger } from '../common/Logger';
