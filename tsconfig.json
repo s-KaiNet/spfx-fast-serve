@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "outDir": "./lib",
+    "types": [
+      "node",
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

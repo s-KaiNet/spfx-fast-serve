@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "SPFx Fast Serve configuration (v1.0)",
+  "description": "Defines cli and serve configuration structure",
+  "type": "object",
+  "properties": {
+    "cli": {
+      "type": "object",
+      "description": "Contains spfx-fast-serve CLI related settings. If you change the spfx-fast-serve cli properties in config.json, you should run spfx-fast-serve again (without parameters) so that it updates your project according to a new configuration",
+      "properties": {
+        "usePnpm": {
+          "type": "boolean"
+        },
+        "isLibraryComponent": {
+          "type": "boolean"
+        },
+        "useRestProxy": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "usePnpm",
+        "isLibraryComponent",
+        "useRestProxy"
+      ]
+    },
+    "serve": {
+      "type": "object",
+      "description": "Contains serve specific properties. You can change these settings and see the immediate effect after running 'npm run serve'",
+      "properties": {
+        "open": {
+          "type": "boolean",
+          "description": "Whether to open a browser after the starting serve. You can configure opening url by using 'openUrl' property"
+        },
+        "openUrl": {
+          "type": "string",
+          "description": "The url, which will opened after the serve. If empty, local workbench will opened"
+        }
+      },
+      "required": [
+        "open"
+      ]
+    }
+  },
+  "required": [
+    "cli",
+    "serve"
+  ]
+}
+

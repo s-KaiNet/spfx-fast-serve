@@ -1,3 +1,6 @@
 {
-    "markdown.extension.toc.githubCompatibility": true
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "explorer.compactFolders": false
 }

@@ -1,0 +1,26 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "ignorePatterns": [
+    "*.js"
+  ],
+  "rules": {
+    "no-console": "error",
+    "eqeqeq": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "quotes": [
+      2,
+      "single"
+    ],
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  }
+}
