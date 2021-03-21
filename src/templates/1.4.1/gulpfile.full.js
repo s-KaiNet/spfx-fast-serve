@@ -5,8 +5,6 @@ const workbenchApi = require("@microsoft/sp-webpart-workbench/lib/api");
 const del = require('del');
 
 if (useCustomServe) {
-  build.tslintCmd.enabled = false;
-  
   const ensureWorkbenchSubtask = build.subTask('ensure-workbench-task', function (gulp, buildOptions, done) {
     this.log('Creating workbench.html file...');
     try {
@@ -25,14 +23,14 @@ if (useCustomServe) {
     }
   });
 
-} else {
-  const deleteDefinitions = build.subTask('delete-scss-definitions-task', function (gulp, buildOptions, done) {
-    del.sync(['src/**/*.scss.d.ts']);
-
-    done();
-  });
-
-  build.rig.addPreBuildTask(build.task('delete-scss-definitions', deleteDefinitions));
 }
+
+const deleteDefinitions = build.subTask('delete-scss-definitions-task', function (gulp, buildOptions, done) {
+  del.sync(['src/**/*.scss.d.ts']);
+
+  done();
+});
+
+build.rig.addPreBuildTask(build.task('delete-scss-definitions', deleteDefinitions));
 
 build.initialize(require('gulp'));
