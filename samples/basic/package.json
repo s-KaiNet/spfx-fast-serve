@@ -53,6 +53,10 @@
     "webpack-dev-server": "3.10.3",
     "del": "5.1.0",
     "cross-env": "7.0.2",
-    "webpack-merge": "4.2.2"
+    "webpack-merge": "4.2.2",
+    "concurrently": "5.3.0",
+    "sp-rest-proxy": "3.0.2",
+    "@microsoft/loader-load-themed-styles": "1.7.191",
+    "@microsoft/loader-cased-file": "1.10.0"
   }
 }

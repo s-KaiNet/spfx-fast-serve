@@ -10,7 +10,7 @@
     "build": "gulp bundle",
     "clean": "gulp clean",
     "test": "gulp test",
-    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev"
+    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./fast-serve/webpack.js --env.env=dev"
   },
   "dependencies": {
     "@microsoft/sp-core-library": "1.10.0",
@@ -54,6 +54,7 @@
     "del": "5.1.0",
     "cross-env": "7.0.2",
     "concurrently": "5.2.0",
-    "sp-rest-proxy": "2.11.1"
+    "sp-rest-proxy": "3.0.2",
+    "webpack-merge": "4.2.2"
   }
 }

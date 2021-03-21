@@ -23,6 +23,12 @@ Read more info in my [blog post here](https://spblog.net/post/2020/03/24/spfx-ov
 4. Run `npm install`
 5. Run `npm run serve` and enjoy the incredible speed of `serve` command!
 
+## Migration to 2.x version
+
+> **IMPORTANT!** SharePoint Framework 1.12 and onwards is supported starting from `2.x` version of `spfx-fast-serve`  
+
+Please use [this guide](/docs/Upgrade%20to%202x.md) if you're planning to migrate your project to `spfx-fast-serve` 2.x.
+
 ## Which SharePoint Framework versions are supported
 
 SharePoint Online and SharePoint 2019, which basically means SharePoint Framework 1.4.1 and above.
@@ -49,7 +55,7 @@ With `spfx-fast-serve` you will be able to significantly reduce the time from co
 
 ## Library components
 
-Please use [this guide](/LibraryComponents.md) to configure `spfx-fast-serve` with library components.
+Please use [this guide](/docs/LibraryComponents.md) to configure `spfx-fast-serve` with library components.
 
 ## SharePoint Rest Proxy aka [sp-rest-proxy](https://github.com/koltyakov/sp-rest-proxy) support
 
@@ -67,7 +73,7 @@ It will add `sp-rest-proxy` support. You can find an example with [PnPjs](https:
 
 `pnpm` resolves modules a bit differently, when it comes to nested modules. Thus if you use `pnpm` as your package manager, add `--pnpm` parameter when running `spfx-fast-serve`
 
-## Having troubles? Please try to find the answer under [FAQs](/FAQ.md) or raise an issue
+## Having troubles? Please try to find the answer under [FAQs](/docs/FAQ.md) or raise an issue
 
 ## Manual merge warning
 

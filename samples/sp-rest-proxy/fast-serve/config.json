@@ -1,0 +1,11 @@
+{
+  "$schema": "https://github.com/s-KaiNet/spfx-fast-serve/blob/master/schema/config.1.0.schema.json",
+  "cli": {
+    "isLibraryComponent": false,
+    "usePnpm": false,
+    "useRestProxy": true
+  },
+  "serve": {
+    "open": true
+  }
+}

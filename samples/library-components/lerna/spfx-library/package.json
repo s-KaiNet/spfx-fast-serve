@@ -10,7 +10,7 @@
     "build": "gulp bundle",
     "clean": "gulp clean",
     "test": "gulp test",
-    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently -k \"webpack-dev-server --mode development --config ./webpack.js --env.env=dev\" \"tsc -p tsconfig.json -w --preserveWatchOutput\""
+    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently -k \"webpack-dev-server --mode development --config ./fast-serve/webpack.js --env.env=dev\" \"tsc -p tsconfig.json -w --preserveWatchOutput\""
   },
   "dependencies": {
     "@types/webpack-env": "1.13.1",
@@ -38,6 +38,7 @@
     "webpack-dev-server": "3.10.3",
     "del": "5.1.0",
     "cross-env": "7.0.2",
-    "concurrently": "5.2.0"
+    "concurrently": "5.3.0",
+    "webpack-merge": "4.2.2"
   }
 }

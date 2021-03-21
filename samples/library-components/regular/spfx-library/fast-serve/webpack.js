@@ -1,13 +1,22 @@
 const path = require("path");
 const fs = require("fs");
 const webpack = require("webpack");
-const resolve = require("path").resolve;
 const CertStore = require("@microsoft/gulp-core-build-serve/lib/CertificateStore");
 const CertificateStore = CertStore.CertificateStore || CertStore.default;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const del = require("del");
-const port = 4321;
+const webpackMerge = require("webpack-merge");
+const webpackExtendConfig = require("./webpack.extend");
+let RestProxy;
+
+const settings = require("./config.json");
+const rootFolder = path.resolve(__dirname, "../");
+
+const port = settings.cli.isLibraryComponent ? 4320 : 4321;
 const host = "https://localhost:" + port;
+if (settings.cli.useRestProxy) {
+  RestProxy = require('sp-rest-proxy');
+}
 
 ///
 // Transforms define("<guid>", ...) to web part specific define("<web part id_version", ...)
@@ -46,7 +55,7 @@ class ClearCssModuleDefinitionsPlugin {
       if (!this.options.deleted) {
 
         setTimeout(() => {
-          del.sync(["src/**/*.module.scss.ts"]);
+          del.sync(["src/**/*.module.scss.ts"], { cwd: rootFolder });
         }, 3000);
 
         this.options.deleted = true;
@@ -61,12 +70,9 @@ let baseConfig = {
   devtool: "source-map",
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
-    modules: ["node_modules"],
-    alias: {
-      "@src": path.resolve(__dirname, "src")
-    }
+    modules: ["node_modules"]
   },
-  context: path.resolve(__dirname),
+  context: rootFolder,
   module: {
     rules: [
       {
@@ -161,15 +167,15 @@ let baseConfig = {
     })],
   devServer: {
     hot: false,
-    contentBase: resolve(__dirname),
+    contentBase: rootFolder,
     publicPath: host + "/dist/",
     host: "localhost",
     port: port,
     disableHostCheck: true,
     historyApiFallback: true,
-    open: true,
-    writeToDisk: false,
-    openPage: host + "/temp/workbench.html",
+    open: settings.serve.open,
+    writeToDisk: settings.cli.isLibraryComponent,
+    openPage: settings.serve.openUrl ? settings.serve.openUrl : host + "/temp/workbench.html",
     stats: {
       preset: "errors-only",
       colors: true,
@@ -194,12 +200,21 @@ let baseConfig = {
   },
 }
 
+if (settings.cli.useRestProxy) {
+  baseConfig.devServer.before = function (app) {
+    new RestProxy({
+      port,
+      logLevel: "Off"
+    }, app).serveProxy();
+  }
+}
+
 const createConfig = function () {
   // remove old css module TypeScript definitions
-  del.sync(["dist/*.js", "dist/*.map"]);
+  del.sync(["dist/*.js", "dist/*.map"], { cwd: rootFolder });
 
   // we need only "externals", "output" and "entry" from the original webpack config
-  let originalWebpackConfig = require("./temp/_webpack_config.json");
+  let originalWebpackConfig = require("../temp/_webpack_config.json");
   baseConfig.externals = originalWebpackConfig.externals;
   baseConfig.output = originalWebpackConfig.output;
 
@@ -207,7 +222,7 @@ const createConfig = function () {
 
   baseConfig.output.publicPath = host + "/dist/";
 
-  const manifest = require("./temp/manifests.json");
+  const manifest = require("../temp/manifests.json");
   const modulesMap = {};
   const originalEntries = Object.keys(originalWebpackConfig.entry);
 
@@ -259,4 +274,4 @@ function getEntryPoints(entry) {
   return newEntry;
 }
 
-module.exports = createConfig();
+module.exports = webpackMerge(createConfig(), webpackExtendConfig);

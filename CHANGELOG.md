@@ -1,5 +1,9 @@
 # Change Log
 
+## [2.0.0] - 28 Mar 2021
+
+Full codebase re-write with TypeScript, better extensibility and SPFx 1.12 support.
+
 ## [1.11.0] - 13 Dec 2020
 
 ### Features
