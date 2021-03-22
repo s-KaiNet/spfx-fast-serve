@@ -1,8 +1,9 @@
 const path = require("path");
 const fs = require("fs");
+const url = require("url");
 const webpack = require("webpack");
-const CertStore = require("@microsoft/gulp-core-build-serve/lib/CertificateStore");
-const CertificateStore = CertStore.CertificateStore || CertStore.default;
+const certificateManager = require("@rushstack/debug-certificate-manager");
+const certificateStore = new certificateManager.CertificateStore();
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const del = require("del");
 const webpackMerge = require("webpack-merge");
@@ -184,19 +185,12 @@ let baseConfig = {
       modules: false,
       assets: false
     },
-    proxy: { // url re-write for resources to be served directly from src folder
-      "/lib/**/loc/*.js": {
-        target: host,
-        pathRewrite: { "^/lib": "/src" },
-        secure: false
-      }
-    },
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
     https: {
-      cert: CertificateStore.instance.certificateData,
-      key: CertificateStore.instance.keyData
+      cert: certificateStore.certificateData,
+      key: certificateStore.keyData
     }
   },
 }
@@ -222,9 +216,13 @@ const createConfig = function () {
   baseConfig.entry = getEntryPoints(originalWebpackConfig.entry);
 
   baseConfig.output.publicPath = host + "/dist/";
+  baseConfig.output.filename = "[name].js";
 
   const manifest = require("../temp/manifests.json");
+  const config = require("../config/config.json");
+  let localizedResources = config.localizedResources;
   const modulesMap = {};
+  const localizedPathMap = {};
   const originalEntries = Object.keys(originalWebpackConfig.entry);
 
   for (const jsModule of manifest) {
@@ -235,6 +233,8 @@ const createConfig = function () {
         id: jsModule.id,
         version: jsModule.version
       }
+
+      extractLocalizedPaths(jsModule.loaderConfig.scriptResources, localizedPathMap, localizedResources);
     }
   }
 
@@ -243,7 +243,78 @@ const createConfig = function () {
     libraryName: originalWebpackConfig.output.library
   }));
 
+  baseConfig.devServer.proxy = [{
+    target: host,
+    secure: false,
+    context: createProxyContext(originalEntries, localizedPathMap),
+    pathRewrite: pathRewrite(originalEntries, localizedPathMap)
+  }]
+
   return baseConfig;
+}
+
+function extractLocalizedPaths(scriptResources, localizedPathMap, localizedResources) {
+  for (const resourceKey in scriptResources) {
+    const resource = scriptResources[resourceKey];
+    if (resource.type === "localizedPath") {
+      for (const localeCode in resource.paths) {
+        const jsPath = resource.paths[localeCode];
+        localizedPathMap[jsPath] = {
+          locale: localeCode.toLowerCase(),
+          mapPath: localizedResources[resourceKey].replace(/^lib/gi, "src").replace("{locale}", localeCode.toLowerCase()) // src/webparts/helloWorld/loc/{locale}.js
+        };
+      }
+    }
+  }
+}
+
+function pathRewrite(entryPoints, localizedPathMap) {
+  return function (requestPath) {
+    const parsed = url.parse(requestPath);
+    const fileName = path.basename(parsed.pathname);
+
+    // we should rewrite localized resource path
+    if (localizedPathMap[fileName]) {
+      const resource = localizedPathMap[fileName];
+      return "/" + resource.mapPath;
+    }
+
+    const targetEntry = entryPoints.filter(e => fileName.indexOf(e + "_") === 0)[0];
+
+    // we should rewrite entry point request here
+    if (targetEntry) {
+      return requestPath.replace(fileName, targetEntry + ".js");
+    }
+
+    return requestPath;
+  }
+}
+
+// rewrite only .js files - all entry points and all localization files
+function createProxyContext(entryPoints, localizedPathMap) {
+  return function (requestPath) {
+    const parsed = url.parse(requestPath);
+    const fileName = path.basename(parsed.pathname);
+
+    // if not .js - do not rewrite
+    if (!fileName.endsWith(".js")) {
+      return false;
+    }
+
+    const targetEntry = entryPoints.filter(e => fileName.indexOf(e + "_") === 0)[0];
+
+    // if entry point - [name]_[hash] - rewrite
+    if (targetEntry) {
+      return true;
+    }
+
+    // if localized resource - HelloWorldWebPartStrings_en-us_<guid>.js - rewrite
+    if (localizedPathMap[fileName]) {
+      return true;
+    }
+
+    return false;
+  }
 }
 
 function getEntryPoints(entry) {

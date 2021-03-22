@@ -12,14 +12,15 @@
     "serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./fast-serve/webpack.js --env.env=dev"
   },
   "dependencies": {
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
-    "office-ui-fabric-react": "7.156.0",
     "@microsoft/sp-core-library": "1.12.0",
+    "@microsoft/sp-lodash-subset": "1.12.0",
+    "@microsoft/sp-office-ui-fabric-core": "1.12.0",
     "@microsoft/sp-property-pane": "1.12.0",
     "@microsoft/sp-webpart-base": "1.12.0",
-    "@microsoft/sp-lodash-subset": "1.12.0",
-    "@microsoft/sp-office-ui-fabric-core": "1.12.0"
+    "@pnp/spfx-controls-react": "2.6.0",
+    "office-ui-fabric-react": "7.156.0",
+    "react": "16.9.0",
+    "react-dom": "16.9.0"
   },
   "devDependencies": {
     "@types/react": "16.9.36",
