@@ -6,7 +6,7 @@ const CertificateStore = CertStore.CertificateStore || CertStore.default;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const del = require("del");
 const webpackMerge = require("webpack-merge");
-const webpackExtendConfig = require("./webpack.extend");
+const extend = require("./webpack.extend");
 let RestProxy;
 
 const settings = require("./config.json");
@@ -274,4 +274,4 @@ function getEntryPoints(entry) {
   return newEntry;
 }
 
-module.exports = webpackMerge(createConfig(), webpackExtendConfig);
+module.exports = webpackMerge(extend.transformConfig(createConfig()), extend.webpackConfig);

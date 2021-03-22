@@ -6,7 +6,9 @@ const CertificateStore = CertStore.CertificateStore || CertStore.default;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const del = require("del");
 const webpackMerge = require("webpack-merge");
-const webpackExtendConfig = require("./webpack.extend");
+const extend = require("./webpack.extend");
+const packageJson = require("../package.json");
+const hasESLint = !!packageJson.devDependencies["@typescript-eslint/parser"];
 let RestProxy;
 
 const settings = require("./config.json");
@@ -157,7 +159,7 @@ let baseConfig = {
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
-      tslint: true
+      eslint: hasESLint
     }),
     new ClearCssModuleDefinitionsPlugin(),
     new webpack.DefinePlugin({
@@ -274,4 +276,4 @@ function getEntryPoints(entry) {
   return newEntry;
 }
 
-module.exports = webpackMerge(createConfig(), webpackExtendConfig);
+module.exports = webpackMerge(extend.transformConfig(createConfig()), extend.webpackConfig);

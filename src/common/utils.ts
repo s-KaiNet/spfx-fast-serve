@@ -1,4 +1,5 @@
 import * as path from 'path';
+import { WebpackExtendFileName } from './consts';
 const packagePath = path.join(process.cwd(), 'package.json');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -9,9 +10,13 @@ export function getTemplatesPath(fileName: string) {
   const minorVersion = parseInt(packageJson.devDependencies[dependecyToCheck].split('.')[1]);
   let basePath = 'templates/';
 
-  if (minorVersion >= 9) {
+  if (fileName === WebpackExtendFileName) {
+    basePath += 'common/';
+  } else if (minorVersion >= 12) {
     basePath += 'latest/';
-  } else if (minorVersion < 9 && minorVersion > 4) {
+  } else if (minorVersion >= 9 && minorVersion < 12) {
+    basePath += '1.11/';
+  } else if (minorVersion > 4 && minorVersion < 9) {
     basePath += '1.7.1/';
   } else if (minorVersion === 4) {
     basePath += '1.4.1/';

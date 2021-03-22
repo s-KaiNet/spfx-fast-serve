@@ -42,7 +42,7 @@
     "ajv": "~5.2.2",
     "cross-env": "7.0.2",
     "css-loader": "3.4.2",
-    "css-modules-typescript-loader": "4.0.0",
+    "css-modules-typescript-loader": "4.0.1",
     "del": "5.1.0",
     "fork-ts-checker-webpack-plugin": "4.1.0",
     "gulp": "~3.9.1",
