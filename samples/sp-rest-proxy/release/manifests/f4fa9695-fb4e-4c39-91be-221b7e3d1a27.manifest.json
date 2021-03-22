@@ -1,0 +1,83 @@
+{
+  "id": "f4fa9695-fb4e-4c39-91be-221b7e3d1a27",
+  "alias": "HelloWorldWebPart",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+  "requiresCustomScript": false,
+  "supportedHosts": [
+    "SharePointWebPart"
+  ],
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
+      "group": {
+        "default": "Other"
+      },
+      "title": {
+        "default": "HelloWorld"
+      },
+      "description": {
+        "default": "HelloWorld description"
+      },
+      "officeFabricIconFontName": "Page",
+      "properties": {
+        "description": "HelloWorld"
+      }
+    }
+  ],
+  "loaderConfig": {
+    "internalModuleBaseUrls": [
+      "<!-- PATH TO CDN -->"
+    ],
+    "entryModuleId": "hello-world-web-part",
+    "scriptResources": {
+      "hello-world-web-part": {
+        "type": "path",
+        "path": "hello-world-web-part_79ee0f81a521d17983b8.js"
+      },
+      "tslib": {
+        "type": "component",
+        "id": "01c4df03-e775-48cb-aa14-171ee5199a15",
+        "version": "1.10.0"
+      },
+      "@microsoft/sp-property-pane": {
+        "type": "component",
+        "id": "f9e737b7-f0df-4597-ba8c-3060f82380db",
+        "version": "1.12.0"
+      },
+      "@microsoft/sp-core-library": {
+        "type": "component",
+        "id": "7263c7d0-1d6a-45ec-8d85-d4d1d234171b",
+        "version": "1.12.0"
+      },
+      "@microsoft/sp-webpart-base": {
+        "type": "component",
+        "id": "974a7777-0990-4136-8fa6-95d80114c2e0",
+        "version": "1.12.0"
+      },
+      "react": {
+        "type": "component",
+        "id": "0d910c1c-13b9-4e1c-9aa4-b008c5e42d7d",
+        "version": "16.9.0"
+      },
+      "react-dom": {
+        "type": "component",
+        "id": "aa0a46ec-1505-43cd-a44a-93f3a5aa460a",
+        "version": "16.9.0"
+      },
+      "HelloWorldWebPartStrings": {
+        "type": "localizedPath",
+        "paths": {
+          "en-US": "HelloWorldWebPartStrings_en-us_536e65149b0acf4d52c0043073b9fc59.js"
+        },
+        "defaultPath": "HelloWorldWebPartStrings_en-us_536e65149b0acf4d52c0043073b9fc59.js"
+      },
+      "@microsoft/sp-http": {
+        "type": "component",
+        "id": "c07208f0-ea3b-4c1a-9965-ac1b825211a6",
+        "version": "1.12.0"
+      }
+    }
+  }
+}

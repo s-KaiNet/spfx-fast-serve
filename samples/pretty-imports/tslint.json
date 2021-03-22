@@ -1,5 +1,5 @@
 {
-  "extends": "@microsoft/sp-tslint-rules/base-tslint.json",
+  "extends": "./node_modules/@microsoft/rush-stack-compiler-3.7/includes/tsconfig-web.json",
   "rules": {
     "class-name": false,
     "export-name": false,

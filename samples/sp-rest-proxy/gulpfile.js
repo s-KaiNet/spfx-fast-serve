@@ -11,7 +11,7 @@ const workbenchApi = require("@microsoft/sp-webpart-workbench/lib/api");
 
 if (useCustomServe) {
   build.tslintCmd.enabled = false;
-  
+
   const ensureWorkbenchSubtask = build.subTask('ensure-workbench-task', function (gulp, buildOptions, done) {
     this.log('Creating workbench.html file...');
     try {
@@ -31,6 +31,15 @@ if (useCustomServe) {
   });
 
 }
+
+var getTasks = build.rig.getTasks;
+build.rig.getTasks = function () {
+  var result = getTasks.call(build.rig);
+
+  result.set('serve', result.get('serve-deprecated'));
+
+  return result;
+};
 
 build.initialize(require('gulp'));
 

@@ -10,7 +10,6 @@ const extend = require("./webpack.extend");
 const packageJson = require("../package.json");
 const hasESLint = !!packageJson.devDependencies["@typescript-eslint/parser"];
 let RestProxy;
-
 const settings = require("./config.json");
 const rootFolder = path.resolve(__dirname, "../");
 

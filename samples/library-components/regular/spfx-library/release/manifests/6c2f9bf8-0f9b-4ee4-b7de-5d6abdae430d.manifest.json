@@ -1,0 +1,19 @@
+{
+  "id": "6c2f9bf8-0f9b-4ee4-b7de-5d6abdae430d",
+  "alias": "MyApiLibrary",
+  "componentType": "Library",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+  "loaderConfig": {
+    "internalModuleBaseUrls": [
+      "<!-- PATH TO CDN -->"
+    ],
+    "entryModuleId": "my-api-library",
+    "scriptResources": {
+      "my-api-library": {
+        "type": "path",
+        "path": "my-api-library_961832d25b6524144a4b.js"
+      }
+    }
+  }
+}
