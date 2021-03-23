@@ -1,19 +1,11 @@
 # SPFx 1.12 notes
 
 SPFx 1.12 changed file name handling for webpack entry points and for resource files. It uses format `[name]_[hash].js`.
-In order to make it work with `spfx-fast-serve` correctly, you have to proxy requests from `[entry point name]_[guid].js` for entry points or `[resource package name]_[guid].js` for resources to the corresponding files from webpack output inside `spfx-fast-serve`.
+In order to make it work with `spfx-fast-serve` correctly, you have to proxy requests from `[resource package name]_[guid].js` for resources to the corresponding files from webpack output inside `spfx-fast-serve`.
 
-`spfx-fast-serve` uses `[name]` format for filename. So the idea is to extract all `localizedResources` keys from `./config/config.json`, then match them to the entry in `./temp/manifest.json` to handle resources. To handle entry points mapping we can just use `startsWith` approach, since file name from spfx always starts with `[name]_*.js`  
+`spfx-fast-serve` uses `[name]` format for filename. So the idea is to extract all `localizedResources` keys from `./config/config.json`, then match them to the entry in `./temp/manifest.json` to handle resources. To handle entry points mapping we can just use a function for webpack's `filename` property. In that function return the same file name, as SPFx returns back, based on `manifests.json`.
 
 Webpack dev server has `proxy` configuration. You can use `context` function to specify which requests need to be proxied and `pathRewrite` function to replace source path with another one.
-
-For example, how to handle entry point for `HelloWorldWebPart`:
-
-1. Extract entry point name from `./temp/_webpack_config.json`, i.e. `hello-world-web-part`
-2. Open `./temp/manifest.json` and find a component with `entryModuleId = 'hello-world-web-part'`
-
-3. In `context` function check that target file path is `.js` and starts with `[entry name]_`. If yes, we should proxy this request to a real file from webpack.
-4. In `pathRewrite` function find entry point name and replace file request from `[entry point name]_[guid].js` to just `[entry point name].js`
 
 How to handle resources:
 

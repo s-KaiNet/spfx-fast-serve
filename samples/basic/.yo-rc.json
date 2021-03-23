@@ -1,6 +1,6 @@
 {
   "@microsoft/generator-sharepoint": {
-    "isCreatingSolution": true,
+    "isCreatingSolution": false,
     "environment": "spo",
     "version": "1.12.0",
     "libraryName": "basic",

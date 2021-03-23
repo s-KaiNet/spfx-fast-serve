@@ -313,24 +313,28 @@ function createProxyContext(localizedPathMap) {
 function getEntryPoints(entry) {
   // fix: ".js" entry needs to be ".ts"
   // also replaces the path form /lib/* to /src/*
+  // spfx not always follows path.sep settings, so just replace both variants
   let newEntry = {};
-  let libSearchRegexp;
-  if (path.sep === "/") {
-    libSearchRegexp = /\/lib\//gi;
-  } else {
-    libSearchRegexp = /\\lib\\/gi;
-  }
+  let libSearchRegexp1 = /\/lib\//gi;
+  let libSearchRegexp2 = /\\lib\\/gi;
 
-  const srcPathToReplace = path.sep + "src" + path.sep;
+  const srcPathToReplace1 = "/src/";
+  const srcPathToReplace2 = "\\src\\";
 
   for (const key in entry) {
     let entryPath = entry[key];
     if (entryPath.indexOf("bundle-entries") === -1) {
-      entryPath = entryPath.replace(libSearchRegexp, srcPathToReplace).slice(0, -3) + ".ts";
+      entryPath = entryPath
+        .replace(libSearchRegexp1, srcPathToReplace1)
+        .replace(libSearchRegexp2, srcPathToReplace2)
+        .slice(0, -3) + ".ts";
     } else {
       // replace paths and extensions in bundle file
       let bundleContent = fs.readFileSync(entryPath).toString();
-      bundleContent = bundleContent.replace(libSearchRegexp, srcPathToReplace).replace(/\.js/gi, ".ts");
+      bundleContent = bundleContent
+        .replace(libSearchRegexp1, srcPathToReplace1)
+        .replace(libSearchRegexp2, srcPathToReplace2)
+        .replace(/\.js/gi, ".ts");
       fs.writeFileSync(entryPath, bundleContent);
     }
     newEntry[key] = entryPath;
