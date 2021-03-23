@@ -10,7 +10,8 @@
     "build": "gulp bundle",
     "clean": "gulp clean",
     "test": "gulp test",
-    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently -k \"webpack-dev-server --mode development --config ./fast-serve/webpack.js --env.env=dev\" \"tsc -p tsconfig.json -w --preserveWatchOutput\""
+    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently \"webpack-dev-server --mode development --config ./fast-serve/webpack.js --env.env=dev\" \"npm run ts\"",
+    "ts": "tsc -p tsconfig.json -w --preserveWatchOutput"
   },
   "dependencies": {},
   "devDependencies": {

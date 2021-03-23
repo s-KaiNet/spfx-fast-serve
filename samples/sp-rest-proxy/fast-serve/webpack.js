@@ -216,7 +216,6 @@ const createConfig = function () {
   baseConfig.entry = getEntryPoints(originalWebpackConfig.entry);
 
   baseConfig.output.publicPath = host + "/dist/";
-  baseConfig.output.filename = "[name].js";
 
   const manifest = require("../temp/manifests.json");
   const config = require("../config/config.json");
@@ -229,14 +228,22 @@ const createConfig = function () {
     if (jsModule.loaderConfig
       && jsModule.loaderConfig.entryModuleId
       && originalEntries.indexOf(jsModule.loaderConfig.entryModuleId) !== -1) {
-      modulesMap[jsModule.loaderConfig.entryModuleId + ".js"] = {
+      const entryModuleId = jsModule.loaderConfig.entryModuleId;
+      modulesMap[entryModuleId + ".js"] = {
         id: jsModule.id,
-        version: jsModule.version
+        version: jsModule.version,
+        path: jsModule.loaderConfig.scriptResources[entryModuleId].path
       }
 
       extractLocalizedPaths(jsModule.loaderConfig.scriptResources, localizedPathMap, localizedResources);
     }
   }
+
+  baseConfig.output.filename = function (pathInfo) {
+    const entryPointName = pathInfo.chunk.name + ".js";
+    return modulesMap[entryPointName].path;
+
+  };
 
   baseConfig.plugins.push(new DynamicLibraryPlugin({
     modulesMap: modulesMap,
@@ -246,8 +253,8 @@ const createConfig = function () {
   baseConfig.devServer.proxy = [{
     target: host,
     secure: false,
-    context: createProxyContext(originalEntries, localizedPathMap),
-    pathRewrite: pathRewrite(originalEntries, localizedPathMap)
+    context: createProxyContext(localizedPathMap),
+    pathRewrite: pathRewrite(localizedPathMap)
   }]
 
   return baseConfig;
@@ -268,7 +275,7 @@ function extractLocalizedPaths(scriptResources, localizedPathMap, localizedResou
   }
 }
 
-function pathRewrite(entryPoints, localizedPathMap) {
+function pathRewrite(localizedPathMap) {
   return function (requestPath) {
     const parsed = url.parse(requestPath);
     const fileName = path.basename(parsed.pathname);
@@ -279,19 +286,12 @@ function pathRewrite(entryPoints, localizedPathMap) {
       return "/" + resource.mapPath;
     }
 
-    const targetEntry = entryPoints.filter(e => fileName.indexOf(e + "_") === 0)[0];
-
-    // we should rewrite entry point request here
-    if (targetEntry) {
-      return requestPath.replace(fileName, targetEntry + ".js");
-    }
-
     return requestPath;
   }
 }
 
 // rewrite only .js files - all entry points and all localization files
-function createProxyContext(entryPoints, localizedPathMap) {
+function createProxyContext(localizedPathMap) {
   return function (requestPath) {
     const parsed = url.parse(requestPath);
     const fileName = path.basename(parsed.pathname);
@@ -299,13 +299,6 @@ function createProxyContext(entryPoints, localizedPathMap) {
     // if not .js - do not rewrite
     if (!fileName.endsWith(".js")) {
       return false;
-    }
-
-    const targetEntry = entryPoints.filter(e => fileName.indexOf(e + "_") === 0)[0];
-
-    // if entry point - [name]_[hash] - rewrite
-    if (targetEntry) {
-      return true;
     }
 
     // if localized resource - HelloWorldWebPartStrings_en-us_<guid>.js - rewrite
