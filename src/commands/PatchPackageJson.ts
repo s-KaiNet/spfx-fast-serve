@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import chalk from 'chalk';
 import * as path from 'path';
+import detectIndent from 'detect-indent';
 
 import { logger } from '../common/Logger';
 import { getTemplatesPath } from '../common/utils';
@@ -13,8 +14,9 @@ export class PatchPackageJson extends BaseCommand {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const templateDeps = require(getTemplatesPath('dependecies.json'));
     const packagePath = path.join(process.cwd(), 'package.json');
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const packageJson = require(packagePath);
+    const packageString = fs.readFileSync(packagePath).toString();
+    const indent = detectIndent(packageString).indent || '  ';
+    const packageJson = JSON.parse(packageString);
 
     if (isLibraryComponent) {
       templateDeps['concurrently'] = '5.3.0';
@@ -49,7 +51,7 @@ export class PatchPackageJson extends BaseCommand {
       packageJson.scripts['serve'] = `cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./${FastServeFolderName}/webpack.js --env.env=dev`;
     }
 
-    fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, 2));
+    fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, indent));
 
     logger.success(chalk.blueBright('Updated package.json.'));
     logger.newLine();

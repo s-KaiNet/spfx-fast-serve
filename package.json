@@ -30,6 +30,7 @@
   "homepage": "https://github.com/s-KaiNet/spfx-fast-serve",
   "dependencies": {
     "chalk": "^3.0.0",
+    "detect-indent": "^6.0.0",
     "log-symbols": "^3.0.0",
     "replace-in-file": "^5.0.2"
   },
