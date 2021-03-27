@@ -1,7 +1,7 @@
 # FAQs / known issues <!-- omit in toc -->
 
 - [1. When I run `npm run serve` I see the error](#1-when-i-run-npm-run-serve-i-see-the-error)
-- [2. After I applied `sfpx-fast-serve` tool I have formatting broken in `package.json` and `gulpfile.js`](#2-after-i-applied-sfpx-fast-serve-tool-i-have-formatting-broken-in-packagejson-and-gulpfilejs)
+- [2. After I applied `sfpx-fast-serve` tool I have formatting broken in `gulpfile.js`](#2-after-i-applied-sfpx-fast-serve-tool-i-have-formatting-broken-in-gulpfilejs)
 - [3. I added a new dependency in my solution (or started using new import from "@microsoft/*" modules) and now I see some strange errors](#3-i-added-a-new-dependency-in-my-solution-or-started-using-new-import-from-microsoft-modules-and-now-i-see-some-strange-errors)
 - [4. When I modify localization files, live reload doesn't work](#4-when-i-modify-localization-files-live-reload-doesnt-work)
 - [5. I use custom loaders and / or webpack modifications in my `gulpfile.js`](#5-i-use-custom-loaders-and--or-webpack-modifications-in-my-gulpfilejs)
@@ -23,9 +23,9 @@
 
 *c*. Maybe you don't have `<Component>.module.scss.d.ts` which is generated automatically. Request generation by going to `<Component>.module.scss` and explicitly saving the file using `Ctrl+S` combination or just by changing something and saving. This should generate `<Component>.module.scss.d.ts` and fix the issue. If not, please raise an [issue](https://github.com/s-KaiNet/spfx-fast-serve/issues).
 
-## 2. After I applied `sfpx-fast-serve` tool I have formatting broken in `package.json` and `gulpfile.js`
+## 2. After I applied `sfpx-fast-serve` tool I have formatting broken in `gulpfile.js`
 
-`sfpx-fast-serve` patches those files and doesn't respect original file formatting (tabs vs whitespace, size, etc.). You have to fix it afterwards, if needed.
+`sfpx-fast-serve` patches files and doesn't respect original file formatting (tabs vs whitespace, size, etc.). You have to fix it afterwards, if needed.
 
 ## 3. I added a new dependency in my solution (or started using new import from "@microsoft/*" modules) and now I see some strange errors
 
@@ -76,4 +76,5 @@ Then update npm script to use this variable:
 ```json
 "serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev"
 ```
+
 Take a note on `--locale=$SPFX_LOCALE` special syntax and using `cross-env-shell` (part of `cross-env` package, you don't need to install anything additionally).

@@ -205,7 +205,6 @@ if (settings.cli.useRestProxy) {
 }
 
 const createConfig = function () {
-  // remove old css module TypeScript definitions
   del.sync(["dist/*.js", "dist/*.map"], { cwd: rootFolder });
 
   // we need only "externals", "output" and "entry" from the original webpack config
