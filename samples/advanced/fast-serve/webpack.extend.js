@@ -4,10 +4,16 @@
 * This file will not be overwritten by the subsequent spfx-fast-serve calls.
 */
 
+const path = require("path");
+
 // you can add your project related webpack configuration here, it will be merged using webpack-merge module
 // i.e. plugins: [new webpack.Plugin()]
 const webpackConfig = {
-
+  resolve: {
+    alias: {
+      "@src": path.resolve(__dirname, "..", "src")
+    }
+  }
 }
 
 // for even more fine-grained control, you can apply custom webpack settings using below function

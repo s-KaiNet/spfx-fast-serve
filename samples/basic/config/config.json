@@ -7,27 +7,12 @@
         {
           "entrypoint": "./lib/webparts/basicWebpart/BasicWebpartWebPart.js",
           "manifest": "./src/webparts/basicWebpart/BasicWebpartWebPart.manifest.json"
-        },
-        {
-          "entrypoint": "./lib/webparts/anotherWp/AnotherWpWebPart.js",
-          "manifest": "./src/webparts/anotherWp/AnotherWpWebPart.manifest.json"
-        }
-      ]
-    },
-    "third-one-web-part": {
-      "components": [
-        {
-          "entrypoint": "./lib/webparts/thirdOne/ThirdOneWebPart.js",
-          "manifest": "./src/webparts/thirdOne/ThirdOneWebPart.manifest.json"
         }
       ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "BasicWebpartWebPartStrings": "lib/webparts/basicWebpart/loc/{locale}.js",
-    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
-    "AnotherWpWebPartStrings": "lib/webparts/anotherWp/loc/{locale}.js",
-    "ThirdOneWebPartStrings": "lib/webparts/thirdOne/loc/{locale}.js"
+    "BasicWebpartWebPartStrings": "lib/webparts/basicWebpart/loc/{locale}.js"
   }
 }

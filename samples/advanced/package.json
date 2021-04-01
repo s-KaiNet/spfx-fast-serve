@@ -1,13 +1,18 @@
 {
-  "name": "basic",
+  "name": "fast-serve-advanced-sample",
   "version": "0.0.1",
   "private": true,
   "main": "lib/index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
   "scripts": {
     "build": "gulp bundle",
     "clean": "gulp clean",
     "test": "gulp test",
-    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./fast-serve/webpack.js --env.env=dev"
+    "serve-nl": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=nl-nl && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./fast-serve/webpack.js --env.env=dev",
+    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./fast-serve/webpack.js --env.env=dev",
+    "serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./fast-serve/webpack.js --env.env=dev"
   },
   "dependencies": {
     "@microsoft/sp-core-library": "1.12.0",
@@ -15,6 +20,8 @@
     "@microsoft/sp-office-ui-fabric-core": "1.12.0",
     "@microsoft/sp-property-pane": "1.12.0",
     "@microsoft/sp-webpart-base": "1.12.0",
+    "@pnp/sp": "2.3.0",
+    "@pnp/spfx-controls-react": "3.0.0",
     "office-ui-fabric-react": "7.156.0",
     "react": "16.9.0",
     "react-dom": "16.9.0"
