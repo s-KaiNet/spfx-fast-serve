@@ -6,8 +6,7 @@ const packagePath = path.join(process.cwd(), 'package.json');
 const packageJson = require(packagePath);
 
 export function getTemplatesPath(fileName: string) {
-  const dependecyToCheck = '@microsoft/sp-webpart-workbench';
-  const minorVersion = parseInt(packageJson.devDependencies[dependecyToCheck].split('.')[1]);
+  const minorVersion = getSpfxMinorVersion();
   let basePath = 'templates/';
 
   if (fileName === WebpackExtendFileName) {
@@ -21,8 +20,13 @@ export function getTemplatesPath(fileName: string) {
   } else if (minorVersion === 4) {
     basePath += '1.4.1/';
   } else {
-    throw new Error('SharePoint Framework with version ' + packageJson.devDependencies[dependecyToCheck] + 'is not supported.');
+    throw new Error('SharePoint Framework with minor version ' + minorVersion + 'is not supported.');
   }
 
   return path.join(__dirname, '..', basePath + fileName);
+}
+
+export function getSpfxMinorVersion() {
+  const dependecyToCheck = '@microsoft/sp-webpart-workbench';
+  return parseInt(packageJson.devDependencies[dependecyToCheck].split('.')[1]);
 }

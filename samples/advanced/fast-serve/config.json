@@ -6,6 +6,6 @@
     "useRestProxy": false
   },
   "serve": {
-    "open": true
+    "open": false
   }
 }

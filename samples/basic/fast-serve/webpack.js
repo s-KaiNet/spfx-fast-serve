@@ -6,7 +6,7 @@ const certificateManager = require("@rushstack/debug-certificate-manager");
 const certificateStore = new certificateManager.CertificateStore();
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const del = require("del");
-const webpackMerge = require("webpack-merge");
+const webpackMerge = require("webpack-merge").merge;
 const extend = require("./webpack.extend");
 const packageJson = require("../package.json");
 const hasESLint = !!packageJson.devDependencies["@typescript-eslint/parser"];
@@ -113,7 +113,10 @@ let baseConfig = {
             }
           },
           {
-            loader: "css-loader"
+            loader: "css-loader",
+            options: {
+              esModule: false
+            }
           }
         ]
       },
@@ -132,12 +135,13 @@ let baseConfig = {
           {
             loader: "css-loader",
             options: {
+              esModule: false,
               modules: {
                 localIdentName: "[local]_[hash:base64:8]"
               }
             }
           }, // translates CSS into CommonJS
-          "sass-loader" // compiles Sass to CSS, using Node Sass by default
+          "sass-loader" // compiles Sass to CSS, using Sass by default
         ]
       },
       {
@@ -151,8 +155,13 @@ let baseConfig = {
               async: true
             }
           },
-          "css-loader", // translates CSS into CommonJS
-          "sass-loader" // compiles Sass to CSS, using Node Sass by default
+          {
+            loader: "css-loader",
+            options: {
+              esModule: false
+            }
+          }, // translates CSS into CommonJS
+          "sass-loader" // compiles Sass to CSS, using Sass by default
         ]
       }
     ]

@@ -13,6 +13,9 @@ const webpackConfig = {
     alias: {
       "@src": path.resolve(__dirname, "..", "src")
     }
+  },
+  devServer: {
+    overlay: true
   }
 }
 
