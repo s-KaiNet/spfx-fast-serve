@@ -16,7 +16,9 @@ export class SettingsManager {
       $schema: SchemaUrl,
       cli: cliArgs,
       serve: {
-        open: !cliArgs.isLibraryComponent
+        open: !cliArgs.isLibraryComponent,
+        fullScreenErrors: true,
+        loggingLevel: 'normal'
       }
     };
 

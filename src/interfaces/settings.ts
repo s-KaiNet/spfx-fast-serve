@@ -9,5 +9,7 @@ export interface Settings {
   serve: {
     open: boolean;
     openUrl?: string;
+    fullScreenErrors: boolean;
+    loggingLevel: 'minimal' | 'normal' | 'detailed';
   }
 }
