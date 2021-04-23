@@ -176,6 +176,8 @@ let baseConfig = {
     open: settings.serve.open,
     writeToDisk: settings.cli.isLibraryComponent,
     openPage: settings.serve.openUrl ? settings.serve.openUrl : host + "/temp/workbench.html",
+    overlay: settings.serve.fullScreenErrors,
+    stats: getLoggingLevel(settings.serve.loggingLevel),
     stats: {
       preset: "errors-only",
       colors: true,
@@ -272,6 +274,39 @@ function getEntryPoints(entry) {
   }
 
   return newEntry;
+}
+
+function getLoggingLevel(level) {
+  if (level === "minimal") {
+    return {
+      all: false,
+      colors: true,
+      errors: true
+    }
+  }
+
+  if (level === "normal") {
+    return {
+      all: false,
+      colors: true,
+      errors: true,
+      timings: true,
+      entrypoints: true
+    }
+  }
+
+  if (level === "detailed") {
+    return {
+      all: false,
+      colors: true,
+      errors: true,
+      timings: true,
+      assets: true,
+      warnings: true
+    }
+  }
+
+  throw new Error("Unsupported log level: " + level);
 }
 
 module.exports = webpackMerge(extend.transformConfig(createConfig()), extend.webpackConfig);

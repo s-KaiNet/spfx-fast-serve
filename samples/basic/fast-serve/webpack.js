@@ -1,6 +1,5 @@
 const path = require("path");
 const fs = require("fs");
-const url = require("url");
 const webpack = require("webpack");
 const certificateManager = require("@rushstack/debug-certificate-manager");
 const certificateStore = new certificateManager.CertificateStore();
@@ -168,7 +167,11 @@ let baseConfig = {
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
-      eslint: hasESLint
+      eslint: hasESLint ? {
+        files: './src/**/*.{ts,tsx}',
+        enabled: true
+      } : undefined,
+      async: true
     }),
     new ClearCssModuleDefinitionsPlugin(),
     new webpack.DefinePlugin({
@@ -187,13 +190,8 @@ let baseConfig = {
     open: settings.serve.open,
     writeToDisk: settings.cli.isLibraryComponent,
     openPage: settings.serve.openUrl ? settings.serve.openUrl : host + "/temp/workbench.html",
-    stats: {
-      preset: "errors-only",
-      colors: true,
-      chunks: false,
-      modules: false,
-      assets: false
-    },
+    overlay: settings.serve.fullScreenErrors,
+    stats: getLoggingLevel(settings.serve.loggingLevel),
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
@@ -250,7 +248,6 @@ const createConfig = function () {
   baseConfig.output.filename = function (pathInfo) {
     const entryPointName = pathInfo.chunk.name + ".js";
     return modulesMap[entryPointName].path;
-
   };
 
   baseConfig.plugins.push(new DynamicLibraryPlugin({
@@ -269,9 +266,26 @@ const createConfig = function () {
 }
 
 function extractLocalizedPaths(scriptResources, localizedPathMap, localizedResources) {
-  for (const resourceKey in scriptResources) {
+  const resourceKeys = Object.keys(localizedResources);
+
+  for (const resourceKey of resourceKeys) {
+    if (!scriptResources[resourceKey]) {
+      continue;
+    }
+
     const resource = scriptResources[resourceKey];
-    if (resource.type === "localizedPath") {
+    if (resource.path) {
+      const jsPath = resource.path;
+      const fileNameWithoutExt = path.basename(jsPath, ".js");
+      const underscoreIndex = fileNameWithoutExt.lastIndexOf("_");
+      const localeCode = fileNameWithoutExt.substr(underscoreIndex + 1);
+      localizedPathMap[jsPath] = {
+        locale: localeCode.toLowerCase(),
+        mapPath: localizedResources[resourceKey].replace(/^lib/gi, "src").replace("{locale}", localeCode.toLowerCase()) // src/webparts/helloWorld/loc/{locale}.js
+      };
+    }
+
+    if (resource.paths) {
       for (const localeCode in resource.paths) {
         const jsPath = resource.paths[localeCode];
         localizedPathMap[jsPath] = {
@@ -285,8 +299,7 @@ function extractLocalizedPaths(scriptResources, localizedPathMap, localizedResou
 
 function pathRewrite(localizedPathMap) {
   return function (requestPath) {
-    const parsed = url.parse(requestPath);
-    const fileName = path.basename(parsed.pathname);
+    const fileName = path.basename(requestPath);
 
     // we should rewrite localized resource path
     if (localizedPathMap[fileName]) {
@@ -298,16 +311,10 @@ function pathRewrite(localizedPathMap) {
   }
 }
 
-// rewrite only .js files - all entry points and all localization files
+// rewrite only .js files - all localization files
 function createProxyContext(localizedPathMap) {
   return function (requestPath) {
-    const parsed = url.parse(requestPath);
-    const fileName = path.basename(parsed.pathname);
-
-    // if not .js - do not rewrite
-    if (!fileName.endsWith(".js")) {
-      return false;
-    }
+    const fileName = path.basename(requestPath);
 
     // if localized resource - HelloWorldWebPartStrings_en-us_<guid>.js - rewrite
     if (localizedPathMap[fileName]) {
@@ -350,5 +357,39 @@ function getEntryPoints(entry) {
 
   return newEntry;
 }
+
+function getLoggingLevel(level) {
+  if (level === "minimal") {
+    return {
+      all: false,
+      colors: true,
+      errors: true
+    }
+  }
+
+  if (level === "normal") {
+    return {
+      all: false,
+      colors: true,
+      errors: true,
+      timings: true,
+      entrypoints: true
+    }
+  }
+
+  if (level === "detailed") {
+    return {
+      all: false,
+      colors: true,
+      errors: true,
+      timings: true,
+      assets: true,
+      warnings: true
+    }
+  }
+
+  throw new Error("Unsupported log level: " + level);
+}
+
 
 module.exports = webpackMerge(extend.transformConfig(createConfig()), extend.webpackConfig);

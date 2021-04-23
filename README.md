@@ -107,7 +107,3 @@ That's it!
 
 ---
 Please use [issues](https://github.com/s-KaiNet/spfx-fast-serve/issues) for questions, suggestions and, of course, issues.
-
-### Debug
-
-1. `npm i ./ -g`

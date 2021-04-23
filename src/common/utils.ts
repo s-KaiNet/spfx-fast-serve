@@ -20,13 +20,17 @@ export function getTemplatesPath(fileName: string) {
   } else if (minorVersion === 4) {
     basePath += '1.4.1/';
   } else {
-    throw new Error('SharePoint Framework with minor version ' + minorVersion + 'is not supported.');
+    throw new Error(`SharePoint Framework with minor version ${minorVersion} is not supported.`);
   }
 
   return path.join(__dirname, '..', basePath + fileName);
 }
 
 export function getSpfxMinorVersion() {
-  const dependecyToCheck = '@microsoft/sp-webpart-workbench';
-  return parseInt(packageJson.devDependencies[dependecyToCheck].split('.')[1]);
+  const dependecyToCheck = '@microsoft/sp-build-web';
+  let version: string = packageJson.devDependencies[dependecyToCheck];
+  if (version.indexOf('~') === 0 || version.indexOf('^') === 0) {
+    version = version.substr(1);
+  }
+  return parseInt(version.split('.')[1]);
 }
