@@ -1,4 +1,4 @@
-# SPFx Fast Serve Tool :rocket
+# :rocket: SPFx Fast Serve Tool
 
 A command line utility, which modifies your SharePoint Framework solution, so that it runs continuous `serve` command as fast as possible.
 
