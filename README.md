@@ -1,4 +1,4 @@
-# SPFx Fast Serve Tool
+# SPFx Fast Serve Tool :rocket
 
 A command line utility, which modifies your SharePoint Framework solution, so that it runs continuous `serve` command as fast as possible.
 
@@ -28,6 +28,26 @@ Read more info in my [blog post here](https://spblog.net/post/2020/03/24/spfx-ov
 > **IMPORTANT!** SharePoint Framework 1.12 and onwards is supported starting from `2.x` version of `spfx-fast-serve`  
 
 Please use [this guide](/docs/Upgrade%20to%202x.md) if you're planning to migrate your project to `spfx-fast-serve` 2.x.
+
+## Webpack extensibility
+
+Starting from version `2.x`, the library supports webpack extensibility.
+In a `./fast-serve` folder you have a file called `webpack.extend.js`. In this file you can put your own logic for webpack, it will not be overwritten by subsequent `spfx-fast-serve` calls.
+
+You can either provide custom `webpackConfig` object, which will be merged using [webpack-merge](https://github.com/survivejs/webpack-merge) module, or use `transformConfig` to even more better control over configuration.
+
+Check out [this sample](https://github.com/s-KaiNet/spfx-fast-serve/blob/master/samples/advanced/fast-serve/webpack.extend.js) to see how it works. The sample configures custom path aliases for SPFx.
+
+## Configuration options
+
+Starting from version `2.x`, the library saves your CLI arguments and serve options into the configuration file. The file is located under `./fast-serve/config.json`.
+
+Currently below configuration values are available for `serve`:
+
+- `open` - boolean, default `true`, whether to open a workbench url on starup
+- `openUrl` - string, default `undefined`, which url to open. If empty, local workbench will be opened
+- `loggingLevel` - string, default `normal`, valid values are `"minimal", "normal", "detailed"`. `minimal` notifies about errors and new builds only, `normal` adds bundle information, `detailed` adds details about each bundle.
+- `fullScreenErrors` - boolean, default `true`, whether to show full-screen (overlay) errors. Corresponds to [webpack's dev server overlay](https://webpack.js.org/configuration/dev-server/#devserveroverlay)
 
 ## Which SharePoint Framework versions are supported
 

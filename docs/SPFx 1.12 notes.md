@@ -1,7 +1,7 @@
 # SPFx 1.12 notes
 
-SPFx 1.12 changed file name handling for webpack entry points and for resource files. It uses format `[name]_[hash].js`.
-In order to make it work with `spfx-fast-serve` correctly, you have to proxy requests from `[resource package name]_[guid].js` for resources to the corresponding files from webpack output inside `spfx-fast-serve`.
+SPFx 1.12 changed file name handling for webpack entry points and for resource files. It uses format `[name]_[locale].js`.
+In order to make it work with `spfx-fast-serve` correctly, you have to proxy requests from `[resource package name]_[locale].js` for resources to the corresponding files from webpack output inside `spfx-fast-serve`.
 
 `spfx-fast-serve` uses `[name]` format for filename. So the idea is to extract all `localizedResources` keys from `./config/config.json`, then match them to the entry in `./temp/manifest.json` to handle resources. To handle entry points mapping we can just use a function for webpack's `filename` property. In that function return the same file name, as SPFx returns back, based on `manifests.json`.
 
@@ -11,7 +11,7 @@ How to handle resources:
 
 1. Open `./config/config.json` and save all `localizedResources` key values.
 2. Open `./temp/manifests.json` and find `loaderConfig.scriptResources` for corresponding entry point. Save path as a key, locale code, map path as values.
-3. In `context` function check if saved map contains key which should be equal to a file name, ie. `HelloWorldWebPartStrings_en-us_[guid].js`
+3. In `context` function check if saved map contains key which should be equal to a file name, ie. `HelloWorldWebPartStrings_en-us.js`
 4. In `pathRewrite` extract map path by key, replace locale code and return a new path.
 
 Sample `localizedResources`:
@@ -35,10 +35,10 @@ Sample `scriptResources`:
  "BasicWebpartWebPartStrings": {
   "type": "localizedPath",
   "paths": {
-   "en-US": "BasicWebpartWebPartStrings_en-us_536e65149b0acf4d52c0043073b9fc59.js",
-   "nl-NL": "BasicWebpartWebPartStrings_nl-nl_80c584e914de3f2c5ce1b5dda381c304.js"
+   "en-US": "BasicWebpartWebPartStrings_en-us.js",
+   "nl-NL": "BasicWebpartWebPartStrings_nl-nl.js"
   },
-  "defaultPath": "BasicWebpartWebPartStrings_en-us_536e65149b0acf4d52c0043073b9fc59.js"
+  "defaultPath": "BasicWebpartWebPartStrings_en-us.js"
  }
 }
 ```
@@ -47,11 +47,11 @@ Sample saved map:
 
 ```json
 {
-  "BasicWebpartWebPartStrings_en-us_536e65149b0acf4d52c0043073b9fc59.js": {
+  "BasicWebpartWebPartStrings_en-us.js": {
     "locale": "en-us",
     "mapPath": "src/webparts/helloWorld/loc/en-us.js"
   },
-    "BasicWebpartWebPartStrings_nl-nl_80c584e914de3f2c5ce1b5dda381c304.js": {
+    "BasicWebpartWebPartStrings_nl-nl.js": {
     "locale": "nl-nl",
     "mapPath": "src/webparts/helloWorld/loc/nl-nl.js"
   }
