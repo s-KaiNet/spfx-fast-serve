@@ -1,8 +1,8 @@
 {
-    "css-loader": "5.2.0",
+    "css-loader": "5.2.4",
     "css-modules-typescript-loader": "4.0.1",
-    "fork-ts-checker-webpack-plugin": "6.2.0",
-    "sass": "1.32.8",
+    "fork-ts-checker-webpack-plugin": "6.2.4",
+    "sass": "1.32.11",
     "sass-loader": "9.0.3",
     "ts-loader": "8.1.0",
     "webpack": "~4.44.2",

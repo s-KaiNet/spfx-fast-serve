@@ -266,9 +266,26 @@ const createConfig = function () {
 }
 
 function extractLocalizedPaths(scriptResources, localizedPathMap, localizedResources) {
-  for (const resourceKey in scriptResources) {
+  const resourceKeys = Object.keys(localizedResources);
+
+  for (const resourceKey of resourceKeys) {
+    if (!scriptResources[resourceKey]) {
+      continue;
+    }
+
     const resource = scriptResources[resourceKey];
-    if (resource.type === "localizedPath") {
+    if (resource.path) {
+      const jsPath = resource.path;
+      const fileNameWithoutExt = path.basename(jsPath, ".js");
+      const underscoreIndex = fileNameWithoutExt.lastIndexOf("_");
+      const localeCode = fileNameWithoutExt.substr(underscoreIndex + 1);
+      localizedPathMap[jsPath] = {
+        locale: localeCode.toLowerCase(),
+        mapPath: localizedResources[resourceKey].replace(/^lib/gi, "src").replace("{locale}", localeCode.toLowerCase()) // src/webparts/helloWorld/loc/{locale}.js
+      };
+    }
+
+    if (resource.paths) {
       for (const localeCode in resource.paths) {
         const jsPath = resource.paths[localeCode];
         localizedPathMap[jsPath] = {
