@@ -52,6 +52,26 @@ Currently below configuration values are available for `serve`:
 - `loggingLevel` - string, default `normal`, valid values are `"minimal", "normal", "detailed"`. `minimal` notifies about errors and new builds only, `normal` adds bundle information, `detailed` adds details about each bundle.
 - `fullScreenErrors` - boolean, default `true`, whether to show full-screen (overlay) errors. Corresponds to [webpack's dev server overlay](https://webpack.js.org/configuration/dev-server/#devserveroverlay)
 
+Here is a full configuration example:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/s-KaiNet/spfx-fast-serve/master/schema/config.1.0.schema.json",
+  "cli": {
+    "isLibraryComponent": false,
+    "usePnpm": false,
+    "useRestProxy": false
+  },
+  "serve": {
+    "open": true,
+    "openUrl": "https://<org>.sharepoint.com/sites/dev/_layouts/15/workbench.aspx",
+    "fullScreenErrors": true,
+    "loggingLevel": 'normal'
+  }
+}
+
+```
+
 ## Which SharePoint Framework versions are supported
 
 SharePoint Online and SharePoint 2019, which basically means SharePoint Framework 1.4.1 and above.
