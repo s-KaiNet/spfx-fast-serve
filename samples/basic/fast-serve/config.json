@@ -4,10 +4,5 @@
     "isLibraryComponent": false,
     "usePnpm": false,
     "useRestProxy": false
-  },
-  "serve": {
-    "open": true,
-    "fullScreenErrors": true,
-    "loggingLevel": "normal"
   }
 }

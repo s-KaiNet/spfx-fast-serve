@@ -14,6 +14,8 @@ let RestProxy;
 const settings = require("./config.json");
 const rootFolder = path.resolve(__dirname, "../");
 
+setDefaultServeSettings(settings);
+
 const port = settings.cli.isLibraryComponent ? 4320 : 4321;
 const host = "https://localhost:" + port;
 if (settings.cli.useRestProxy) {
@@ -180,13 +182,6 @@ let baseConfig = {
     openPage: settings.serve.openUrl ? settings.serve.openUrl : host + "/temp/workbench.html",
     overlay: settings.serve.fullScreenErrors,
     stats: getLoggingLevel(settings.serve.loggingLevel),
-    stats: {
-      preset: "errors-only",
-      colors: true,
-      chunks: false,
-      modules: false,
-      assets: false
-    },
     proxy: { // url re-write for resources to be served directly from src folder
       "/lib/**/loc/*.js": {
         target: host,
@@ -309,6 +304,21 @@ function getLoggingLevel(level) {
   }
 
   throw new Error("Unsupported log level: " + level);
+}
+
+function setDefaultServeSettings(settings) {
+  const defaultServeSettings = {
+    open: true,
+    fullScreenErrors: true,
+    loggingLevel: 'normal'
+  }
+  settings.serve = settings.serve || {};
+
+  settings.serve = Object.assign(defaultServeSettings, settings.serve);
+
+  if (settings.cli.isLibraryComponent) {
+    settings.serve.open = false;
+  }
 }
 
 module.exports = webpackMerge(extend.transformConfig(createConfig()), extend.webpackConfig);

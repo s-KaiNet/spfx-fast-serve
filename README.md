@@ -46,7 +46,7 @@ Starting from version `2.x`, the library saves your CLI arguments and serve opti
 
 Currently below configuration values are available for `serve`:
 
-- `open` - boolean, default `true`, whether to open a workbench url on starup
+- `open` - boolean, default `true`, whether to open a workbench url on startup
 - `openUrl` - string, default `undefined`, which url to open. If empty, local workbench will be opened
 - `loggingLevel` - string, default `normal`, valid values are `"minimal", "normal", "detailed"`. `minimal` notifies about errors and new builds only, `normal` adds bundle information, `detailed` adds details about each bundle.
 - `fullScreenErrors` - boolean, default `true`, whether to show full-screen (overlay) errors. Corresponds to [webpack's dev server overlay](https://webpack.js.org/configuration/dev-server/#devserveroverlay)

@@ -4,8 +4,5 @@
     "isLibraryComponent": true,
     "usePnpm": false,
     "useRestProxy": false
-  },
-  "serve": {
-    "open": false
   }
 }

@@ -14,12 +14,7 @@ export class SettingsManager {
 
     const defaultSettings: Settings = {
       $schema: SchemaUrl,
-      cli: cliArgs,
-      serve: {
-        open: !cliArgs.isLibraryComponent,
-        fullScreenErrors: true,
-        loggingLevel: 'normal'
-      }
+      cli: cliArgs
     };
 
     const settings = this.ensureSettings(defaultSettings);

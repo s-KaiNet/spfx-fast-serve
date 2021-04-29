@@ -13,6 +13,8 @@ let RestProxy;
 const settings = require("./config.json");
 const rootFolder = path.resolve(__dirname, "../");
 
+setDefaultServeSettings(settings);
+
 const port = settings.cli.isLibraryComponent ? 4320 : 4321;
 const host = "https://localhost:" + port;
 if (settings.cli.useRestProxy) {
@@ -391,5 +393,19 @@ function getLoggingLevel(level) {
   throw new Error("Unsupported log level: " + level);
 }
 
+function setDefaultServeSettings(settings) {
+  const defaultServeSettings = {
+    open: true,
+    fullScreenErrors: true,
+    loggingLevel: 'normal'
+  }
+  settings.serve = settings.serve || {};
+
+  settings.serve = Object.assign(defaultServeSettings, settings.serve);
+
+  if (settings.cli.isLibraryComponent) {
+    settings.serve.open = false;
+  }
+}
 
 module.exports = webpackMerge(extend.transformConfig(createConfig()), extend.webpackConfig);

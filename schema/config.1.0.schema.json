@@ -42,12 +42,13 @@
         },
         "loggingLevel": {
           "type": "string",
-          "enum": ["minimal", "normal", "detailed"]
+          "enum": [
+            "minimal",
+            "normal",
+            "detailed"
+          ]
         }
-      },
-      "required": [
-        "open", "fullScreenErrors", "loggingLevel"
-      ]
+      }
     }
   },
   "required": [
@@ -55,4 +56,3 @@
     "serve"
   ]
 }
-

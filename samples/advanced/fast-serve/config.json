@@ -6,8 +6,6 @@
     "useRestProxy": false
   },
   "serve": {
-    "open": false,
-    "fullScreenErrors": true,
-    "loggingLevel": "normal"
+    "open": false
   }
 }

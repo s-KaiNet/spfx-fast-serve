@@ -6,7 +6,7 @@ export interface Settings {
     useRestProxy: boolean;
   }
 
-  serve: {
+  serve?: {
     open: boolean;
     openUrl?: string;
     fullScreenErrors: boolean;

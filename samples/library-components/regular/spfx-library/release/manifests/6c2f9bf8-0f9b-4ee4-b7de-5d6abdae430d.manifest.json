@@ -12,7 +12,7 @@
     "scriptResources": {
       "my-api-library": {
         "type": "path",
-        "path": "my-api-library_961832d25b6524144a4b.js"
+        "path": "my-api-library.js"
       }
     }
   }
