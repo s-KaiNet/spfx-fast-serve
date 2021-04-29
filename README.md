@@ -25,9 +25,10 @@ Read more info in my [blog post here](https://spblog.net/post/2020/03/24/spfx-ov
 
 ## Migration to 2.x version
 
-> **IMPORTANT!** SharePoint Framework 1.12 and onwards is supported starting from `2.x` version of `spfx-fast-serve`.
+> **IMPORTANT!**  
+> SharePoint Framework 1.12 and onwards is supported starting from `2.x` version of `spfx-fast-serve`.
 >
-> Minimal supported NodeJS version is 12.
+> Minimal supported NodeJS version for SPFx 1.12 and up is `12.x`.
 
 Please use [this guide](/docs/Upgrade%20to%202x.md) if you're planning to migrate your project to `spfx-fast-serve` 2.x.
 
