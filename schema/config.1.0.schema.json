@@ -52,7 +52,6 @@
     }
   },
   "required": [
-    "cli",
-    "serve"
+    "cli"
   ]
 }
