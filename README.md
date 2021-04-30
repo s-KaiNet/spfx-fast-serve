@@ -30,7 +30,9 @@ Read more info in my [blog post here](https://spblog.net/post/2020/03/24/spfx-ov
 >
 > Minimal supported NodeJS version for SPFx 1.12 and up is `12.x`.
 
-Please use [this guide](/docs/Upgrade%20to%202x.md) if you're planning to migrate your project to `spfx-fast-serve` 2.x.
+Please use [this guide](/docs/Upgrade%20to%202x.md) if you're planning to migrate your project to `spfx-fast-serve` 2.x.  
+
+If your project is based on SPx 1.11 and you already use fast-serve `2.x` for your project and planning to migrate to SPFx 1.12, then after migration you should run `spfx-fast-serve` again, so that it adds the needed dependencies and updates `webpack.js`. `fast-serve 2.x` uses different webpack.js and newer dependencies for SPFx 1.12.
 
 ## Webpack extensibility
 
