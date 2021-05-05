@@ -1,7 +1,0 @@
-{
-  "bundles": {
-    "my-api-library": {
-      "dependencies": []
-    }
-  }
-}
