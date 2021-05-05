@@ -146,7 +146,10 @@ For example:
   });
 ```
 
-Additionally at the top of your `gulpfile.js` add `fs` tool import: `const fs = require("fs");`.
+Additionally at the top of your `gulpfile.js` add `fs` tool import: `const fs = require("fs");`.  
+
+> **IMPORTANT!**
+> If you have your `build.configureWebpack.mergeConfig` inside `if` statements (it might be a case for PnP SPFx generator), then just make sure that the `_webpack_config.json` file is created on a regular `gulp bundle` command, because that's the command which is called right before custom serve. In this case, don't put `fs.writeFileSync` inside `if` statements, instead just add a regular `mergeConfig` like in the example above outside of `if` statement.
 
 That's it!
 
