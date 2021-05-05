@@ -13,6 +13,14 @@
       "my-api-library": {
         "type": "path",
         "path": "my-api-library.js"
+      },
+      "MyApiLibraryStrings": {
+        "type": "localizedPath",
+        "paths": {
+          "en-US": "MyApiLibraryStrings_en-us.js",
+          "nl-NL": "MyApiLibraryStrings_nl-nl.js"
+        },
+        "defaultPath": "MyApiLibraryStrings_en-us.js"
       }
     }
   }

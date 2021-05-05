@@ -1,5 +1,7 @@
+import * as strings from 'MyApiLibraryStrings';
+
 export class MyApiLibrary {
   public name(): string {
-    return 'MyApiLibrary';
+    return strings.DescriptionFieldLabel;
   }
 }

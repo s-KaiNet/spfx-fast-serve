@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const webpack = require("webpack");
+const CopyPlugin = require("copy-webpack-plugin");
 const certificateManager = require("@rushstack/debug-certificate-manager");
 const certificateStore = new certificateManager.CertificateStore();
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
@@ -262,9 +263,33 @@ const createConfig = function () {
     secure: false,
     context: createProxyContext(localizedPathMap),
     pathRewrite: pathRewrite(localizedPathMap)
-  }]
+  }];
+
+  if (settings.cli.isLibraryComponent) {
+    addCopyPlugin(localizedResources);
+  }
 
   return baseConfig;
+}
+
+function addCopyPlugin(localizedResources) {
+  const patterns = [];
+  for (const resourceKey in localizedResources) {
+    const resourcePath = localizedResources[resourceKey];
+    const from = resourcePath.replace(/^lib/gi, "src").replace("{locale}", "*");
+    patterns.push({
+      flatten: true,
+      from,
+      to: function (data) {
+        const fileName = path.basename(data.absoluteFilename);
+        return resourceKey + "_" + fileName;
+      }
+    });
+  }
+
+  baseConfig.plugins.push(new CopyPlugin({
+    patterns
+  }));
 }
 
 function extractLocalizedPaths(scriptResources, localizedPathMap, localizedResources) {
