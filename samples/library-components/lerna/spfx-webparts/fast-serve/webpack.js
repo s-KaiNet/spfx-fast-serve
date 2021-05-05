@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const webpack = require("webpack");
+const CopyPlugin = require("copy-webpack-plugin");
 const certificateManager = require("@rushstack/debug-certificate-manager");
 const certificateStore = new certificateManager.CertificateStore();
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
@@ -229,7 +230,6 @@ const createConfig = function () {
   const config = require("../config/config.json");
   let localizedResources = config.localizedResources;
   const modulesMap = {};
-  const localizedPathMap = {};
   const originalEntries = Object.keys(originalWebpackConfig.entry);
 
   for (const jsModule of manifest) {
@@ -242,8 +242,6 @@ const createConfig = function () {
         version: jsModule.version,
         path: jsModule.loaderConfig.scriptResources[entryModuleId].path
       }
-
-      extractLocalizedPaths(jsModule.loaderConfig.scriptResources, localizedPathMap, localizedResources);
     }
   }
 
@@ -257,74 +255,29 @@ const createConfig = function () {
     libraryName: originalWebpackConfig.output.library
   }));
 
-  baseConfig.devServer.proxy = [{
-    target: host,
-    secure: false,
-    context: createProxyContext(localizedPathMap),
-    pathRewrite: pathRewrite(localizedPathMap)
-  }]
+  addCopyLocalizedResources(localizedResources);
 
   return baseConfig;
 }
 
-function extractLocalizedPaths(scriptResources, localizedPathMap, localizedResources) {
-  const resourceKeys = Object.keys(localizedResources);
-
-  for (const resourceKey of resourceKeys) {
-    if (!scriptResources[resourceKey]) {
-      continue;
-    }
-
-    const resource = scriptResources[resourceKey];
-    if (resource.path) {
-      const jsPath = resource.path;
-      const fileNameWithoutExt = path.basename(jsPath, ".js");
-      const underscoreIndex = fileNameWithoutExt.lastIndexOf("_");
-      const localeCode = fileNameWithoutExt.substr(underscoreIndex + 1);
-      localizedPathMap[jsPath] = {
-        locale: localeCode.toLowerCase(),
-        mapPath: localizedResources[resourceKey].replace(/^lib/gi, "src").replace("{locale}", localeCode.toLowerCase()) // src/webparts/helloWorld/loc/{locale}.js
-      };
-    }
-
-    if (resource.paths) {
-      for (const localeCode in resource.paths) {
-        const jsPath = resource.paths[localeCode];
-        localizedPathMap[jsPath] = {
-          locale: localeCode.toLowerCase(),
-          mapPath: localizedResources[resourceKey].replace(/^lib/gi, "src").replace("{locale}", localeCode.toLowerCase()) // src/webparts/helloWorld/loc/{locale}.js
-        };
+function addCopyLocalizedResources(localizedResources) {
+  const patterns = [];
+  for (const resourceKey in localizedResources) {
+    const resourcePath = localizedResources[resourceKey];
+    const from = resourcePath.replace(/^lib/gi, "src").replace("{locale}", "*");
+    patterns.push({
+      flatten: true,
+      from,
+      to: function (data) {
+        const fileName = path.basename(data.absoluteFilename);
+        return resourceKey + "_" + fileName;
       }
-    }
+    });
   }
-}
 
-function pathRewrite(localizedPathMap) {
-  return function (requestPath) {
-    const fileName = path.basename(requestPath);
-
-    // we should rewrite localized resource path
-    if (localizedPathMap[fileName]) {
-      const resource = localizedPathMap[fileName];
-      return "/" + resource.mapPath;
-    }
-
-    return requestPath;
-  }
-}
-
-// rewrite only .js files - all localization files
-function createProxyContext(localizedPathMap) {
-  return function (requestPath) {
-    const fileName = path.basename(requestPath);
-
-    // if localized resource - HelloWorldWebPartStrings_en-us_<guid>.js - rewrite
-    if (localizedPathMap[fileName]) {
-      return true;
-    }
-
-    return false;
-  }
+  baseConfig.plugins.push(new CopyPlugin({
+    patterns
+  }));
 }
 
 function getEntryPoints(entry) {
