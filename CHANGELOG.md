@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.0.2] - 06 May 2021
+
+### Features
+
+- simplified localized resource resolution process
+
 ## [2.0.1] - 05 May 2021
 
 ### Fixed
