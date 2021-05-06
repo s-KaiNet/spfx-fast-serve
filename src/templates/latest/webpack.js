@@ -117,7 +117,8 @@ let baseConfig = {
           {
             loader: "css-loader",
             options: {
-              esModule: false
+              esModule: false,
+              modules: false
             }
           }
         ]
@@ -160,7 +161,8 @@ let baseConfig = {
           {
             loader: "css-loader",
             options: {
-              esModule: false
+              esModule: false,
+              modules: false
             }
           }, // translates CSS into CommonJS
           "sass-loader" // compiles Sass to CSS, using Sass by default

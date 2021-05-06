@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.0.3] - 06 May 2021
+
+### Fixed
+
+- [CSS module system applied twice to third party js libs](https://github.com/s-KaiNet/spfx-fast-serve/issues/22). css-loader changed the default behavior for modules and now it's ON by default.
+
 ## [2.0.2] - 06 May 2021
 
 ### Features
