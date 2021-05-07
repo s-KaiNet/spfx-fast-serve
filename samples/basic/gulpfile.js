@@ -4,9 +4,21 @@ const build = require('@microsoft/sp-build-web');
 
 build.addSuppression(`Warning - [sass] The local CSS class 'ms-Grid' is not camelCase and will not be type-safe.`);
 
-const argv = build.rig.getYargs().argv;
-const useCustomServe = argv['custom-serve'];
-const fs = require("fs");
+var getTasks = build.rig.getTasks;
+build.rig.getTasks = function () {
+  var result = getTasks.call(build.rig);
+
+  result.set('serve', result.get('serve-deprecated'));
+
+  return result;
+};
+
+/**
+ *  fast-serve
+ */
+
+const useCustomServe = build.rig.getYargs().argv['custom-serve'];
+const writeFileSync = require("fs").writeFileSync;
 const workbenchApi = require("@microsoft/sp-webpart-workbench/lib/api");
 
 if (useCustomServe) {
@@ -21,24 +33,37 @@ if (useCustomServe) {
     done();
   });
 
-  build.rig.addPostBuildTask(build.task('ensure-workbench', ensureWorkbenchSubtask));
-
-  build.configureWebpack.mergeConfig({
-    additionalConfiguration: (generatedConfiguration) => {
-      fs.writeFileSync("./temp/_webpack_config.json", JSON.stringify(generatedConfiguration, null, 2));
+  const saveConfigTask = build.subTask('save-webpack-config', (gulp, config, done) => {
+    const serveAdditionalConfig = (generatedConfiguration) => {
+      writeFileSync("./temp/_webpack_config.json", JSON.stringify(generatedConfiguration, null, 2));
       return generatedConfiguration;
     }
+
+    if (!build.configureWebpack.taskConfig.additionalConfiguration) {
+      build.configureWebpack.mergeConfig({
+        additionalConfiguration: serveAdditionalConfig
+      });
+    } else {
+      const oldConfigFunc = build.configureWebpack.taskConfig.additionalConfiguration;
+      build.configureWebpack.mergeConfig({
+        additionalConfiguration: (generatedConfiguration) => {
+          generatedConfiguration = oldConfigFunc(generatedConfiguration);
+
+          return serveAdditionalConfig(generatedConfiguration);
+        }
+      });
+    }
+
+    done();
   });
 
+  build.rig.addPostTypescriptTask(saveConfigTask);
+  build.rig.addPostBuildTask(build.task('ensure-workbench', ensureWorkbenchSubtask));
 }
 
-var getTasks = build.rig.getTasks;
-build.rig.getTasks = function () {
-  var result = getTasks.call(build.rig);
-
-  result.set('serve', result.get('serve-deprecated'));
-
-  return result;
-};
+/**
+ * End of fast-serve
+ */
 
 build.initialize(require('gulp'));
+

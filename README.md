@@ -119,39 +119,3 @@ It will add `sp-rest-proxy` support. You can find an example with [PnPjs](https:
 `pnpm` resolves modules a bit differently, when it comes to nested modules. Thus if you use `pnpm` as your package manager, add `--pnpm` parameter when running `spfx-fast-serve`
 
 ## Having troubles? Please try to find the answer under [FAQs](/docs/FAQ.md) or raise an issue
-
-## Manual merge warning
-
-As part of the steps, `spfx-fast-serve` modifies your `gulpfile.js`. In most cases it smoothly merges all required stuff. However, in case if you use `build.configureWebpack.mergeConfig` in your code, the tool is unable to perform merge correctly. In that case you should do manual merge.  
-
-Simply locate you code with `build.configureWebpack.mergeConfig` and insert the line
-
-```javascript
-fs.writeFileSync("./temp/_webpack_config.json", JSON.stringify(generatedConfiguration, null, 2));
-```
-
-at the beginning of your `additionalConfiguration` callback method.  
-For example:
-
-```javascript
-  build.configureWebpack.mergeConfig({
-    additionalConfiguration: (generatedConfiguration) => {
-
-      fs.writeFileSync("./temp/_webpack_config.json", JSON.stringify(generatedConfiguration, null, 2)); // <-- the needed line
-
-      // your stuff goes here
-
-      return generatedConfiguration;
-    }
-  });
-```
-
-Additionally at the top of your `gulpfile.js` add `fs` tool import: `const fs = require("fs");`.  
-
-> **IMPORTANT!**
-> If you have your `build.configureWebpack.mergeConfig` inside `if` statements (it might be a case for PnP SPFx generator), then just make sure that the `_webpack_config.json` file is created on a regular `gulp bundle` command, because that's the command which is called right before custom serve. In this case, don't put `fs.writeFileSync` inside `if` statements, instead just add a regular `mergeConfig` like in the example above outside of `if` statement.
-
-That's it!
-
----
-Please use [issues](https://github.com/s-KaiNet/spfx-fast-serve/issues) for questions, suggestions and, of course, issues.

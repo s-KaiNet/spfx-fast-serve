@@ -18,20 +18,7 @@ export class PatchGulpFile extends BaseCommand {
       return;
     }
 
-    let hasErrors = false;
-
-    let replaceContent;
-    // if gulpfile.js contains call to build.configureWebpack.mergeConfig, we need manual merge
-    if (currentGulpFile.indexOf('build.configureWebpack.mergeConfig') !== -1) {
-      replaceContent = fs.readFileSync(getTemplatesPath('gulpfile.partial.js')).toString();
-
-      logger.warning(chalk.redBright('You use webpack\'s task \'mergeConfig\' feature in your gulpfile.js. Manual merge required.'));
-      logger.log(chalk.redBright('Please read https://github.com/s-KaiNet/spfx-fast-serve#manual-merge-warning for details.'));
-      logger.newLine();
-      hasErrors = true;
-    } else {
-      replaceContent = fs.readFileSync(getTemplatesPath('gulpfile.full.js')).toString();
-    }
+    const replaceContent = fs.readFileSync(getTemplatesPath('gulpfile.js')).toString();
 
     const options = {
       files: gulpfilePath,
@@ -41,11 +28,7 @@ export class PatchGulpFile extends BaseCommand {
 
     replace.sync(options);
 
-    if (!hasErrors) {
-      logger.success(chalk.blueBright('Patched gulpfile.js.'));
-    } else {
-      logger.warning(chalk.blueBright('Patched gulpfile.js with warnings.'));
-    }
+    logger.success(chalk.blueBright('Patched gulpfile.js.'));
     logger.newLine();
   }
 }

@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.0.4] - 08 May 2021
+
+### Features
+
+- "manual merge" was removed in favor of a better solution
+
 ## [2.0.3] - 06 May 2021
 
 ### Fixed

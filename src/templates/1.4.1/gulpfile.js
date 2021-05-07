@@ -1,18 +1,3 @@
-'use strict';
-
-const build = require('@microsoft/sp-build-web');
-
-build.addSuppression(`Warning - [sass] The local CSS class 'ms-Grid' is not camelCase and will not be type-safe.`);
-
-var getTasks = build.rig.getTasks;
-build.rig.getTasks = function () {
-  var result = getTasks.call(build.rig);
-
-  result.set('serve', result.get('serve-deprecated'));
-
-  return result;
-};
-
 /**
  *  fast-serve
  */
@@ -20,10 +5,9 @@ build.rig.getTasks = function () {
 const useCustomServe = build.rig.getYargs().argv['custom-serve'];
 const writeFileSync = require("fs").writeFileSync;
 const workbenchApi = require("@microsoft/sp-webpart-workbench/lib/api");
+const del = require('del');
 
 if (useCustomServe) {
-  build.tslintCmd.enabled = false;
-
   const ensureWorkbenchSubtask = build.subTask('ensure-workbench-task', function (gulp, buildOptions, done) {
     this.log('Creating workbench.html file...');
     try {
@@ -61,10 +45,16 @@ if (useCustomServe) {
   build.rig.addPostBuildTask(build.task('ensure-workbench', ensureWorkbenchSubtask));
 }
 
+const deleteDefinitions = build.subTask('delete-scss-definitions-task', function (gulp, buildOptions, done) {
+  del.sync(['src/**/*.scss.d.ts']);
+
+  done();
+});
+
+build.rig.addPreBuildTask(build.task('delete-scss-definitions', deleteDefinitions));
+
 /**
  * End of fast-serve
  */
 
 build.initialize(require('gulp'));
-
-
