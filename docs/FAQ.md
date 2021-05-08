@@ -37,7 +37,7 @@ This scenario isn't supported, thus in that case you have to reload page manuall
 
 ## 5. I use custom loaders and / or webpack modifications in my `gulpfile.js`
 
-If you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.js` file created by the cli to make everything work
+If you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.extend.js` file created by the cli to make everything work
   
 ## 6. Does it support React Hot Module Replacement (aka HMR)?
 
