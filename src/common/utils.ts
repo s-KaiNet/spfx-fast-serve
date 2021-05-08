@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { WebpackExtendFileName } from './consts';
+import { GulpFileName, WebpackExtendFileName } from './consts';
 const packagePath = path.join(process.cwd(), 'package.json');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -9,7 +9,7 @@ export function getTemplatesPath(fileName: string) {
   const minorVersion = getSpfxMinorVersion();
   let basePath = 'templates/';
 
-  if (fileName === WebpackExtendFileName) {
+  if (fileName === WebpackExtendFileName || fileName === GulpFileName) {
     basePath += 'common/';
   } else if (minorVersion >= 12) {
     basePath += 'latest/';

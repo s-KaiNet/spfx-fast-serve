@@ -11,5 +11,6 @@
     "webpack-dev-server": "3.10.3",
     "del": "5.1.0",
     "cross-env": "7.0.2",
-    "webpack-merge": "4.2.2"
+    "webpack-merge": "4.2.2",
+    "spfx-fast-serve-helpers": "~1.4.0"
 }

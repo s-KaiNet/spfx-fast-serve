@@ -18,6 +18,12 @@ export class PatchGulpFile extends BaseCommand {
       return;
     }
 
+    if (currentGulpFile.indexOf('spfx-fast-serve-helpers') !== -1) {
+      logger.success(chalk.blueBright('It looks like your gulpfile.js was patched before, skipping.'));
+      logger.newLine();
+      return;
+    }
+
     const replaceContent = fs.readFileSync(getTemplatesPath('gulpfile.js')).toString();
 
     const options = {

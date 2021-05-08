@@ -118,4 +118,8 @@ It will add `sp-rest-proxy` support. You can find an example with [PnPjs](https:
 
 `pnpm` resolves modules a bit differently, when it comes to nested modules. Thus if you use `pnpm` as your package manager, add `--pnpm` parameter when running `spfx-fast-serve`
 
+## Privacy policy
+
+`spfx-fast-serve` tracks every run using "fast serve" option. The "run" data includes time, when you run `npm run serve` and irreversible hash of computer name (to track unique computers). It **does NOT** collect nor store any personal, computer, network or project information. "Run" data needed to analyze, how many runs using "fast serve" scenario we have per day\month\year and what is the trend. Based on the data I can make a decision whether to further invest time into this project or not.
+
 ## Having troubles? Please try to find the answer under [FAQs](/docs/FAQ.md) or raise an issue

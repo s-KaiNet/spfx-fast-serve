@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.1.0] - 08 May 2021
+
+### Features
+
+- significantly simplified `gulpfile.js` merging
+
 ## [2.0.4] - 08 May 2021
 
 ### Features

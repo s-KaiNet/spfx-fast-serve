@@ -11,5 +11,6 @@
     "del": "6.0.0",
     "cross-env": "7.0.3",
     "webpack-merge": "5.7.3",
-    "copy-webpack-plugin": "6.4.0"
+    "copy-webpack-plugin": "6.4.0",
+    "spfx-fast-serve-helpers": "~1.12.0"
 }
