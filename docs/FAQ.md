@@ -3,19 +3,16 @@
 - [1. When I run `npm run serve` I see the error](#1-when-i-run-npm-run-serve-i-see-the-error)
 - [2. After I applied `sfpx-fast-serve` tool I have formatting broken in `gulpfile.js`](#2-after-i-applied-sfpx-fast-serve-tool-i-have-formatting-broken-in-gulpfilejs)
 - [3. I added a new dependency in my solution (or started using new import from "@microsoft/*" modules) and now I see some strange errors](#3-i-added-a-new-dependency-in-my-solution-or-started-using-new-import-from-microsoft-modules-and-now-i-see-some-strange-errors)
-- [4. When I modify localization files, live reload doesn't work](#4-when-i-modify-localization-files-live-reload-doesnt-work)
-- [5. I use custom loaders and / or webpack modifications in my `gulpfile.js`](#5-i-use-custom-loaders-and--or-webpack-modifications-in-my-gulpfilejs)
-- [6. Does it support React Hot Module Replacement (aka HMR)?](#6-does-it-support-react-hot-module-replacement-aka-hmr)
-- [7. Webpack generates a lot of output, I want only errors or just minimal of information in my console](#7-webpack-generates-a-lot-of-output-i-want-only-errors-or-just-minimal-of-information-in-my-console)
-- [8. How to debug with Chrome Debugger extension from VSCode?](#8-how-to-debug-with-chrome-debugger-extension-from-vscode)
-- [9. How to prevent browser to open the default url (equivalent to `gulp serve --nobrowser`)?](#9-how-to-prevent-browser-to-open-the-default-url-equivalent-to-gulp-serve---nobrowser)
-- [10. How to run with different locale?](#10-how-to-run-with-different-locale)
+- [4. I use custom loaders and / or webpack modifications in my `gulpfile.js`](#4-i-use-custom-loaders-and--or-webpack-modifications-in-my-gulpfilejs)
+- [5. Does it support React Hot Module Replacement (aka HMR)?](#5-does-it-support-react-hot-module-replacement-aka-hmr)
+- [6. How to debug with Chrome Debugger extension from VSCode?](#6-how-to-debug-with-chrome-debugger-extension-from-vscode)
+- [7. How to run with different locale?](#7-how-to-run-with-different-locale)
 
 ## 1. When I run `npm run serve` I see the error
 
 > `ERROR in <Component>.tsx Cannot find module './<Component>.module.scss'`:
 
-![Error](img/missing-module-error.png)
+![Error](../img/missing-module-error.png)
 
 *a*. Try to explicitly change and then save any of `.tsx` files in the solution in order to trigger the build. Maybe the error will disappear automatically. If not, go to `#b`  
 
@@ -31,31 +28,19 @@
 
 Every time you introduce a new dependency for your solution, you should re-run `npm run serve` command, so that it picks up all new dependencies correctly.
 
-## 4. When I modify localization files, live reload doesn't work
+## 4. I use custom loaders and / or webpack modifications in my `gulpfile.js`
 
-This scenario isn't supported, thus in that case you have to reload page manually
-
-## 5. I use custom loaders and / or webpack modifications in my `gulpfile.js`
-
-If you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.js` file created by the cli to make everything work
+If you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.extend.js` file created by the cli to make everything work
   
-## 6. Does it support React Hot Module Replacement (aka HMR)?
+## 5. Does it support React Hot Module Replacement (aka HMR)?
 
 HMR is not supported. I tried different things, but was not able to make it work. If you have ideas, please welcome to issues or PRs :)
 
-## 7. Webpack generates a lot of output, I want only errors or just minimal of information in my console
-
-In `webpack.js` find settings for `devServer` and update `stats` variable to any of the values from [webpack docs here](https://webpack.js.org/configuration/stats/)
-
-## 8. How to debug with Chrome Debugger extension from VSCode?
+## 6. How to debug with Chrome Debugger extension from VSCode?
 
 Just refer to the official [documentation](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/debug-in-vscode). The only difference is that instead of `gulp serve` you will use `npm run serve`
 
-## 9. How to prevent browser to open the default url (equivalent to `gulp serve --nobrowser`)?
-
-Modify the default `webpack.js` file and update `devServer.open` property. By default the value is `true`, which opens your browser, change it to `false`.
-
-## 10. How to run with different locale?
+## 7. How to run with different locale?
 
 You have two options here. If you support only one or two additional locales, you can create additional npm serve scripts (inside `package.json`) with different locales support, i.e.
 
