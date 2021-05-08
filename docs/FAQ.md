@@ -40,7 +40,7 @@ HMR is not supported. I tried different things, but was not able to make it work
 
 Just refer to the official [documentation](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/debug-in-vscode). The only difference is that instead of `gulp serve` you will use `npm run serve`
 
-## 8. How to run with different locale?
+## 7. How to run with different locale?
 
 You have two options here. If you support only one or two additional locales, you can create additional npm serve scripts (inside `package.json`) with different locales support, i.e.
 
