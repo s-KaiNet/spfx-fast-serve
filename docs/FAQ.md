@@ -12,7 +12,7 @@
 
 > `ERROR in <Component>.tsx Cannot find module './<Component>.module.scss'`:
 
-![Error](img/missing-module-error.png)
+![Error](../img/missing-module-error.png)
 
 *a*. Try to explicitly change and then save any of `.tsx` files in the solution in order to trigger the build. Maybe the error will disappear automatically. If not, go to `#b`  
 
