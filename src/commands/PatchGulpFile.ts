@@ -24,6 +24,13 @@ export class PatchGulpFile extends BaseCommand {
       return;
     }
 
+    if (currentGulpFile.indexOf('build.configureWebpack.mergeConfig') !== -1) {
+      logger.warning(chalk.yellowBright('We detected that you use webpack\'s task \'mergeConfig\' feature in your gulpfile.js. Make sure that you applied corresponding changes in webpack.extend.js as well.'));
+      logger.newLine();
+      logger.log(chalk.yellowBright('Please read https://github.com/s-KaiNet/spfx-fast-serve#webpack-extensibility for details.'));
+      logger.newLine();
+    }
+
     const replaceContent = fs.readFileSync(getTemplatesPath('gulpfile.js')).toString();
 
     const options = {

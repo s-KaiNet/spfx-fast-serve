@@ -38,7 +38,8 @@ If your project is based on SPx 1.11 and you already use fast-serve `2.x` for yo
 
 ## Webpack extensibility
 
-Starting from version `2.x`, the library supports webpack extensibility.
+If you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.extend.js` file created by the cli to make everything work. Apply only those webpack modifications, which work on a regular `gulp serve` command since `spfx-fast-serve` works only in development mode.  
+
 In a `./fast-serve` folder you have a file called `webpack.extend.js`. In this file you can put your own logic for webpack, it will not be overwritten by subsequent `spfx-fast-serve` calls.
 
 You can either provide custom `webpackConfig` object, which will be merged using [webpack-merge](https://github.com/survivejs/webpack-merge) module, or use `transformConfig` to even better control over configuration.

@@ -44,9 +44,8 @@ export class PatchPackageJson extends BaseCommand {
     packageJson.scripts = packageJson.scripts || {};
     if (packageJson.scripts['serve']) {
       logger.warning(chalk.yellowBright('Your npm \'serve\' command will be replaced.'));
+      logger.newLine();
     }
-
-
 
     if (isLibraryComponent) {
       packageJson.scripts['serve'] = `cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently "webpack-dev-server --mode development --config ./${FastServeFolderName}/webpack.js --env.env=dev" "npm run ts"`;

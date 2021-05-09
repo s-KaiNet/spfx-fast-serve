@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.1.1] - 09 May 2021
+
+### Features
+
+- added a message about potential webpack modifications
+
 ## [2.1.0] - 08 May 2021
 
 ### Features
