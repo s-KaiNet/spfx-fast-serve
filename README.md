@@ -1,4 +1,6 @@
-# :rocket: SPFx Fast Serve Tool
+# :rocket: SPFx Fast Serve Tool  
+
+[![npm version](https://badge.fury.io/js/spfx-fast-serve.svg)](https://badge.fury.io/js/spfx-fast-serve)
 
 A command line utility, which modifies your SharePoint Framework solution, so that it runs continuous `serve` command as fast as possible.
 
