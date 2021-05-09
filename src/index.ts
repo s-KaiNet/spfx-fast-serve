@@ -4,16 +4,18 @@ import chalk from 'chalk';
 
 import { logger } from './common/Logger';
 import {
-  CreateWebPackFile,
   PatchGitIgnoreFile,
   PatchGulpFile,
   PatchPackageJson,
   Pipeline,
   CreateWebPackExtendFile
 } from './commands';
+import { SettingsManager } from './common/SettingsManager';
+
+const settings = SettingsManager.createSettings();
 
 const pipeline = new Pipeline(
-  new CreateWebPackFile(),
+  settings,
   new CreateWebPackExtendFile(),
   new PatchGulpFile(),
   new PatchPackageJson(),

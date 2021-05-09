@@ -10,9 +10,9 @@
     "build": "gulp bundle",
     "clean": "gulp clean",
     "test": "gulp test",
-    "serve-nl": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=nl-nl && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack serve --mode development --config ./fast-serve/webpack.js --env dev",
-    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack serve --mode development --config ./fast-serve/webpack.js --env dev",
-    "serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack serve --mode development --config ./fast-serve/webpack.js --env dev"
+    "serve-nl": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=nl-nl && cross-env NODE_OPTIONS=--max_old_space_size=4096 fast-serve",
+    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 fast-serve",
+    "serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && cross-env NODE_OPTIONS=--max_old_space_size=4096 fast-serve"
   },
   "dependencies": {
     "@microsoft/sp-core-library": "1.12.1",
@@ -36,20 +36,8 @@
     "@types/react-dom": "16.9.8",
     "@types/webpack-env": "1.13.1",
     "ajv": "~5.2.2",
-    "copy-webpack-plugin": "6.4.0",
     "cross-env": "7.0.3",
-    "css-loader": "5.2.4",
-    "css-modules-typescript-loader": "4.0.1",
-    "del": "6.0.0",
-    "fork-ts-checker-webpack-plugin": "6.2.4",
     "gulp": "~4.0.2",
-    "sass": "1.32.11",
-    "sass-loader": "9.0.3",
-    "spfx-fast-serve-helpers": "~1.12.2",
-    "ts-loader": "8.1.0",
-    "webpack": "~4.44.2",
-    "webpack-cli": "4.6.0",
-    "webpack-dev-server": "3.11.2",
-    "webpack-merge": "5.7.3"
+    "spfx-fast-serve-helpers": "1.12.3-beta.2"
   }
 }

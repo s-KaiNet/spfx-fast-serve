@@ -4,27 +4,25 @@ import * as path from 'path';
 import detectIndent from 'detect-indent';
 
 import { logger } from '../common/Logger';
-import { getSpfxMinorVersion, getTemplatesPath } from '../common/utils';
+import { getSpfxMinorVersion } from '../common/utils';
 import { Settings } from '../interfaces/settings';
 import { BaseCommand } from './BaseCommand';
-import { FastServeFolderName } from '../common/consts';
 
 export class PatchPackageJson extends BaseCommand {
-  public execute({ cli: { isLibraryComponent, usePnpm, useRestProxy } }: Settings): void {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const templateDeps = require(getTemplatesPath('dependecies.json'));
+  public execute({ cli: { isLibraryComponent, usePnpm } }: Settings): void {
     const packagePath = path.join(process.cwd(), 'package.json');
     const packageString = fs.readFileSync(packagePath).toString();
     const indent = detectIndent(packageString).indent || '  ';
     const packageJson = JSON.parse(packageString);
     const minorVersion = getSpfxMinorVersion();
 
-    if (isLibraryComponent) {
-      templateDeps['concurrently'] = '5.3.0';
+    const templateDeps: Record<string, string> = {
+      'cross-env': '7.0.3',
+      'spfx-fast-serve-helpers': `~1.${minorVersion}.0`
     }
 
-    if (useRestProxy) {
-      templateDeps['sp-rest-proxy'] = '3.0.2';
+    if (isLibraryComponent) {
+      templateDeps['concurrently'] = '5.3.0';
     }
 
     if (usePnpm) {
@@ -48,19 +46,10 @@ export class PatchPackageJson extends BaseCommand {
     }
 
     if (isLibraryComponent) {
-      packageJson.scripts['serve'] = `cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently "webpack-dev-server --mode development --config ./${FastServeFolderName}/webpack.js --env.env=dev" "npm run ts"`;
+      packageJson.scripts['serve'] = 'cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently "fast-serve" "npm run ts"';
       packageJson.scripts['ts'] = 'tsc -p tsconfig.json -w --preserveWatchOutput';
-
-      if (minorVersion >= 12) {
-        packageJson.scripts['serve'] = `cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently "webpack serve --mode development --config ./${FastServeFolderName}/webpack.js --env dev" "npm run ts"`;
-       }
-
     } else {
-      packageJson.scripts['serve'] = `cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./${FastServeFolderName}/webpack.js --env.env=dev`;
-
-      if (minorVersion >= 12) {
-        packageJson.scripts['serve'] = `cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack serve --mode development --config ./${FastServeFolderName}/webpack.js --env dev`;
-      }
+      packageJson.scripts['serve'] = 'cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 fast-serve';
     }
 
     fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, indent));

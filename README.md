@@ -97,7 +97,7 @@ Also
 - live reloading (for hosted workbench as well)
 - debugging from VSCode with Chrome Debugger extension
 - doesn't mess up your default SPFx build. If you have troubles, simply switch back to regular `gulp serve`
-- adds only ~30 MB to your `node_modules` folder
+- adds only ~15 MB to your `node_modules` folder
 
 With `spfx-fast-serve` you will be able to significantly reduce the time from code change to a page refresh in a browser (a few times faster than the default `gulp serve` command).
 
@@ -107,15 +107,24 @@ Please use [this guide](/docs/LibraryComponents.md) to configure `spfx-fast-serv
 
 ## SharePoint Rest Proxy aka [sp-rest-proxy](https://github.com/koltyakov/sp-rest-proxy) support
 
-If you want to use `sp-rest-proxy`, simply run
+If you want to use `sp-rest-proxy`, then use `webpack.extend.js` feature. Install `sp-rest-proxy` and add below code to the `webpack.extend.js`:
 
-```bash
-spfx-fast-serve --rest-proxy
+```javascript
+const RestProxy = require('sp-rest-proxy');
+....
+const webpackConfig = {
+  devServer.before = function (app) {
+      new RestProxy({
+        4321,
+        logLevel: "Off",
+        configPath: './config/private.json'
+      }, app).serveProxy();
+    }
+}
+....
 ```
 
-It will add `sp-rest-proxy` support. You can find an example with [PnPjs](https://pnp.github.io/pnpjs) and built-in `SPHttpClient` under `samples/sp-rest-proxy`  
-
-**NOTE**: to make it work, you should have `config/private.json` credential file available with your credentials for SharePoint site. Alternatively, you can modify generated `webpack.js` and provide path or credentials explicitly.
+You should create `./config/private.json` file with your credentials beforehand.
 
 ## [pnpm](https://pnpm.js.org/) support
 
