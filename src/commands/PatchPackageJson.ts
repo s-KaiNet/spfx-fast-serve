@@ -17,8 +17,17 @@ export class PatchPackageJson extends BaseCommand {
     const minorVersion = getSpfxMinorVersion();
 
     const templateDeps: Record<string, string> = {
-      'cross-env': '7.0.3',
-      'spfx-fast-serve-helpers': `~1.${minorVersion}.0`
+      'cross-env': '7.0.3'
+    }
+
+    if (minorVersion >= 4 && minorVersion < 9) {
+      templateDeps['spfx-fast-serve-helpers'] = '~1.4.0';
+    } else if (minorVersion >= 9 && minorVersion < 12) {
+      templateDeps['spfx-fast-serve-helpers'] = '~1.11.0';
+    } else if (minorVersion >= 12) {
+      templateDeps['spfx-fast-serve-helpers'] = `~1.${minorVersion}.0`;
+    } else {
+      throw new Error(`Unsupported SPFx version: 1.${minorVersion}`)
     }
 
     if (isLibraryComponent) {
