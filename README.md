@@ -34,7 +34,7 @@ Please use [this guide](/docs/Upgrade%20to%203x.md) if you're planning to migrat
 
 ## Migration between SPFx versions
 
-It's assumed, that you're already using `spfx-fast-serve@3.x`. If not, read [section](#migration-to-3x-version) above.  
+It's assumed, that you're already using `spfx-fast-serve@3.x`. If not, read [section](#migration-to-3x-version) above and migrate to `3.x` first.  
 
 As soon as you use `3.x` version, then the migration is as easy as just changing the version of `spfx-fast-serve-helpers` in your `package.json` to match the corresponding SPFx **minor** version (**do not** change patch version).
 
