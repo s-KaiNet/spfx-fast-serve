@@ -10,7 +10,7 @@
     "build": "gulp bundle",
     "clean": "gulp clean",
     "test": "gulp test",
-    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently \"fast-serve\" \"npm run ts\"",
+    "serve": "gulp bundle --custom-serve --max_old_space_size=4096 && concurrently \"fast-serve\" \"npm run ts\"",
     "ts": "tsc -p tsconfig.json -w --preserveWatchOutput"
   },
   "devDependencies": {
@@ -22,8 +22,7 @@
     "@types/webpack-env": "1.13.1",
     "ajv": "~5.2.2",
     "concurrently": "5.3.0",
-    "cross-env": "7.0.3",
     "gulp": "~4.0.2",
-    "spfx-fast-serve-helpers": "1.12.3-beta.2"
+    "spfx-fast-serve-helpers": "~1.12.0"
   }
 }

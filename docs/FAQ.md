@@ -40,7 +40,7 @@ Just refer to the official [documentation](https://docs.microsoft.com/en-us/shar
 You have two options here. If you support only one or two additional locales, you can create additional npm serve scripts (inside `package.json`) with different locales support, i.e.
 
 ```json
-"serve-nl": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=nl-nl && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev",
+"serve-nl": "gulp bundle --custom-serve --locale=nl-nl --max_old_space_size=4096 && fast-serve",
 ```
 
 Take a note that I added `--locale=nl-nl` to support NL locale.
@@ -51,10 +51,16 @@ Alternatively, if you need a lot of locales, you can create dynamic solution wit
 set SPFX_LOCALE=nl-nl
 ```
 
+Then install [`cross-env`](https://www.npmjs.com/package/cross-env) npm module:
+
+```bash
+npm i cross-env --save-dev --save-exact
+```
+
 Then update npm script to use this variable:
 
 ```json
-"serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && cross-env NODE_OPTIONS=--max_old_space_size=4096 webpack-dev-server --mode development --config ./webpack.js --env.env=dev"
+"serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && fast-serve"
 ```
 
 Take a note on `--locale=$SPFX_LOCALE` special syntax and using `cross-env-shell` (part of `cross-env` package, you don't need to install anything additionally).

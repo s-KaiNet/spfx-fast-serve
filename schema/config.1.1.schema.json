@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "SPFx Fast Serve configuration (v1.0)",
+  "title": "SPFx Fast Serve configuration (v1.1)",
   "description": "Defines cli and serve configuration structure",
   "type": "object",
   "properties": {

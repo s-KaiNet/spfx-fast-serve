@@ -10,7 +10,6 @@ import styles from './SampleWebPart.module.scss';
 import { ISampleWebPartProps } from './ISampleWebPartProps';
 
 const logo: any = require('../assets/parker-spfx.png');
-console.log(logo);
 export default class SampleWebPart extends React.Component<ISampleWebPartProps, {}> {
   public render(): React.ReactElement<ISampleWebPartProps> {
     return (

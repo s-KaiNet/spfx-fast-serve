@@ -7,7 +7,7 @@
     "build": "gulp bundle",
     "clean": "gulp clean",
     "test": "gulp test",
-    "serve": "cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 fast-serve"
+    "serve": "gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve"
   },
   "dependencies": {
     "@microsoft/sp-core-library": "1.12.1",
@@ -29,7 +29,6 @@
     "@types/react-dom": "16.9.8",
     "@types/webpack-env": "1.13.1",
     "ajv": "~5.2.2",
-    "cross-env": "7.0.3",
-    "spfx-fast-serve-helpers": "1.12.3-beta.2"
+    "spfx-fast-serve-helpers": "~1.12.0"
   }
 }

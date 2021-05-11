@@ -16,9 +16,7 @@ export class PatchPackageJson extends BaseCommand {
     const packageJson = JSON.parse(packageString);
     const minorVersion = getSpfxMinorVersion();
 
-    const templateDeps: Record<string, string> = {
-      'cross-env': '7.0.3'
-    }
+    const templateDeps: Record<string, string> = {};
 
     if (minorVersion >= 4 && minorVersion < 9) {
       templateDeps['spfx-fast-serve-helpers'] = '~1.4.0';
@@ -50,10 +48,10 @@ export class PatchPackageJson extends BaseCommand {
     }
 
     if (isLibraryComponent) {
-      packageJson.scripts['serve'] = 'cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 concurrently "fast-serve" "npm run ts"';
+      packageJson.scripts['serve'] = 'gulp bundle --custom-serve --max_old_space_size=4096 && concurrently "fast-serve" "npm run ts"';
       packageJson.scripts['ts'] = 'tsc -p tsconfig.json -w --preserveWatchOutput';
     } else {
-      packageJson.scripts['serve'] = 'cross-env NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve && cross-env NODE_OPTIONS=--max_old_space_size=4096 fast-serve';
+      packageJson.scripts['serve'] = 'gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve';
     }
 
     fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, indent));
