@@ -1,5 +1,13 @@
 # Change Log
 
+## [3.0.0] - 11 May 2021
+
+### Features
+
+- moved all the logic into a separate package
+- deprecated `--usePnpm` (now supported OOB) and `--useRestProxy` (supported via webpack extensibility)
+- simplified SPFx migration process
+
 ## [2.1.1] - 09 May 2021
 
 ### Features

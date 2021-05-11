@@ -25,16 +25,26 @@ Read more info in my [blog post here](https://spblog.net/post/2020/03/24/spfx-ov
 4. Run `npm install`
 5. Run `npm run serve` and enjoy the incredible speed of `serve` command!
 
-## Migration to 2.x version
+## Migration to 3.x version of `spfx-fast-serve`
 
 > **IMPORTANT!**  
-> SharePoint Framework 1.12 and onwards is supported starting from `2.x` version of `spfx-fast-serve`.
->
-> Minimal supported NodeJS version for SPFx 1.12 and up is `12.x`.
+> Minimal supported NodeJS version for SPFx 1.12+ and `spfx-fast-serve` is `12.x`.
 
-Please use [this guide](/docs/Upgrade%20to%202x.md) if you're planning to migrate your project to `spfx-fast-serve` 2.x.  
+Please use [this guide](/docs/Upgrade%20to%203x.md) if you're planning to migrate your project to `spfx-fast-serve` 3.x.  
 
-If your project is based on SPx 1.11 and you already use fast-serve `2.x` for your project and planning to migrate to SPFx 1.12, then after migration you should run `spfx-fast-serve` again, so that it adds the needed dependencies and updates `webpack.js`. `fast-serve 2.x` uses different webpack.js and newer dependencies for SPFx 1.12.
+## Migration between SPFx versions
+
+It's assumed, that you're already using `spfx-fast-serve@3.x`. If not, read [section](#migration-to-3x-version) above.  
+
+As soon as you use `3.x` version, then the migration is as easy as just changing the version of `spfx-fast-serve-helpers` in your `package.json` to match the corresponding SPFx **minor** version (**do not** change patch version).
+
+For example, if your project is based on SPFx 1.11 and `spfx-fast-serve@3.x`, then you have below dependency:
+ > "spfx-fast-serve-helpers": "~1.11.0"
+
+ To migrate `fast-serve` to SPFx 1.12 you just need to change it like this (patch version should be `0`, we change only minor version):
+> "spfx-fast-serve-helpers": "~1.12.0"
+
+Reinstall all dependencies and that's it!
 
 ## Webpack extensibility
 
