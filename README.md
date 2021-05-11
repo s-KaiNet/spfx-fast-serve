@@ -101,7 +101,7 @@ The tool adds necessary files to run your own webpack based build with webpack d
 
 Also
 
-- supports local and hosted workbench
+- supports local and hosted workbench, MS Teams host
 - live reloading (for hosted workbench as well)
 - debugging from VSCode with Chrome Debugger extension
 - doesn't mess up your default SPFx build. If you have troubles, simply switch back to regular `gulp serve`
