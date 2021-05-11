@@ -7,8 +7,7 @@ export class SettingsManager {
   public static createSettings(): Settings {
     const args = process.argv.slice(2);
     const cliArgs: Settings['cli'] = {
-      isLibraryComponent: args.indexOf('--library-component') !== -1,
-      usePnpm: args.indexOf('--pnpm') !== -1
+      isLibraryComponent: args.indexOf('--library-component') !== -1
     };
 
     const defaultSettings: Settings = {

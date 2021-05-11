@@ -11,7 +11,7 @@ Compare "refresh" time (the time needed to compile your project when you change 
 
 |                                                                                     | gulp serve | spfx-fast-serve |
 | ----------------------------------------------------------------------------------- | ---------- | --------------- |
-| Default "Hello World" <br> React web part                                           | 3-5 sec    | 0.3-0.5 sec     |
+| Default "Hello World" <br> React web part                                           | 3-5 sec    | 0.1-0.2 sec     |
 | [PnP Modern Search solution](https://github.com/microsoft-search/pnp-modern-search) | 28-34 sec  | 2-4 sec         |
 | [SP Starter Kit solution](https://github.com/SharePoint/sp-starter-kit) (v1)        | 40-50 sec  | 2-3 sec         |
 
@@ -128,7 +128,7 @@ You should create `./config/private.json` file with your credentials beforehand.
 
 ## [pnpm](https://pnpm.js.org/) support
 
-`pnpm` resolves modules a bit differently, when it comes to nested modules. Thus if you use `pnpm` as your package manager, add `--pnpm` parameter when running `spfx-fast-serve`
+`pnpm` is supported OOB, no additional steps required.
 
 ## Privacy policy
 

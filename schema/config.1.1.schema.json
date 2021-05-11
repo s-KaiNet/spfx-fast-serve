@@ -8,15 +8,11 @@
       "type": "object",
       "description": "Contains spfx-fast-serve CLI related settings. If you change the spfx-fast-serve cli properties in config.json, you should run spfx-fast-serve again (without parameters) so that it updates your project according to a new configuration",
       "properties": {
-        "usePnpm": {
-          "type": "boolean"
-        },
         "isLibraryComponent": {
           "type": "boolean"
         }
       },
       "required": [
-        "usePnpm",
         "isLibraryComponent"
       ]
     },

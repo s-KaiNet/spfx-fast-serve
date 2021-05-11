@@ -15,7 +15,11 @@
     "serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && cross-env NODE_OPTIONS=--max_old_space_size=4096 fast-serve"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "1.2.35",
+    "@fortawesome/free-solid-svg-icons": "5.15.3",
+    "@fortawesome/react-fontawesome": "0.1.14",
     "@microsoft/sp-core-library": "1.12.1",
+    "@microsoft/sp-http": "^1.12.1",
     "@microsoft/sp-lodash-subset": "1.12.1",
     "@microsoft/sp-office-ui-fabric-core": "1.12.1",
     "@microsoft/sp-property-pane": "1.12.1",
@@ -38,6 +42,6 @@
     "ajv": "~5.2.2",
     "cross-env": "7.0.3",
     "gulp": "~4.0.2",
-    "spfx-fast-serve-helpers": "1.12.3-beta.2"
+    "spfx-fast-serve-helpers": "1.12.5-beta.2"
   }
 }

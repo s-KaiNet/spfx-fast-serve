@@ -9,7 +9,7 @@ import { Settings } from '../interfaces/settings';
 import { BaseCommand } from './BaseCommand';
 
 export class PatchPackageJson extends BaseCommand {
-  public execute({ cli: { isLibraryComponent, usePnpm } }: Settings): void {
+  public execute({ cli: { isLibraryComponent } }: Settings): void {
     const packagePath = path.join(process.cwd(), 'package.json');
     const packageString = fs.readFileSync(packagePath).toString();
     const indent = detectIndent(packageString).indent || '  ';
@@ -32,11 +32,6 @@ export class PatchPackageJson extends BaseCommand {
 
     if (isLibraryComponent) {
       templateDeps['concurrently'] = '5.3.0';
-    }
-
-    if (usePnpm) {
-      templateDeps['@microsoft/loader-load-themed-styles'] = '1.7.191';
-      templateDeps['@microsoft/loader-cased-file'] = '1.10.0';
     }
 
     for (const dependency in templateDeps) {
