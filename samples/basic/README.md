@@ -1,26 +1,10 @@
-## basic
+# Basic sample
 
-This is where you include your WebPart documentation.
+![SPFx](https://img.shields.io/badge/SPFx-1.12.1-green.svg)
 
-### Building the code
+That's just a very simple "hello world" sample which demonstrates how to use `spfx-fast-serve` with SPFx.
 
-```bash
-git clone the repo
-npm i
-npm i -g gulp
-gulp
-```
+## How to run
 
-This package produces the following:
-
-* lib/* - intermediate-stage commonjs build artifacts
-* dist/* - the bundled script, along with other resources
-* deploy/* - all resources which should be uploaded to a CDN.
-
-### Build options
-
-gulp clean - TODO
-gulp test - TODO
-gulp serve - TODO
-gulp bundle - TODO
-gulp package-solution - TODO
+1. Restore dependencies `npm install`
+2. `npm run serve`

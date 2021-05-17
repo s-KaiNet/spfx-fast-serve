@@ -17,7 +17,11 @@
 
 *b*. Check that you use `styles` variable in `.tsx` file. For example, if you have `import styles from './<Component>.module.scss';` and you don't have usages of `styles` in your `<Component>.tsx`, you will see the error. Simply delete unused import. If it's not the case, goto `#c`.  
 
-*c*. Maybe you don't have `<Component>.module.scss.d.ts` which is generated automatically. Request generation by going to `<Component>.module.scss` and explicitly saving the file using `Ctrl+S` combination or just by changing something and saving. This should generate `<Component>.module.scss.d.ts` and fix the issue. If not, please raise an [issue](https://github.com/s-KaiNet/spfx-fast-serve/issues).
+*c*. Maybe you don't have `<Component>.module.scss.d.ts` which is generated automatically. Request generation by going to `<Component>.module.scss` and explicitly saving the file using `Ctrl+S` or just by changing something and saving. This should generate `<Component>.module.scss.d.ts` and fix the issue.
+
+*d*. The last thing to check is whether your Component is actually used inside your codebase. If it's unused, then the corresponding `<Component>.module.scss.d.ts` will not be generated. To fix either include the component in your codebase using import statement or just run `fast-serve` from scratch (on the initial run it should ignore unused components).
+
+If nothing above works, please raise an [issue](https://github.com/s-KaiNet/spfx-fast-serve/issues).
 
 ## 2. After I applied `sfpx-fast-serve` tool I have formatting broken in `gulpfile.js`
 
