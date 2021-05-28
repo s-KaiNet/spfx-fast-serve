@@ -37,7 +37,7 @@ const ContextInfo: FC<ContextInfoProps> = ({ context }) => {
   return (
     <div className={styles.contextInfo}>
       <div className={styles.container}>
-        <Header context={context.sdks.microsoftTeams ? 'teams' : 'sharepoint'} />
+        <Header context={context.sdks.microsoftTeams ? 'Teams' : 'Sharepoint'} />
         <pre><code>
           {info}
         </code>
