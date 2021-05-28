@@ -7,7 +7,7 @@ import { ContextInfoProps } from './ContextInfoProps';
 
 const ContextInfo: FC<ContextInfoProps> = ({ context }) => {
   const [loading, setLoading] = useState(true);
-  const [info, setInfo] = useState();
+  const [info, setInfo] = useState<string>();
 
   useEffect(() => {
     const getInfo = async () => {

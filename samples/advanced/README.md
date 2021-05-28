@@ -10,6 +10,7 @@ That's an advanced SharePoint Framework and `spfx-fast-serve` integration, which
 - using third party libraries ([pnpjs](https://pnp.github.io/pnpjs/), [Reusable React controls for SPFx](https://pnp.github.io/sp-dev-fx-controls-react/))
 - custom fonts and icons ([react-fontawesome](https://github.com/FortAwesome/react-fontawesome))
 - loading images into a web part
+- TypeScript 4+
 
 ## How to run
 

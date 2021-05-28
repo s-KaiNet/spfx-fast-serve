@@ -102,10 +102,9 @@ The tool adds necessary files to run your own webpack based build with webpack d
 Also
 
 - supports local and hosted workbench, MS Teams host
-- live reloading (for hosted workbench as well)
+- live reloading (for hosted workbench and Teams)
 - debugging from VSCode with Chrome Debugger extension
 - doesn't mess up your default SPFx build. If you have troubles, simply switch back to regular `gulp serve`
-- adds only ~15 MB to your `node_modules` folder
 
 With `spfx-fast-serve` you will be able to significantly reduce the time from code change to a page refresh in a browser (a few times faster than the default `gulp serve` command).
 
