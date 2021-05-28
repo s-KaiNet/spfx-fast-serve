@@ -6,6 +6,8 @@ build.addSuppression(`Warning - [sass] The local CSS class 'ms-Grid' is not came
 
 const path = require('path');
 
+build.tslintCmd.enabled = false;
+
 build.configureWebpack.mergeConfig({
   additionalConfiguration: (generatedConfiguration) => {
     if (!generatedConfiguration.resolve.alias) {

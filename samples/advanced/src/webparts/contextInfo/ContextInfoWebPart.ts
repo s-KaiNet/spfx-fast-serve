@@ -10,7 +10,7 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 //import { sp } from "@pnp/sp/presets/all";
 
 import * as strings from 'ContextInfoWebPartStrings';
-import ContextInfo from '@src/webparts/contextInfo/components/ContextInfo';
+import ContextInfo from '@src/webparts/contextInfo/components/ContextInfo/ContextInfo';
 
 export interface IContextInfoWebPartProps {
   description: string;

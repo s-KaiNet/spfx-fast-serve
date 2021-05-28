@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import { SPHttpClient } from '@microsoft/sp-http';
 
-import * as strings from 'ContextInfoWebPartStrings';
 import styles from './ContextInfo.module.scss';
 import { ContextInfoProps } from './ContextInfoProps';
+import { Header } from './../Header/Header';
 
 const ContextInfo: FC<ContextInfoProps> = ({ context }) => {
   const [loading, setLoading] = useState(true);
@@ -37,8 +37,7 @@ const ContextInfo: FC<ContextInfoProps> = ({ context }) => {
   return (
     <div className={styles.contextInfo}>
       <div className={styles.container}>
-        <h2>Your context: {context.sdks.microsoftTeams ? 'Teams' : 'SharePoint'}</h2>
-        <div>{strings.ContextInfoLabel}</div>
+        <Header context={context.sdks.microsoftTeams ? 'teams' : 'sharepoint'} />
         <pre><code>
           {info}
         </code>
