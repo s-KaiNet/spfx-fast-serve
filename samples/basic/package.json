@@ -29,6 +29,7 @@
     "@types/react-dom": "16.9.8",
     "@types/webpack-env": "1.13.1",
     "ajv": "~5.2.2",
+    "gulp": "~4.0.2",
     "spfx-fast-serve-helpers": "~1.12.0"
   }
 }
