@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.0.1] - 9 June 2021
+
+### Features
+
+- new config options
+- minor changes to reflect new features inside spfx-fast-serve-helpers
+
 ## [3.0.0] - 11 May 2021
 
 ### Features

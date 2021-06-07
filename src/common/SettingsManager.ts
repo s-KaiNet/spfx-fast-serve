@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Settings } from '../interfaces/settings';
-import { ConfigFileName, FastServeFolderName, SchemaUrl } from './consts';
+import { ConfigFileName, FastServeFolderName, SchemaUrl, SchemaUrlOld } from './consts';
+import { getSpfxMinorVersion } from './utils';
 
 export class SettingsManager {
   public static createSettings(): Settings {
@@ -10,8 +11,14 @@ export class SettingsManager {
       isLibraryComponent: args.indexOf('--library-component') !== -1
     };
 
+    let schemaUrl = SchemaUrl;
+    const spfxVersion = getSpfxMinorVersion();
+    if (spfxVersion === 4) {
+      schemaUrl = SchemaUrlOld;
+    }
+
     const defaultSettings: Settings = {
-      $schema: SchemaUrl,
+      $schema: schemaUrl,
       cli: cliArgs
     };
 

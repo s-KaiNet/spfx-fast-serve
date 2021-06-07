@@ -66,12 +66,14 @@ Currently below configuration values are available for `serve`:
 - `openUrl` - string, default `undefined`, which url to open. If empty, local workbench will be opened
 - `loggingLevel` - string, default `normal`, valid values are `"minimal", "normal", "detailed"`. `minimal` notifies about errors and new builds only, `normal` adds bundle information, `detailed` adds details about each bundle.
 - `fullScreenErrors` - boolean, default `true`, whether to show full-screen (overlay) errors. Corresponds to [webpack's dev server overlay](https://webpack.js.org/configuration/dev-server/#devserveroverlay)
+- `replaceNativeServe` - boolean, default `false`, when `true`, you can execute a regular `gulp serve` command, but instead of a regular "serve", it will spin up a `fast-serve`
+- `hotRefresh` - boolean, default `false`. When `true` enables webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR). This features is considered as experimental meaning that you can try and use  if it works well for your project. Read [more here](/docs/HMR.md) how to properly configure SPFx to work with HMR.
 
-Here is a full configuration example:
+Here is a sample configuration:
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/s-KaiNet/spfx-fast-serve/master/schema/config.1.1.schema.json",
+  "$schema": "https://raw.githubusercontent.com/s-KaiNet/spfx-fast-serve/master/schema/config.latest.schema.json",
   "cli": {
     "isLibraryComponent": false
   },
@@ -79,7 +81,7 @@ Here is a full configuration example:
     "open": true,
     "openUrl": "https://<org>.sharepoint.com/sites/dev/_layouts/15/workbench.aspx",
     "fullScreenErrors": true,
-    "loggingLevel": 'normal'
+    "replaceNativeServe": true
   }
 }
 
