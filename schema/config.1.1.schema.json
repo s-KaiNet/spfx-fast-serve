@@ -10,6 +10,9 @@
       "properties": {
         "isLibraryComponent": {
           "type": "boolean"
+        },
+        "port": {
+          "type": "integer"
         }
       },
       "required": [

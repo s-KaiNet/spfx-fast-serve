@@ -28,7 +28,7 @@ export class PatchPackageJson extends BaseCommand {
       throw new Error(`Unsupported SPFx version: 1.${minorVersion}`)
     }
 
-    if (isLibraryComponent) {
+    if (isLibraryComponent && minorVersion < 12) {
       templateDeps['concurrently'] = '5.3.0';
     }
 
@@ -47,8 +47,8 @@ export class PatchPackageJson extends BaseCommand {
       logger.newLine();
     }
 
-    if (isLibraryComponent) {
-      packageJson.scripts['serve'] = 'gulp bundle --custom-serve --max_old_space_size=4096 && concurrently "fast-serve" "npm run ts"';
+    if (isLibraryComponent && minorVersion < 12) {
+      packageJson.scripts['serve'] = 'gulp bundle --custom-serve --max_old_space_size=4096 && concurrently -k "fast-serve" "npm run ts"';
       packageJson.scripts['ts'] = 'tsc -p tsconfig.json -w --preserveWatchOutput';
     } else {
       packageJson.scripts['serve'] = 'gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve';

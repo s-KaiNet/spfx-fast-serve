@@ -19,7 +19,8 @@
     "@microsoft/sp-webpart-base": "1.12.1",
     "@microsoft/sp-lodash-subset": "1.12.1",
     "@microsoft/sp-office-ui-fabric-core": "1.12.1",
-    "corporate-library": "0.0.1"
+    "corporate-library": "0.0.1",
+	"another-library": "0.0.1"
   },
   "devDependencies": {
     "@types/react": "16.9.36",

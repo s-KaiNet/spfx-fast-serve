@@ -1,16 +1,23 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import yargs from 'yargs';
 import { Settings } from '../interfaces/settings';
 import { ConfigFileName, FastServeFolderName, SchemaUrl, SchemaUrlOld } from './consts';
 import { getSpfxMinorVersion } from './utils';
 
 export class SettingsManager {
   public static createSettings(): Settings {
-    const args = process.argv.slice(2);
+    const argv = yargs(process.argv.slice(2)).options({
+      port: { type: 'number' }
+    }).argv;
+
     const cliArgs: Settings['cli'] = {
-      isLibraryComponent: args.indexOf('--library-component') !== -1
+      isLibraryComponent: !!argv['library-component']
     };
 
+    if (argv.port) {
+      cliArgs.port = argv.port;
+    }
     let schemaUrl = SchemaUrl;
     const spfxVersion = getSpfxMinorVersion();
     if (spfxVersion === 4) {
