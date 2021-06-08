@@ -25,7 +25,7 @@ Using this option you just need to scaffold library components, webpart project 
    spfx-fast-serve --library-component --port [port number]
    ```
 
-   `[port number]` is any free TCP port except `4321`, because it's the default for main SPFx web server. For example, you case use `4322`, `4323`, etc. The only rule is that you should use unique port for every library component project per your SPFx solution. The `port` value is provided without any quotes, i.e. `--port 4323`.
+   `[port number]` is any free TCP port except `4321`, because it's the default for main SPFx web server. For example, you can case use `4322`, `4323`, etc. The only rule is that you should use unique port for every library component project per your SPFx solution. The `port` value is provided without any quotes, i.e. `--port 4323`.
 
 4. In both folders run
 
