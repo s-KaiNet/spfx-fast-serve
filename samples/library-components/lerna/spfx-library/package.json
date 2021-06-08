@@ -8,7 +8,7 @@
     "clean": "gulp clean",
     "test": "gulp test",
     "spfx-serve": "gulp serve --nobrowser",
-    "serve": "gulp bundle --custom-serve --max_old_space_size=4096 && concurrently \"fast-serve\" \"npm run ts\"",
+    "serve": "gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve",
     "ts": "tsc -p tsconfig.json -w --preserveWatchOutput"
   },
   "devDependencies": {

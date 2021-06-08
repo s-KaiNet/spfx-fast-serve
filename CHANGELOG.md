@@ -1,6 +1,10 @@
 # Change Log
 
-## [3.0.0] - 11 May 2021
+## [3.0.1] - 08 June 2021
+
+### Features
+
+- added `port` option to support more than one library component projects
 
 ### Features
 

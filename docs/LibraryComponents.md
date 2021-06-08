@@ -22,8 +22,10 @@ Using this option you just need to scaffold library components, webpart project 
 3. Inside `spfx-library` run
 
    ```bash
-   spfx-fast-serve --library-component
+   spfx-fast-serve --library-component --port [port number]
    ```
+
+   `[port number]` is any free TCP port except `4321`, because it's the default for main SPFx web server. For example, you case use `4322`, `4323`, etc. The only rule is that you should use unique port for every library component project per your SPFx solution. The `port` value is provided without any quotes, i.e. `--port 4323`.
 
 4. In both folders run
 
@@ -60,18 +62,20 @@ Lerna simplifies a lot of things, when it comes to management of multi-packaged 
 3. Inside `spfx-library` run
 
    ```bash
-   spfx-fast-serve --library-component
+   spfx-fast-serve --library-component --port [port number]
    ```
+
+   `[port number]` is any free TCP port except `4321`, because it's the default for main SPFx web server. For example, you case use `4322`, `4323`, etc. The only rule is that you should use unique port for every library component project per your SPFx solution. The `port` value is provided without any quotes, i.e. `--port 4323`.
 
 4. Update `spfx-webparts/package.json` and add dependency on `"corporate-library": "0.0.1"`
 
-5. In the parent folder for both `spfx-library` and `spfx-webparts` run 
+5. In the parent folder for both `spfx-library` and `spfx-webparts` run
 
    ```bash
    lerna init
    ```
 
-6. Update just created `lerna.json` with below configuration: 
+6. Update just created `lerna.json` with below configuration:
 
    ```javscript
    {
@@ -83,7 +87,7 @@ Lerna simplifies a lot of things, when it comes to management of multi-packaged 
    }
    ```
 
-7. Run 
+7. Run
 
    ```bash
    lerna bootstrap
@@ -98,3 +102,7 @@ Lerna simplifies a lot of things, when it comes to management of multi-packaged 
    ```
 
    It will start `serve` process in both folders.
+
+#### Important notice about Lerna
+
+Sometimes Lerna does not close processes properly when you run in `--parallel` mode. As a result the process becomes "orphaned". If you run `lerna run --parallel serve` and see "*The port [port] is in use. Trying to release..*" in console log, most likely you have this problem. I noticed this behavior for *Lerna@4.0*, *Lerna@3.22* works without the problem. Some additional info you will find in this [issue](https://github.com/lerna/lerna/issues/2284).
