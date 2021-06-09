@@ -11,6 +11,7 @@ That's an advanced SharePoint Framework and `spfx-fast-serve` integration, which
 - custom fonts and icons ([react-fontawesome](https://github.com/FortAwesome/react-fontawesome))
 - loading images into a web part
 - TypeScript 4+
+- dynamic imports (async imports)
 
 ## How to run
 

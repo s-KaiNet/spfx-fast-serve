@@ -2,21 +2,22 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import {
-  IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  IPropertyPaneConfiguration
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 
 //import { sp } from "@pnp/sp/presets/all";
 
-import * as strings from 'ContextInfoWebPartStrings';
 import ContextInfo from '@src/webparts/contextInfo/components/ContextInfo/ContextInfo';
+import { ContextInfoPropertyPane } from './ContextInfoPropertyPane';
 
 export interface IContextInfoWebPartProps {
   description: string;
 }
 
 export default class ContextInfoWebPart extends BaseClientSideWebPart<IContextInfoWebPartProps> {
+
+  private propertyPane: ContextInfoPropertyPane;
 
   /*
   public async onInit(): Promise<void> {
@@ -40,25 +41,20 @@ export default class ContextInfoWebPart extends BaseClientSideWebPart<IContextIn
     return Version.parse('1.0');
   }
 
+  protected async onPropertyPaneConfigurationStart() {
+    await this.loadPropertyPaneResources();
+  }
+
+  protected async loadPropertyPaneResources(): Promise<void> {
+    const { ContextInfoPropertyPane } = await import(
+      /* webpackChunkName: 'ContextInfoPropertyPane' */
+      './ContextInfoPropertyPane'
+    )
+
+    this.propertyPane = new ContextInfoPropertyPane();
+  }
+
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
-    return {
-      pages: [
-        {
-          header: {
-            description: strings.PropertyPaneDescription
-          },
-          groups: [
-            {
-              groupName: strings.BasicGroupName,
-              groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                })
-              ]
-            }
-          ]
-        }
-      ]
-    };
+    return this.propertyPane.getPropertyPaneConfiguration();
   }
 }
