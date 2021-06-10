@@ -23,7 +23,7 @@ Read more info in my [blog post here](https://spblog.net/post/2020/03/24/spfx-ov
 2. Open a command line in a folder with your SharePoint Framework solution you want to speed up.
 3. Run `spfx-fast-serve` and follow instructions. In most cases you shouldn't do anything specific and the cli "just works".
 4. Run `npm install`
-5. Run `npm run serve` or `gulp serve --fast` (works in SPFx `1.12+`) and enjoy the incredible speed of `serve` command!
+5. Run `npm run serve` and enjoy the incredible speed of `serve` command!
 
 ## Migration to 3.x version of `spfx-fast-serve`
 
@@ -66,7 +66,6 @@ Currently below configuration values are available for `serve`:
 - `openUrl` - string, default `undefined`, which url to open. If empty, local workbench will be opened
 - `loggingLevel` - string, default `normal`, valid values are `"minimal", "normal", "detailed"`. `minimal` notifies about errors and new builds only, `normal` adds bundle information, `detailed` adds details about each bundle.
 - `fullScreenErrors` - boolean, default `true`, whether to show full-screen (overlay) errors. Corresponds to [webpack's dev server overlay](https://webpack.js.org/configuration/dev-server/#devserveroverlay)
-- `replaceNativeServe` - boolean, default `false`, when `true`, you can execute a regular `gulp serve` command, but instead of a regular "serve", it will spin up a `fast-serve`
 - `hotRefresh` - boolean, default `false`. When `true` enables webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR). This features is considered as experimental meaning that you can try and use  if it works well for your project. Read [more here](/docs/HMR.md) how to properly configure SPFx to work with HMR.
 
 Here is a sample configuration:
@@ -80,8 +79,7 @@ Here is a sample configuration:
   "serve": {
     "open": true,
     "openUrl": "https://<org>.sharepoint.com/sites/dev/_layouts/15/workbench.aspx",
-    "fullScreenErrors": true,
-    "replaceNativeServe": true
+    "fullScreenErrors": true
   }
 }
 

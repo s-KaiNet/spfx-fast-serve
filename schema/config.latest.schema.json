@@ -40,10 +40,6 @@
             "detailed"
           ]
         },
-        "replaceNativeServe": {
-          "type": "boolean",
-          "description": "[SPFx 1.12+] When true, a regular 'gulp-serve' will be launched in a fast-serve mode."
-        },
         "hotRefresh": {
           "type": "boolean",
           "description": "[SPFx 1.12+] Enables Hot Module Replacement (HMR). This feature currently is experimental. Read more at the spfx-fast-serve GitHub homepage"

@@ -11,7 +11,6 @@ import {
   CreateWebPackExtendFile
 } from './commands';
 import { SettingsManager } from './common/SettingsManager';
-import { getSpfxMinorVersion } from './common/utils';
 
 const settings = SettingsManager.createSettings();
 
@@ -29,10 +28,6 @@ pipeline.execute();
 logger.success(chalk.green('All done!'));
 logger.newLine();
 
-const spfxVersion = getSpfxMinorVersion();
-let message = 'Now you should run \'npm install\'. When you\'re done, simply execute \'npm run serve\'';
-if (spfxVersion >= 12) {
-  message = message + ' or \'gulp serve --fast\'';
-}
+const message = 'Now you should run \'npm install\'. When you\'re done, simply execute \'npm run serve\'';
 
 logger.warning(chalk.bgRed(message));
