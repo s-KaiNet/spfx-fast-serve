@@ -33,7 +33,7 @@ Every time you introduce a new dependency for your solution, you should re-run `
 
 ## 4. Does it support React Hot Module Replacement (aka HMR)?
 
-HMR is not supported. I tried different things, but was not able to make it work. If you have ideas, please welcome to issues or PRs :)
+HMR is supported, however considered as experimental. Please checkout config settings [option `hotRefresh`](../README.md#configuration-options).
 
 ## 5. How to debug with Chrome Debugger extension from VSCode?
 
