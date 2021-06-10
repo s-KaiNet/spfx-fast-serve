@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.0.2] - 10 June 2021
+
+### Features
+
+- schema changed to support latest SPFx
+- minor improvements
+
 ## [3.0.1] - 08 June 2021
 
 ### Features

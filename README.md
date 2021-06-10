@@ -23,7 +23,7 @@ Read more info in my [blog post here](https://spblog.net/post/2020/03/24/spfx-ov
 2. Open a command line in a folder with your SharePoint Framework solution you want to speed up.
 3. Run `spfx-fast-serve` and follow instructions. In most cases you shouldn't do anything specific and the cli "just works".
 4. Run `npm install`
-5. Run `npm run serve` and enjoy the incredible speed of `serve` command!
+5. Run `npm run serve` or `gulp serve --fast` (works in SPFx `1.12+`) and enjoy the incredible speed of `serve` command!
 
 ## Migration to 3.x version of `spfx-fast-serve`
 
