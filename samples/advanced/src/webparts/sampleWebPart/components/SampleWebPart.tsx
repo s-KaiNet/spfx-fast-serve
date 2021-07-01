@@ -4,6 +4,7 @@ import { Placeholder as PnPPlaceholder } from '@pnp/spfx-controls-react/lib/Plac
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import marked from 'marked';
 library.add(faCamera);
 
 import styles from './SampleWebPart.module.scss';
@@ -28,6 +29,7 @@ export default class SampleWebPart extends React.Component<ISampleWebPartProps, 
               <br />
               <img src={logo} alt="SPFx logo" />
               <div className={styles.img} title="SPFx logo"></div>
+              <div>{marked('I am using **markdown**.')}</div>
             </div>
           </div>
         </div>

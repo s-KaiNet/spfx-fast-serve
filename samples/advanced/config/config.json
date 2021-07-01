@@ -23,7 +23,9 @@
       ]
     }
   },
-  "externals": {},
+  "externals": {
+    "marked": "node_modules/marked/marked.min.js"
+  },
   "localizedResources": {
     "ContextInfoWebPartStrings": "lib/webparts/contextInfo/loc/{locale}.js",
     "HelloWorldWebPartStrings": "lib/webparts/helloWorld/loc/{locale}.js",
