@@ -25,11 +25,11 @@
       "properties": {
         "open": {
           "type": "boolean",
-          "description": "Whether to open a browser after the starting serve. You can configure opening url by using 'openUrl' property"
+          "description": "[Obsolete in SPFx 1.13+] Whether to open a browser after the starting serve. You can configure opening url by using 'openUrl' property"
         },
         "openUrl": {
           "type": "string",
-          "description": "The url, which will opened after the serve. If empty, local workbench will opened"
+          "description": "The url, which will be opened after the serve."
         },
         "fullScreenErrors": {
           "type": "boolean",
@@ -45,7 +45,11 @@
         },
         "hotRefresh": {
           "type": "boolean",
-          "description": "[SPFx 1.12+] Enables Hot Module Replacement (HMR). This feature currently is experimental. Read more at the spfx-fast-serve GitHub homepage"
+          "description": "[SPFx 1.12+] Enables Hot Module Replacement (HMR). This feature currently is experimental. Read more https://github.com/s-KaiNet/spfx-fast-serve#configuration-options"
+        },
+        "eslint": {
+          "type": "boolean",
+          "description": "[SPFx 1.13+] Enables eslint for the project. Read more https://github.com/s-KaiNet/spfx-fast-serve#configuration-options"
         }
       }
     }
