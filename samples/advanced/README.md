@@ -12,6 +12,7 @@ That's an advanced SharePoint Framework and `spfx-fast-serve` integration, which
 - loading images into a web part
 - TypeScript 4+
 - dynamic imports (async imports)
+- adaptive card extension
 
 ## How to run
 
