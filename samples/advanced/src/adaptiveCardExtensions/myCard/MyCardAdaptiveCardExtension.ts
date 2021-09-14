@@ -14,8 +14,8 @@ export interface IMyCardAdaptiveCardExtensionState {
   description: string;
 }
 
-const CARD_VIEW_REGISTRY_ID: string = 'MyCard_CARD_VIEW';
-export const QUICK_VIEW_REGISTRY_ID: string = 'MyCard_QUICK_VIEW';
+const CARD_VIEW_REGISTRY_ID = 'MyCard_CARD_VIEW';
+export const QUICK_VIEW_REGISTRY_ID = 'MyCard_QUICK_VIEW';
 
 export default class MyCardAdaptiveCardExtension extends BaseAdaptiveCardExtension<
   IMyCardAdaptiveCardExtensionProps,

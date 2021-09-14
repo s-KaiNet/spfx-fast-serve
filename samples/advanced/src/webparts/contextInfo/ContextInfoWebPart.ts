@@ -41,7 +41,7 @@ export default class ContextInfoWebPart extends BaseClientSideWebPart<IContextIn
     return Version.parse('1.0');
   }
 
-  protected async onPropertyPaneConfigurationStart() {
+  protected async onPropertyPaneConfigurationStart(): Promise<void> {
     await this.loadPropertyPaneResources();
   }
 

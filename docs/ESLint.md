@@ -7,12 +7,13 @@ SPFx still uses TSLint which is currently [deprecated](https://github.com/palant
 First of all, we need eslint and some essential related plugins. Let's install them:
 
 ```bash
-npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin gulp-eslint7 eslint-plugin-react --save-dev
+npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin gulp-eslint7 eslint-plugin-react eslint-plugin-react-hooks --save-dev
 ```
 
 - `eslint` - is a linter itself
 - `gulp-eslint7` - corresponding eslint gulp plugin (supports latest eslint)
 - `eslint-plugin-react` - contains recommended rules for React-based projects
+- `eslint-plugin-react-hooks` - react hooks lint rules
 - `@typescript-eslint/parser` - a custom eslint parser, so that eslint understands what is TypeScript
 - `@typescript-eslint/eslint-plugin` - contains recommended rules for TypeScript
 
@@ -38,9 +39,10 @@ This is the bare minimum configuration needed:
       "version": "detect"
     }
   },
-  "ignorePatterns": ["*.js"],
+  "ignorePatterns": ["*.js", "*.module.scss.ts", "*.d.ts"],
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "react-hooks"
   ],
   "extends": [
     "eslint:recommended",

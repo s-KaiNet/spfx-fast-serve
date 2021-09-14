@@ -13,6 +13,7 @@ That's an advanced SharePoint Framework and `spfx-fast-serve` integration, which
 - TypeScript 4+
 - dynamic imports (async imports)
 - adaptive card extension
+- eslint
 
 ## How to run
 
