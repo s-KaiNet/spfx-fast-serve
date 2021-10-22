@@ -21,6 +21,14 @@
           "manifest": "./src/webparts/sampleWebPart/SampleWebPartWebPart.manifest.json"
         }
       ]
+    },
+    "my-card-adaptive-card-extension": {
+      "components": [
+        {
+          "entrypoint": "./lib/adaptiveCardExtensions/myCard/MyCardAdaptiveCardExtension.js",
+          "manifest": "./src/adaptiveCardExtensions/myCard/MyCardAdaptiveCardExtension.manifest.json"
+        }
+      ]
     }
   },
   "externals": {
@@ -30,6 +38,7 @@
     "ContextInfoWebPartStrings": "lib/webparts/contextInfo/loc/{locale}.js",
     "HelloWorldWebPartStrings": "lib/webparts/helloWorld/loc/{locale}.js",
     "SampleWebPartWebPartStrings": "lib/webparts/sampleWebPart/loc/{locale}.js",
-    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
+    "MyCardAdaptiveCardExtensionStrings": "lib/adaptiveCardExtensions/myCard/loc/{locale}.js"
   }
 }

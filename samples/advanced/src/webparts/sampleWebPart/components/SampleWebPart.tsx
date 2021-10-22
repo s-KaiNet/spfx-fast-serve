@@ -2,16 +2,17 @@ import * as React from 'react';
 import { DateTimePicker, DateConvention, TimeConvention } from '@pnp/spfx-controls-react/lib/DateTimePicker';
 import { Placeholder as PnPPlaceholder } from '@pnp/spfx-controls-react/lib/Placeholder';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import marked from 'marked';
 library.add(faCamera);
 
 import styles from './SampleWebPart.module.scss';
 import { ISampleWebPartProps } from './ISampleWebPartProps';
 
-const logo: any = require('../assets/parker-spfx.png');
-export default class SampleWebPart extends React.Component<ISampleWebPartProps, {}> {
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const logo: string = require('../assets/parker-spfx.png');
+export default class SampleWebPart extends React.Component<ISampleWebPartProps, unknown> {
   public render(): React.ReactElement<ISampleWebPartProps> {
     return (
       <div className={styles.sampleWebPart}>
