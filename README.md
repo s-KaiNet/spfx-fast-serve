@@ -62,12 +62,11 @@ Starting from version `2.x`, the library saves your CLI arguments and serve opti
 
 Currently below configuration values are available for `serve`:
 
-- `open` - boolean, default `true`, whether to open a workbench url on startup
 - `openUrl` - string, default `undefined`, which url to open. If empty, local workbench will be opened
 - `loggingLevel` - string, default `normal`, valid values are `"minimal", "normal", "detailed"`. `minimal` notifies about errors and new builds only, `normal` adds bundle information, `detailed` adds details about each bundle.
 - `fullScreenErrors` - boolean, default `true`, whether to show full-screen (overlay) errors. Corresponds to [webpack's dev server overlay](https://webpack.js.org/configuration/dev-server/#devserveroverlay)
-- `hotRefresh` - boolean, default `false`. When `true` enables webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR). This features is considered as experimental meaning that you can try and use  if it works well for your project. Read [more here](/docs/HMR.md) how to properly configure SPFx to work with HMR.
-- `eslint` - boolean, default `false`. When `true`, adds [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) to lint your code. Read [more here](/docs/ESLint.md) how to properly configure it.
+- `hotRefresh` - *[SPFx 1.12+]* boolean, default `false`. When `true` enables webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR). This features is considered as experimental meaning that you can try and use  if it works well for your project. Read [more here](/docs/HMR.md) how to properly configure SPFx to work with HMR.
+- `eslint` - *[SPFx 1.13+]* boolean, default `false`. When `true`, adds [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) to lint your code. Read [more here](/docs/ESLint.md) how to properly configure it.
 
 Here is a sample configuration:
 
