@@ -4,7 +4,6 @@
     "isLibraryComponent": false
   },
   "serve": {
-    "open": false,
     "eslint": true
   }
 }
