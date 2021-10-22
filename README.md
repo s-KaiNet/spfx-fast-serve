@@ -77,7 +77,6 @@ Here is a sample configuration:
     "isLibraryComponent": false
   },
   "serve": {
-    "open": true,
     "openUrl": "https://<org>.sharepoint.com/sites/dev/_layouts/15/workbench.aspx",
     "fullScreenErrors": true
   }
