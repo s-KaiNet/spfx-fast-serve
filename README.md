@@ -34,8 +34,6 @@ Please use [this guide](/docs/Upgrade%20to%203x.md) if you're planning to migrat
 
 ## Migration between SPFx versions
 
-It's assumed, that you're already using `spfx-fast-serve@3.x`. If not, read [section](#migration-to-3x-version-of-spfx-fast-serve) above and migrate to `3.x` first.  
-
 As soon as you use `3.x` version, then the migration is as easy as just changing the version of `spfx-fast-serve-helpers` in your `package.json` to match the corresponding SPFx **minor** version (**do not** change patch version).
 
 For example, if your project is based on SPFx 1.11 and `spfx-fast-serve@3.x`, then you have below dependency:
@@ -106,6 +104,12 @@ Also
 - doesn't mess up your default SPFx build. If you have troubles, simply switch back to regular `gulp serve`
 
 With `spfx-fast-serve` you will be able to significantly reduce the time from code change to a page refresh in a browser (a few times faster than the default `gulp serve` command).
+
+## NGROK serve plugin
+
+`spfx-fast-serve` supports ngrok as a proxy between webpack dev server and SharePoint. This is possible through the *NgrokServePlugin* webpack plugin. This option allows you to test your SPFx solution live on mobile devices in development mode.
+
+Read more [here](/docs/NgrokServe.md) on how you can configure it.
 
 ## Library components
 
