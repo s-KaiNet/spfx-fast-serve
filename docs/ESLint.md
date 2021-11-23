@@ -95,5 +95,5 @@ const eslintSubTask = build.subTask('eslint', function (gulp, buildOptions, done
     .pipe(eslint.failAfterError());
 });
 
-build.rig.addPreBuildTask(build.task('eslint-task', eslintSubTask));
+build.rig.addPreBuildTask(eslintSubTask);
 ```

@@ -11,9 +11,9 @@
     "serve": "gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve"
   },
   "dependencies": {
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
-    "office-ui-fabric-react": "7.156.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "office-ui-fabric-react": "7.174.0",
     "@microsoft/sp-core-library": "1.13.0",
     "@microsoft/sp-property-pane": "1.13.0",
     "@microsoft/sp-webpart-base": "1.13.0",
@@ -28,7 +28,7 @@
     "@microsoft/sp-build-web": "1.13.0",
     "@microsoft/sp-tslint-rules": "1.13.0",
     "@microsoft/sp-module-interfaces": "1.13.0",
-    "@microsoft/rush-stack-compiler-3.7": "0.2.3",
+    "@microsoft/rush-stack-compiler-3.9": "0.4.47",
     "gulp": "~4.0.2",
     "ajv": "~5.2.2",
     "@types/webpack-env": "1.13.1",
