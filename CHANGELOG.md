@@ -1,13 +1,19 @@
 # Change Log
 
-## [3.0.2] - 10 June 2021
+## [3.0.3] - 09 Dec 2021
+
+### Features
+
+- automatic "beta" detection
+
+## [3.0.2] - 10 Jun 2021
 
 ### Features
 
 - schema changed to support latest SPFx
 - minor improvements
 
-## [3.0.1] - 08 June 2021
+## [3.0.1] - 08 Jun 2021
 
 ### Features
 

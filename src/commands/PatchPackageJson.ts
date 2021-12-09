@@ -4,7 +4,7 @@ import * as path from 'path';
 import detectIndent from 'detect-indent';
 
 import { logger } from '../common/Logger';
-import { getSpfxMinorVersion } from '../common/utils';
+import { getSpfxMinorVersion, isBeta } from '../common/utils';
 import { Settings } from '../interfaces/settings';
 import { BaseCommand } from './BaseCommand';
 
@@ -26,6 +26,10 @@ export class PatchPackageJson extends BaseCommand {
       templateDeps['spfx-fast-serve-helpers'] = `~1.${minorVersion}.0`;
     } else {
       throw new Error(`Unsupported SPFx version: 1.${minorVersion}`)
+    }
+
+    if (isBeta()) {
+      templateDeps['spfx-fast-serve-helpers'] = `${templateDeps['spfx-fast-serve-helpers']}-beta.0`;
     }
 
     if (isLibraryComponent && minorVersion < 12) {
