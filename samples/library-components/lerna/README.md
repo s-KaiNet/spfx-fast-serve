@@ -1,6 +1,6 @@
 # Library components: lerna approach
 
-![SPFx](https://img.shields.io/badge/SPFx-1.13.0-green.svg)
+![SPFx](https://img.shields.io/badge/SPFx-1.13.1-green.svg)
 
 Please refer to the docs [about library components](../../../docs/LibraryComponents.md) to read about lerna approach of handling library components with `spfx-fast-serve`.
 
