@@ -15,7 +15,7 @@ Compare "refresh" time (the time needed to compile your project when you change 
 | [PnP Modern Search solution](https://github.com/microsoft-search/pnp-modern-search) | 28-34 sec  | 2-4 sec         |
 | [SP Starter Kit solution](https://github.com/SharePoint/sp-starter-kit) (v1)        | 40-50 sec  | 2-3 sec         |
 
-Read more info in my [blog post here](https://spblog.net/post/2020/03/24/spfx-overclockers-or-how-significantly-speed-up-the-gulp-serve-command).
+Curious how it works under the hood? Read my [blog post here](https://spblog.net/post/2020/03/24/spfx-overclockers-or-how-significantly-speed-up-the-gulp-serve-command).
 
 ## How to use
 
@@ -25,16 +25,9 @@ Read more info in my [blog post here](https://spblog.net/post/2020/03/24/spfx-ov
 4. Run `npm install`
 5. Run `npm run serve` and enjoy the incredible speed of `serve` command!
 
-## Migration to 3.x version of `spfx-fast-serve`
-
-> **IMPORTANT!**  
-> Minimal supported NodeJS version for SPFx 1.12+ and `spfx-fast-serve` is `12.x`.
-
-Please use [this guide](/docs/Upgrade%20to%203x.md) if you're planning to migrate your project to `spfx-fast-serve` 3.x.  
-
 ## Migration between SPFx versions
 
-As soon as you use `3.x` version, then the migration is as easy as just changing the version of `spfx-fast-serve-helpers` in your `package.json` to match the corresponding SPFx **minor** version (**do not** change patch version).
+The migration is as easy as just changing the version of `spfx-fast-serve-helpers` in your `package.json` to match the corresponding SPFx **minor** version (**do not** change patch version).
 
 For example, if your project is based on SPFx 1.11 and `spfx-fast-serve@3.x`, then you have below dependency:
  > "spfx-fast-serve-helpers": "~1.11.0"
@@ -81,6 +74,20 @@ Here is a sample configuration:
 }
 
 ```
+
+Starting from SPFx 1.13+ the library also support SPFx serve configurations. If you have any custom serve configuration (`serveConfigurations` node under `./config/serve.json`), then you can apply it to the `spfx-fast-serve` as well by running:
+
+```bash
+npm run serve -- --config=[serve-config-name]
+```
+
+Or just duplicate "serve" npm script and add additional parameter:
+
+```json
+"serve-config": "gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve --config=[serve-config-name]"
+```
+
+It works exactly the same as the OOB `gulp serve --config=[config-name]`
 
 ## Which SharePoint Framework versions are supported
 
