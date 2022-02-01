@@ -50,6 +50,10 @@
         "eslint": {
           "type": "boolean",
           "description": "[SPFx 1.13+] Enables eslint for the project. Read more https://github.com/s-KaiNet/spfx-fast-serve#configuration-options"
+        },
+        "reactProfiling": {
+          "type": "boolean",
+          "description": "[SPFx 1.13+] Enables react profiling mode. You can profile SPFx solution using React Chromium extension"
         }
       }
     }
