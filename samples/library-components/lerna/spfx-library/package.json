@@ -13,12 +13,12 @@
   },
   "devDependencies": {
     "@microsoft/rush-stack-compiler-3.9": "0.4.47",
-    "@microsoft/sp-build-web": "1.13.1",
-    "@microsoft/sp-module-interfaces": "1.13.1",
-    "@microsoft/sp-tslint-rules": "1.13.1",
+    "@microsoft/sp-build-web": "1.14.0",
+    "@microsoft/sp-module-interfaces": "1.14.0",
+    "@microsoft/sp-tslint-rules": "1.14.0",
     "@types/webpack-env": "1.13.1",
     "ajv": "~5.2.2",
     "gulp": "~4.0.2",
-    "spfx-fast-serve-helpers": "~1.13.0"
+    "spfx-fast-serve-helpers": "~1.14.0"
   }
 }
