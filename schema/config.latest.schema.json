@@ -54,6 +54,10 @@
         "reactProfiling": {
           "type": "boolean",
           "description": "[SPFx 1.13+] Enables react profiling mode. You can profile SPFx solution using React Chromium extension"
+        },
+        "containers": {
+          "type": "boolean",
+          "description": "[SPFx 1.13+] By default fast-serve automatically detects containerized environment (like Docker) and applies needed configuration. But if it doesn't work for you, you can explicitly disable or enable support for containers using this option."
         }
       }
     }

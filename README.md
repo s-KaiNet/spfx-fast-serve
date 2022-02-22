@@ -59,6 +59,7 @@ Currently below configuration values are available for `serve`:
 - `hotRefresh` - *[SPFx 1.12+]* boolean, default `false`. When `true` enables webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR). This features is considered as experimental meaning that you can try and use  if it works well for your project. Read [more here](/docs/HMR.md) how to properly configure SPFx to work with HMR.
 - `eslint` - *[SPFx 1.13+]* boolean, default `false`. When `true`, adds [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) to lint your code. Read [more here](/docs/ESLint.md) how to properly configure it.
 - `reactProfiling` - *[SPFx 1.13+]* boolean, default `false`. When `true`, enables react profiling mode through [React Chrome extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en). By default profiling doesn't work in SPFx solutions (even in dev mode).
+- `containers` - *[SPFx 1.13+]* boolean, by default `fast-serve` automatically detects containerized environment (like Docker) and applies needed configuration. But if it doesn't work for you, you can explicitly disable or enable support for containers using this option.
 
 Here is a sample configuration:
 
