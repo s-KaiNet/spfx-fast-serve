@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk';
+import updateNotifier from 'update-notifier';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const pkg = require('./../package.json');
+
+updateNotifier({pkg}).notify();
 
 import { logger } from './common/Logger';
 import {
@@ -28,6 +34,6 @@ pipeline.execute();
 logger.success(chalk.green('All done!'));
 logger.newLine();
 
-const message = 'Now you should run \'npm install\'. When you\'re done, simply execute \'npm run serve\'';
+const message = 'Now restore dependecies (\'npm install\' for npm) and execute \'npm run serve\' afterwards.';
 
-logger.warning(chalk.bgRed(message));
+logger.info(chalk.bgMagenta.white(message));

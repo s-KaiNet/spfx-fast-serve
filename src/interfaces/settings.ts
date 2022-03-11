@@ -4,11 +4,4 @@ export interface Settings {
     isLibraryComponent: boolean;
     port?: number;
   }
-
-  serve?: {
-    open: boolean;
-    openUrl?: string;
-    fullScreenErrors: boolean;
-    loggingLevel: 'minimal' | 'normal' | 'detailed';
-  }
 }

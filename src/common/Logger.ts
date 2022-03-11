@@ -27,6 +27,10 @@ class Logger {
     this.logger(logSymbols.warning, message);
   }
 
+  public info(message: string) {
+    this.logger(logSymbols.info, message);
+  }
+
   public newLine() {
     this.logger('');
   }

@@ -1,5 +1,17 @@
 # Change Log
 
+## [3.0.5] - 11 Mar 2021
+
+### Features
+
+- minor changes
+
+## [3.0.4] - 11 Mar 2021
+
+### Features
+
+- self-update checker
+
 ## [3.0.3] - 09 Dec 2021
 
 ### Features
