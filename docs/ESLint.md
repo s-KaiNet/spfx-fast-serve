@@ -1,6 +1,10 @@
 # ESLint configuration
 
-SPFx still uses TSLint which is currently [deprecated](https://github.com/palantir/tslint). You can configure [ESLint](https://eslint.org/) (which is a replacement for TSLint) to work with SharePoint Framework projects.
+> **IMPORTANT**
+>
+> SPFx 1.15 and onwards uses ESLint for code linting. For these versions of SPFx you shouldn't configure ESLint according to the current doc, because now ESLint feature is implemented natively inside SPFx. Apply below configuration only if your SPFx version is less than 1.15.  
+
+SPFx less than `1.15` uses TSLint which is currently [deprecated](https://github.com/palantir/tslint). You can configure [ESLint](https://eslint.org/) (which is a replacement for TSLint) to work with SharePoint Framework projects.
 
 ## Install the required packages
 
