@@ -13,7 +13,26 @@
       "privacyUrl": "",
       "termsOfUseUrl": "",
       "mpnId": ""
-    }
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "fast-serve-advanced-sample description"
+      },
+      "longDescription": {
+        "default": "fast-serve-advanced-sample description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "fast-serve-advanced-sample Feature",
+        "description": "The feature that activates elements of the fast-serve-advanced-sample solution.",
+        "id": "83a54f7e-9efe-4fb2-bcb7-d18f9ad97fac",
+        "version": "1.0.0.0"
+      }
+    ]
   },
   "paths": {
     "zippedPackage": "solution/fast-serve-advanced-sample.sppkg"
