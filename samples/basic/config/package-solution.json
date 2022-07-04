@@ -5,7 +5,33 @@
     "id": "99057c54-0343-497d-90ae-dbba803e5023",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "isDomainIsolated": false
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "websiteUrl": "",
+      "mpnId": "Undefined-1.15.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "basic description"
+      },
+      "longDescription": {
+        "default": "basic description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "basic Feature",
+        "description": "The feature that activates elements of the basic solution.",
+        "id": "ddf570ca-d3d3-4958-a3f1-eeb6e776dfc7",
+        "version": "1.0.0.0"
+      }
+    ]
   },
   "paths": {
     "zippedPackage": "solution/basic.sppkg"
