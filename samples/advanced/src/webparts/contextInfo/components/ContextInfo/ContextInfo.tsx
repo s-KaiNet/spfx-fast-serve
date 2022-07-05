@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { SPHttpClient } from '@microsoft/sp-http';
+import { spfi, SPFx } from '@pnp/sp';
+import '@pnp/sp/webs';
 
 import styles from './ContextInfo.module.scss';
 import { ContextInfoProps } from './ContextInfoProps';
@@ -23,6 +25,12 @@ const ContextInfo: FC<ContextInfoProps> = ({ context }) => {
           'Accept': 'application/json;odata.metadata=none'
         }
       })).json();
+
+      const sp = spfi().using(SPFx({ pageContext: context.pageContext }));
+      const web = await sp.web();
+
+      console.log(web);
+
       setInfo(JSON.stringify(res, null, 2));
       setLoading(false);
     };

@@ -6,8 +6,6 @@ import {
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 
-//import { sp } from "@pnp/sp/presets/all";
-
 import ContextInfo from '@src/webparts/contextInfo/components/ContextInfo/ContextInfo';
 import { ContextInfoPropertyPane } from './ContextInfoPropertyPane';
 
@@ -19,12 +17,10 @@ export default class ContextInfoWebPart extends BaseClientSideWebPart<IContextIn
 
   private propertyPane: ContextInfoPropertyPane;
 
-  /*
-  public async onInit(): Promise<void> {
+  protected async onInit(): Promise<void> {
     await super.onInit();
-    sp.setup(this.context);
   }
-*/
+
   public render(): void {
     const element = React.createElement(ContextInfo, {
       context: this.context
