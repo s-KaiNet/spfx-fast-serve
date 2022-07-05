@@ -5,7 +5,33 @@
     "id": "9f8eac5f-0a85-45b2-adbd-63ecfe6dbdd4",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "isDomainIsolated": false
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "websiteUrl": "",
+      "mpnId": "Undefined-1.15.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "spfx-webparts description"
+      },
+      "longDescription": {
+        "default": "spfx-webparts description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "spfx-webparts Feature",
+        "description": "The feature that activates elements of the spfx-webparts solution.",
+        "id": "4a024b5d-367b-4acc-bfb2-9a220facc780",
+        "version": "1.0.0.0"
+      }
+    ]
   },
   "paths": {
     "zippedPackage": "solution/spfx-webparts.sppkg"

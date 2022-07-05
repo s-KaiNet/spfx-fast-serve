@@ -7,7 +7,7 @@ import { MyApiLibrary } from "corporate-library";
 
 export default class HelloWorld extends React.Component<IHelloWorldProps, {}> {
   public render(): React.ReactElement<IHelloWorldProps> {
-    const api = new MyApiLibrary();
+    const api: MyApiLibrary = new MyApiLibrary();
     return (
       <div className={styles.helloWorld}>
         <div className={styles.container}>
