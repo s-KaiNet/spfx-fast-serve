@@ -51,6 +51,6 @@
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "4.3.0",
     "gulp": "~4.0.2",
-    "spfx-fast-serve-helpers": "1.15.3-beta.0"
+    "spfx-fast-serve-helpers": "~1.15.3"
   }
 }
