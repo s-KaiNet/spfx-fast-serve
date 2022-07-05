@@ -12,7 +12,26 @@
       "privacyUrl": "",
       "termsOfUseUrl": "",
       "mpnId": ""
-    }
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "another-library description"
+      },
+      "longDescription": {
+        "default": "another-library description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "another-library Feature",
+        "description": "The feature that activates elements of the another-library solution.",
+        "id": "0e894b2c-a838-4278-a157-18ac0bab69d3",
+        "version": "1.0.0.0"
+      }
+    ]
   },
   "paths": {
     "zippedPackage": "solution/another-library.sppkg"

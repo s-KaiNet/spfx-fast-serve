@@ -5,7 +5,33 @@
     "id": "875b6400-0940-496f-942f-3e87e20710f7",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "isDomainIsolated": false
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "websiteUrl": "",
+      "mpnId": "Undefined-1.15.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "corporate-library description"
+      },
+      "longDescription": {
+        "default": "corporate-library description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "corporate-library Feature",
+        "description": "The feature that activates elements of the corporate-library solution.",
+        "id": "f127871e-6cc9-4d40-b32d-b5c16b482510",
+        "version": "1.0.0.0"
+      }
+    ]
   },
   "paths": {
     "zippedPackage": "solution/corporate-library.sppkg"
