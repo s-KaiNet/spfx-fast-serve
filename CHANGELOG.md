@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.0.6] - 19 Nov 2022
+
+### Fixed
+
+- `-rc.[number]` now also recognized as beta SPFx version
+
 ## [3.0.5] - 11 Mar 2021
 
 ### Features

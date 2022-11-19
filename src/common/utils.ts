@@ -21,5 +21,5 @@ export function getSpfxMinorVersion() {
 export function isBeta() {
   const version: string = packageJson.devDependencies[dependecyToCheck];
 
-  return version.indexOf('-beta') !== -1;
+  return version.indexOf('-beta') !== -1 || version.indexOf('-rc') !== -1;
 }
