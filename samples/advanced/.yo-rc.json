@@ -2,13 +2,18 @@
   "@microsoft/generator-sharepoint": {
     "isCreatingSolution": false,
     "environment": "spo",
-    "version": "1.15.0",
+    "version": "1.16.1",
     "libraryName": "fast-serve-advanced-sample",
     "libraryId": "bf8d902b-0414-4a7a-992d-d5632b945ff0",
     "packageManager": "npm",
     "isDomainIsolated": false,
     "plusBeta": true,
     "componentType": "adaptiveCardExtension",
-    "templateType": "Image"
+    "templateType": "Image",
+    "nodeVersion": "16.17.0",
+    "sdkVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.4.1"
+    }
   }
 }
