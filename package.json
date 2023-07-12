@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/s-KaiNet/spfx-fast-serve",
   "dependencies": {
+    "@types/node": "20.4.1",
     "@types/update-notifier": "5.1.0",
     "@types/yargs": "16.0.3",
     "chalk": "4.1.2",
