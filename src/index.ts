@@ -34,6 +34,6 @@ pipeline.execute();
 logger.success(chalk.green('All done!'));
 logger.newLine();
 
-const message = 'Now restore dependecies (\'npm install\' for npm) and execute \'npm run serve\' afterwards.';
+const message = 'Now restore dependencies (\'npm install\' for npm) and execute \'npm run serve\' afterwards.';
 
 logger.info(chalk.bgMagenta.white(message));

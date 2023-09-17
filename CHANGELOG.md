@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.0.7] - 17 Sep 2023
+
+### Features
+
+- grammar fix
+- added additional webpack parameter to the extend function
+
 ## [3.0.6] - 19 Nov 2022
 
 ### Fixed
