@@ -10,22 +10,14 @@ updateNotifier({pkg}).notify();
 
 import { logger } from './common/Logger';
 import {
-  PatchGitIgnoreFile,
   PatchGulpFile,
   PatchPackageJson,
   Pipeline,
-  CreateWebPackExtendFile
 } from './commands';
-import { SettingsManager } from './common/SettingsManager';
-
-const settings = SettingsManager.createSettings();
 
 const pipeline = new Pipeline(
-  settings,
-  new CreateWebPackExtendFile(),
   new PatchGulpFile(),
-  new PatchPackageJson(),
-  new PatchGitIgnoreFile());
+  new PatchPackageJson());
 
 logger.newLine();
 

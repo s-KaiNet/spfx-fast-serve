@@ -5,11 +5,10 @@ import detectIndent from 'detect-indent';
 
 import { logger } from '../common/Logger';
 import { getSpfxMinorVersion, isBeta } from '../common/utils';
-import { Settings } from '../interfaces/settings';
 import { BaseCommand } from './BaseCommand';
 
 export class PatchPackageJson extends BaseCommand {
-  public execute({ cli: { isLibraryComponent } }: Settings): void {
+  public execute(): void {
     const packagePath = path.join(process.cwd(), 'package.json');
     const packageString = fs.readFileSync(packagePath).toString();
     const indent = detectIndent(packageString).indent || '  ';
@@ -18,11 +17,7 @@ export class PatchPackageJson extends BaseCommand {
 
     const templateDeps: Record<string, string> = {};
 
-    if (minorVersion >= 4 && minorVersion < 9) {
-      templateDeps['spfx-fast-serve-helpers'] = '~1.4.0';
-    } else if (minorVersion >= 9 && minorVersion < 12) {
-      templateDeps['spfx-fast-serve-helpers'] = '~1.11.0';
-    } else if (minorVersion >= 12) {
+    if (minorVersion >= 12) {
       templateDeps['spfx-fast-serve-helpers'] = `~1.${minorVersion}.0`;
     } else {
       throw new Error(`Unsupported SPFx version: 1.${minorVersion}`)
@@ -30,10 +25,6 @@ export class PatchPackageJson extends BaseCommand {
 
     if (isBeta()) {
       templateDeps['spfx-fast-serve-helpers'] = `${templateDeps['spfx-fast-serve-helpers']}-beta.0`;
-    }
-
-    if (isLibraryComponent && minorVersion < 12) {
-      templateDeps['concurrently'] = '5.3.0';
     }
 
     for (const dependency in templateDeps) {
@@ -51,12 +42,7 @@ export class PatchPackageJson extends BaseCommand {
       logger.newLine();
     }
 
-    if (isLibraryComponent && minorVersion < 12) {
-      packageJson.scripts['serve'] = 'gulp bundle --custom-serve --max_old_space_size=4096 && concurrently -k "fast-serve" "npm run ts"';
-      packageJson.scripts['ts'] = 'tsc -p tsconfig.json -w --preserveWatchOutput';
-    } else {
-      packageJson.scripts['serve'] = 'gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve';
-    }
+    packageJson.scripts['serve'] = 'fast-serve';
 
     fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, indent));
 
