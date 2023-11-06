@@ -1,5 +1,10 @@
-# Library components samples
+# Library components: regular approach
 
-This folder contains two samples for different approaches of handling library components - using [Lerna.js](https://github.com/lerna/lerna) and a regular approach without additional libraries.
+![SPFx](https://img.shields.io/badge/SPFx-1.18.0-green.svg)
 
-Read more about sfpx-fast-serve and library components handling [here](../../docs/LibraryComponents.md).
+Please refer to the docs [about library components](../../docs/LibraryComponents.md) to read about regular approach of handling library components with `spfx-fast-serve`.
+
+## How to run
+
+1. Run `npm install` in `./spfx-library` and then inside `./spfx-webparts`
+2. Run `npm run serve` in `./spfx-library` and then inside `./spfx-webparts`.

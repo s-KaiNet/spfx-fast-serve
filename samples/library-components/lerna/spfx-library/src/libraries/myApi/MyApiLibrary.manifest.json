@@ -1,9 +1,0 @@
-{
-  "id": "d7acd7da-6d28-4344-ad4e-c20acc70a858",
-  "alias": "MyApiLibrary",
-  "componentType": "Library",
-
-  // The "*" signifies that the version should be taken from the package.json
-  "version": "*",
-  "manifestVersion": 2
-}

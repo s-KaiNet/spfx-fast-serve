@@ -1,9 +1,0 @@
-{
-  "id": "a579c63e-ac00-4568-9bee-39a51160c92b",
-  "alias": "MyCoolLibraryLibrary",
-  "componentType": "Library",
-
-  // The "*" signifies that the version should be taken from the package.json
-  "version": "*",
-  "manifestVersion": 2
-}
