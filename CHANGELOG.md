@@ -1,5 +1,15 @@
 # Change Log
 
+## [4.0.0] - 17 Nov 2023
+
+### BREAKING CHANGES
+
+- drop support for older SPFx versions (less then 1.15)
+
+### Features
+
+- less footprint on projects (by default the tool doesn't create `fast-serve` folder)
+
 ## [3.0.7] - 17 Sep 2023
 
 ### Features

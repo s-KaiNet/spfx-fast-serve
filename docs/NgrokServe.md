@@ -6,13 +6,14 @@ That's a new webpack plugin from "spfx-fast-serve-helpers" module, aimed to make
 
 This is something completely new introduced for SPFx 1.13 and onwards. SPFx 1.13 added a new type of extension called [Adaptive Cards](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/viva/get-started/build-first-sharepoint-adaptive-card-extension). Mostly it's used inside Viva Connection Dashboards and mobile experiences. In the hosted workbench you can test adaptive cards. But what if you want to continue local development and see how it looks like inside your Viva MS Team's mobile app? Of course, you can use mobile view in dev tools, however on the actual device, it might be different. Or what if you have a bug, which is reproducible on a mobile device only?
 
-With spfx-fast-serve you can create a kind of proxy between your locally running dev server and Viva app, loading development javascript. You can use the [ngrok](https://ngrok.com/) tool as such a proxy and the _NgrokServePlugin_ from spfx-fast-serve. This approach works also for Teams Tabs if you wish to test them on mobile.
+With `spfx-fast-serve` you can create a kind of proxy between your locally running dev server and Viva app, loading development javascript. You can use the [ngrok](https://ngrok.com/) tool as such a proxy and the _NgrokServePlugin_ from `spfx-fast-serve`. This approach works also for Teams Tabs if you wish to test them on mobile.
 
 ## How to configure
 
 ### Scaffold a new project
 
-You can use existing or just scaffold a brand new SPFx project with an adaptive card extension. Make sure to set _Do you want to allow the tenant admin the choice of being able to deploy the solution to all sites immediately without running any feature deployment or adding apps in sites?:_ **Yes.**
+You can use existing or just scaffold a brand new SPFx project with an adaptive card extension. Make sure to set  
+ _Do you want to allow the tenant admin the choice of being able to deploy the solution to all sites immediately without running any feature deployment or adding apps in sites?:_ **Yes.**
 
 ### Run ngrok
 
@@ -46,7 +47,7 @@ Open _config/serve.json_ and change configuration -"port": 443, "hostname": "657
 }
 ```
 
-Now open _fast-serve/webpack.extend.js_ and add _NgrokServePlugin_plugin (use the same host as before for the "host" plugin parameter):
+Now open _fast-serve/webpack.extend.js_ and add _NgrokServePlugin_ plugin (use the same host as before for the "host" plugin parameter):
 
 ```js
 const { NgrokServePlugin } = require("spfx-fast-serve-helpers");
@@ -57,8 +58,6 @@ const webpackConfig = {
   plugins: [new NgrokServePlugin({ host: "657f90095ec8.ngrok.io" })]
 }
 ```
-
-Why webpack plugin and not a configuration setting? What if you want to run ngrok from javascript using API? In that case, the URL will be different every time (unless you use the paid account of course). What if in the future I will have to introduce additional parameters? The last argument is that I don't expect this feature will be used frequently. That's why the webpack plugin.
 
 ### Build, package and deploy it
 

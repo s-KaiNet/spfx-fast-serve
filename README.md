@@ -29,15 +29,15 @@ Curious how it works under the hood? Read my [blog post here](https://spblog.net
 
 The migration is as easy as just changing the version of `spfx-fast-serve-helpers` in your `package.json` to match the corresponding SPFx **minor** version (**do not** change patch version).
 
-For example, if your project is based on SPFx 1.11 and `spfx-fast-serve@3.x`, then you have below dependency:
- > "spfx-fast-serve-helpers": "~1.11.0"
+For example, if your project is based on SPFx 1.17 and `spfx-fast-serve@3.x`, then you have below dependency:
+ > "spfx-fast-serve-helpers": "~1.17.0"
 
- To migrate `fast-serve` to SPFx 1.12 you just need to change it like this (patch version should be `0`, we change only minor version):
-> "spfx-fast-serve-helpers": "~1.12.0"
+ To migrate `fast-serve` to SPFx 1.18 you just need to change it like this (patch version should be `0`, we change only minor version):
+> "spfx-fast-serve-helpers": "~1.18.0"
 
 Reinstall all dependencies and that's it!
 
-## Webpack extensibility
+## Webpack extensibility [TODO]
 
 If you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.extend.js` file created by the cli to make everything work. Apply only those webpack modifications, which work on a regular `gulp serve` command since `spfx-fast-serve` works only in development mode.  
 
@@ -47,7 +47,7 @@ You can either provide custom `webpackConfig` object, which will be merged using
 
 Check out [this sample](https://github.com/s-KaiNet/spfx-fast-serve/blob/master/samples/advanced/fast-serve/webpack.extend.js) to see how it works. The sample configures custom path aliases for SPFx.
 
-## Configuration options
+## Configuration options [TODO]
 
 Starting from version `2.x`, the library saves your CLI arguments and serve options into the configuration file. The file is located under `./fast-serve/config.json`.
 
@@ -56,7 +56,7 @@ Currently below configuration values are available for `serve`:
 - `openUrl` - string, default `undefined`, which url to open. If empty, no url will be opened
 - `loggingLevel` - string, default `normal`, valid values are `"minimal", "normal", "detailed"`. `minimal` notifies about errors and new builds only, `normal` adds bundle information, `detailed` adds details about each bundle.
 - `fullScreenErrors` - boolean, default `true`, whether to show full-screen (overlay) errors. Corresponds to [webpack's dev server overlay](https://webpack.js.org/configuration/dev-server/#devserveroverlay)
-- `hotRefresh` - *[SPFx 1.12+]* boolean, default `false`. When `true` enables webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR). This features is considered as experimental meaning that you can try and use  if it works well for your project. Read [more here](/docs/HMR.md) on how to properly configure SPFx to work with HMR.
+- `hotRefresh` - boolean, default `false`. When `true` enables webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR). This features is considered as experimental meaning that you can try and use  if it works well for your project. Read [more here](/docs/HMR.md)
 - `eslint` - boolean, for SPFx `1.15` and onwards, the default value is  `true`, because `1.15+` supports ESLint natively. For the earlier versions the default is `false`. When `true`, adds [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) to lint your code with `lintDirtyModulesOnly:true` option for performance. If you're running on the SPFx earlier than `1.15`, you should read [this doc](/docs/ESLint.md) and configure ESLint explicitly.
 - `reactProfiling` - *[SPFx 1.13+]* boolean, default `false`. When `true`, enables react profiling mode through [React Chrome extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en). By default profiling doesn't work in SPFx solutions (even in dev mode).
 - `containers` - *[SPFx 1.13+]* boolean, by default `fast-serve` automatically detects containerized environment (like Docker) and applies needed configuration. But if it doesn't work for you, you can explicitly disable or enable support for containers using this option.
@@ -93,7 +93,13 @@ It works exactly the same as the OOB `gulp serve --config=[config-name]`
 
 ## Which SharePoint Framework versions are supported
 
-SharePoint Online and SharePoint 2019, which basically means SharePoint Framework 1.4.1 and above.
+The latest `4.x` version supports SPFx 1.15 and onwards.
+
+Version `3.x` supports SPFx 1.4.1 and above. If you need to run the tool for SPFx < 1.15, you could use `npx` tool:
+
+```bash
+npx -p spfx-fast-serve@3.0.7 -- spfx-fast-serve
+```
 
 SharePoint 2016 is **NOT** supported.
 
@@ -107,9 +113,10 @@ The tool adds necessary files to run your own webpack based build with webpack d
 
 Also
 
-- supports local and hosted workbench, MS Teams host
-- live reloading (for hosted workbench and Teams)
+- live reloading for hosted workbench, MS Teams host, mobile devices (with ngrok serve)
 - debugging from VSCode with Chrome Debugger extension
+- supports WSL2
+- Hot Module Replacement (HMR) - experimental support
 - doesn't mess up your default SPFx build. If you have troubles, simply switch back to regular `gulp serve`
 
 With `spfx-fast-serve` you will be able to significantly reduce the time from code change to a page refresh in a browser (a few times faster than the default `gulp serve` command).

@@ -1,10 +1,13 @@
 {
   "name": "spfx-fast-serve",
-  "version": "3.0.7",
+  "version": "4.0.0",
   "author": "Sergei Sergeev (https://github.com/s-KaiNet)",
   "description": "Improve your SharePoint Framework development by speeding up 'serve' command",
   "main": "lib/index.js",
   "bin": "lib/index.js",
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "build": "npm run lint && tsc -p . && npm run copy",
     "copy": "cpy **/*.* ../../lib/templates --parents --cwd=src/templates",
