@@ -119,8 +119,6 @@ Also
 - Hot Module Replacement (HMR) - experimental support
 - doesn't mess up your default SPFx build. If you have troubles, simply switch back to regular `gulp serve`
 
-With `spfx-fast-serve` you will be able to significantly reduce the time from code change to a page refresh in a browser (a few times faster than the default `gulp serve` command).
-
 ## NGROK serve plugin
 
 `spfx-fast-serve` supports ngrok as a proxy between webpack dev server and SharePoint. This is possible through the *NgrokServePlugin* webpack plugin. This option allows you to test your SPFx solution live on mobile devices in development mode.
@@ -130,27 +128,6 @@ Read more [here](/docs/NgrokServe.md) on how you can configure it.
 ## Library components
 
 Please use [this guide](/docs/LibraryComponents.md) to configure `spfx-fast-serve` with library components.
-
-## SharePoint Rest Proxy aka [sp-rest-proxy](https://github.com/koltyakov/sp-rest-proxy) support
-
-If you want to use `sp-rest-proxy`, then use `webpack.extend.js` feature. Install `sp-rest-proxy` and add below code to the `webpack.extend.js`:
-
-```javascript
-const RestProxy = require('sp-rest-proxy');
-....
-const webpackConfig = {
-  devServer.before = function (app) {
-      new RestProxy({
-        4321,
-        logLevel: "Off",
-        configPath: './config/private.json'
-      }, app).serveProxy();
-    }
-}
-....
-```
-
-You should create `./config/private.json` file with your credentials beforehand.
 
 ## [pnpm](https://pnpm.js.org/) support
 
