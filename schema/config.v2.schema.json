@@ -14,7 +14,7 @@
         },
         "memory": {
           "type": "integer",
-          "description": "Memory limit for the dev server in MB (default: 8192)"
+          "description": "Memory limits for the dev server in MB (default: 8192)"
         },
         "isLibraryComponent": {
           "type": "boolean",

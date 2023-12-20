@@ -2,7 +2,7 @@
 
 - [1. When I run `npm run serve` I see the error](#1-when-i-run-npm-run-serve-i-see-the-error)
 - [2. After I applied `sfpx-fast-serve` tool I have formatting broken in `gulpfile.js`](#2-after-i-applied-sfpx-fast-serve-tool-i-have-formatting-broken-in-gulpfilejs)
-- [3. I added a new dependency in my solution (or started using new import from "@microsoft/*" modules) and now I see some strange errors](#3-i-added-a-new-dependency-in-my-solution-or-started-using-new-import-from-microsoft-modules-and-now-i-see-some-strange-errors)
+- [3. I added a new dependency in my solution (or started using new import from "@microsoft/\*" modules) and now I see some strange errors](#3-i-added-a-new-dependency-in-my-solution-or-started-using-new-import-from-microsoft-modules-and-now-i-see-some-strange-errors)
 - [4. Does it support React Hot Module Replacement (aka HMR)?](#4-does-it-support-react-hot-module-replacement-aka-hmr)
 - [5. How to debug with Chrome Debugger extension from VSCode?](#5-how-to-debug-with-chrome-debugger-extension-from-vscode)
 - [6. How to run with different locale?](#6-how-to-run-with-different-locale)
@@ -44,12 +44,12 @@ Just refer to the official [documentation](https://docs.microsoft.com/en-us/shar
 You have two options here. If you support only one or two additional locales, you can create additional npm serve scripts (inside `package.json`) with different locales support, i.e.
 
 ```json
-"serve-nl": "gulp bundle --custom-serve --locale=nl-nl --max_old_space_size=4096 && fast-serve",
+"serve-nl": "fast-serve --locale=nl-nl",
 ```
 
 Take a note that I added `--locale=nl-nl` to support NL locale.
 
-Alternatively, if you need a lot of locales, you can create dynamic solution with environmental variables. To support this scenario, set a new environmental varable to be your locale code, i.e.
+Alternatively, if you need a lot of locales, you can create dynamic solution with environmental variables. To support this scenario, set a new environmental variable to be your locale code, i.e.
 
 ```bash
 set SPFX_LOCALE=nl-nl
@@ -64,7 +64,7 @@ npm i cross-env --save-dev --save-exact
 Then update npm script to use this variable:
 
 ```json
-"serve-loc": "cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 gulp bundle --custom-serve --locale=$SPFX_LOCALE && fast-serve"
+"serve-loc": "cross-env-shell fast-serve --locale=$SPFX_LOCALE"
 ```
 
 Take a note on `--locale=$SPFX_LOCALE` special syntax and using `cross-env-shell` (part of `cross-env` package, you don't need to install anything additionally).

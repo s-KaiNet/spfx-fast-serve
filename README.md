@@ -2,34 +2,77 @@
 
 [![npm version](https://badge.fury.io/js/spfx-fast-serve.svg)](https://badge.fury.io/js/spfx-fast-serve)
 
-A command line utility, which modifies your SharePoint Framework solution, so that it runs continuous `serve` command as fast as possible.
-
----
-
-Compare "refresh" time (the time needed to compile your project when you change a file and start refreshing a page in a browser):
-> NOTE: The actual time depends on the environment, hardware, but at least you can see the difference
-
-|                                                                                     | gulp serve | spfx-fast-serve |
-| ----------------------------------------------------------------------------------- | ---------- | --------------- |
-| Default "Hello World" <br> React web part                                           | 3-5 sec    | 0.1-0.2 sec     |
-| [PnP Modern Search solution](https://github.com/microsoft-search/pnp-modern-search) | 28-34 sec  | 2-4 sec         |
-| [SP Starter Kit solution](https://github.com/SharePoint/sp-starter-kit) (v1)        | 40-50 sec  | 2-3 sec         |
+A command line utility, which modifies your SharePoint Framework solution, so that it runs continuous `serve` command 10-15x times faster, than the regular `gulp serve`.
 
 Curious how it works under the hood? Read my [blog post here](https://spblog.net/post/2020/03/24/spfx-overclockers-or-how-significantly-speed-up-the-gulp-serve-command).
+
+> **IMPORTANT**
+>
+> `spfx-fast-serve` version `4.x` (current) supports SPFx starting from version 1.17. Read more [here](#which-sharepoint-framework-versions-are-supported)
 
 ## How to use
 
 1. `npm install spfx-fast-serve -g`
 2. Open a command line in a folder with your SharePoint Framework solution you want to speed up.
-3. Run `spfx-fast-serve` and follow instructions. In most cases you shouldn't do anything specific and the cli "just works".
+3. Run `spfx-fast-serve` and follow instructions. In most cases you shouldn't do anything specific and the CLI "just works".
 4. Run `npm install`
 5. Run `npm run serve` and enjoy the incredible speed of `serve` command!
 
+## `fast-serve` CLI
+
+The `spfx-fast-serve` command simply adds necessary things to run your `serve` faster. Among them, it installs `spfx-fast-serve-helpers` NodeJS package. The package contains the `fast-serve` CLI, which does all the magic "serve" things. Each CLI option could be provided as a command line parameter or could be stored inside the `fast-serve` configuration file under `<your SPfx project/fast-serve/config.json`. The config file is not created by default, but you could create it using `fast-serve` CLI [commands](#fast-serve-commands).
+
+### `fast-serve` CLI options
+
+| option               | type    | defaults  | description                                                                                                                                                                                                                                                                                     |
+|----------------------|---------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `port`               | integer | 4321      | HTTP port to use to serve the bundles                                                                                                                                                                                                                                                           |
+| `memory`             | integer | 8192      | Memory limits for the dev server in MB                                                                                                                                                                                                                                                          |
+| `locale`             | string  | undefined | Local code when running in a multi-language scenario, i.e. `--locale=nl-nl`                                                                                                                                                                                                                     |
+| `config`             | string  | undefined | Serve configuration to run on a startup. It works exactly the same as the OOB `gulp serve --config=[config-name]`                                                                                                                                                                               |
+| `openUrl`            | string  | undefined | URL to open on a startup. If empty, no URL will be opened. Supports SPFx {tenantDomain} placeholder                                                                                                                                                                                             |
+| `loggingLevel`       | enum    | normal    | Logging level, 'minimal' notifies about errors and new builds only, 'normal' adds bundle information, 'detailed' displays maximum information about each bundle                                                                                                                                 |
+| `fullScreenErrors`   | boolean | true      | Whether to show errors with a full-screen overlay on UI or not (only in console)                                                                                                                                                                                                                |
+| `isLibraryComponent` | boolean | false     | Should be true, when running inside library component project type                                                                                                                                                                                                                              |
+| `eslint`             | boolean | true      | When `true`, adds [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) to lint your code with `lintDirtyModulesOnly:true` option for performance                                                                                                                   |
+| `hotRefresh`         | boolean | false     | Enables webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR). This feature is considered as experimental, meaning that you can try and use it if it works well for your project. Read [more here](/docs/HMR.md)                                    |
+| `reactProfiling`     | boolean | false     | When `true`, enables react profiling mode through [React Chrome extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en). By default profiling doesn't work in SPFx solutions (even in dev mode).                                     |
+| `containers`         | boolean | false     | Explicitly enables containerized environment support. By default, `fast-serve` automatically detects a containerized environment (like Docker) and applies needed configuration. But if it doesn't work for you, you can explicitly disable or enable support for containers using this option. |
+| `debug`              | boolean | false     | Enables debug mode for `fast-serve`                                                                                                                                                                                                                                                             |
+
+Here is a sample configuration:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/s-KaiNet/spfx-fast-serve/master/schema/config.v2.schema.json",
+  "serve": {
+    "config": "my-config",
+    "fullScreenErrors": false,
+    "debug": true
+  }
+}
+```
+
+If you call `fast-serve` with the above configuration file, it will be the equivalent of calling the CLI with the below parameters (taken from file):
+
+```bash
+fast-serve --config=my-config --fullScreenErrors=false --debug
+```
+
+If you have the same option provided in both file and CLI, the CLI option will take the precedence.
+
+### `fast-serve` commands
+
+`fast-serve` CLI supports below commands:
+
+- `fast-serve webpack extend` - adds fast-serve webpack extensibility file to the project. Read more on webpack extensibility [here](#webpack-extensibility)
+- `fast-serve config add` -adds `fast-serve` configuration file to the project
+
 ## Migration between SPFx versions
 
-The migration is as easy as just changing the version of `spfx-fast-serve-helpers` in your `package.json` to match the corresponding SPFx **minor** version (**do not** change patch version).
+The migration is as easy as just changing the version of `spfx-fast-serve-helpers` in your `package.json` to match the corresponding SPFx **minor** version (**do not** change the patch version).
 
-For example, if your project is based on SPFx 1.17 and `spfx-fast-serve@3.x`, then you have below dependency:
+For example, if your project is based on SPFx 1.17, then you have the below dependency:
  > "spfx-fast-serve-helpers": "~1.17.0"
 
  To migrate `fast-serve` to SPFx 1.18 you just need to change it like this (patch version should be `0`, we change only minor version):
@@ -37,69 +80,33 @@ For example, if your project is based on SPFx 1.17 and `spfx-fast-serve@3.x`, th
 
 Reinstall all dependencies and that's it!
 
-## Webpack extensibility [TODO]
+## Webpack extensibility
 
-If you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.extend.js` file created by the cli to make everything work. Apply only those webpack modifications, which work on a regular `gulp serve` command since `spfx-fast-serve` works only in development mode.  
+If you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.extend.js` file created by the CLI to make everything work. Apply only those webpack modifications, which work on a regular `gulp serve` command, since `spfx-fast-serve` works only in development mode.  
 
-In a `./fast-serve` folder you have a file called `webpack.extend.js`. In this file you can put your own logic for webpack, it will not be overwritten by subsequent `spfx-fast-serve` calls.
+By default, you don't have `webpack.extend.js` file. Run
+
+```bash
+npx fast-serve webpack extend
+```
+
+to create it. In this file you can put your own logic for webpack, it will not be overwritten by the subsequent `spfx-fast-serve` calls.
 
 You can either provide custom `webpackConfig` object, which will be merged using [webpack-merge](https://github.com/survivejs/webpack-merge) module, or use `transformConfig` to even better control over configuration.
 
 Check out [this sample](https://github.com/s-KaiNet/spfx-fast-serve/blob/master/samples/advanced/fast-serve/webpack.extend.js) to see how it works. The sample configures custom path aliases for SPFx.
 
-## Configuration options [TODO]
-
-Starting from version `2.x`, the library saves your CLI arguments and serve options into the configuration file. The file is located under `./fast-serve/config.json`.
-
-Currently below configuration values are available for `serve`:
-
-- `openUrl` - string, default `undefined`, which url to open. If empty, no url will be opened
-- `loggingLevel` - string, default `normal`, valid values are `"minimal", "normal", "detailed"`. `minimal` notifies about errors and new builds only, `normal` adds bundle information, `detailed` adds details about each bundle.
-- `fullScreenErrors` - boolean, default `true`, whether to show full-screen (overlay) errors. Corresponds to [webpack's dev server overlay](https://webpack.js.org/configuration/dev-server/#devserveroverlay)
-- `hotRefresh` - boolean, default `false`. When `true` enables webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR). This features is considered as experimental meaning that you can try and use  if it works well for your project. Read [more here](/docs/HMR.md)
-- `eslint` - boolean, for SPFx `1.15` and onwards, the default value is  `true`, because `1.15+` supports ESLint natively. For the earlier versions the default is `false`. When `true`, adds [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) to lint your code with `lintDirtyModulesOnly:true` option for performance. If you're running on the SPFx earlier than `1.15`, you should read [this doc](/docs/ESLint.md) and configure ESLint explicitly.
-- `reactProfiling` - *[SPFx 1.13+]* boolean, default `false`. When `true`, enables react profiling mode through [React Chrome extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en). By default profiling doesn't work in SPFx solutions (even in dev mode).
-- `containers` - *[SPFx 1.13+]* boolean, by default `fast-serve` automatically detects containerized environment (like Docker) and applies needed configuration. But if it doesn't work for you, you can explicitly disable or enable support for containers using this option.
-
-Here is a sample configuration:
-
-```json
-{
-  "$schema": "https://raw.githubusercontent.com/s-KaiNet/spfx-fast-serve/master/schema/config.latest.schema.json",
-  "cli": {
-    "isLibraryComponent": false
-  },
-  "serve": {
-    "openUrl": "https://<org>.sharepoint.com/sites/dev/_layouts/15/workbench.aspx",
-    "fullScreenErrors": true
-  }
-}
-
-```
-
-Starting from SPFx 1.13+ the library also support SPFx serve configurations. If you have any custom serve configuration (`serveConfigurations` node under `./config/serve.json`), then you can apply it to the `spfx-fast-serve` as well by running:
-
-```bash
-npm run serve -- --config=[serve-config-name]
-```
-
-Or just duplicate "serve" npm script and add additional parameter:
-
-```json
-"serve-config": "gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve --config=[serve-config-name]"
-```
-
-It works exactly the same as the OOB `gulp serve --config=[config-name]`
-
 ## Which SharePoint Framework versions are supported
 
-The latest `4.x` version supports SPFx 1.15 and onwards.
+The latest `spfx-fast-serve@4.x` version supports SPFx 1.17 and onwards.
 
-Version `3.x` supports SPFx 1.4.1 and above. If you need to run the tool for SPFx < 1.15, you could use `npx` tool:
+Version `3.x` supports SPFx 1.4.1 and above. If you need to run the tool for SPFx < 1.17, you could use `npx` tool:
 
 ```bash
 npx -p spfx-fast-serve@3.0.7 -- spfx-fast-serve
 ```
+
+You could also use [3.x tag](TODO tag) to see the documentation for `3.x` version.
 
 SharePoint 2016 is **NOT** supported.
 
@@ -118,6 +125,7 @@ Also
 - supports WSL2
 - Hot Module Replacement (HMR) - experimental support
 - doesn't mess up your default SPFx build. If you have troubles, simply switch back to regular `gulp serve`
+- supports all major node package managers
 
 ## NGROK serve plugin
 
@@ -128,10 +136,6 @@ Read more [here](/docs/NgrokServe.md) on how you can configure it.
 ## Library components
 
 Please use [this guide](/docs/LibraryComponents.md) to configure `spfx-fast-serve` with library components.
-
-## [pnpm](https://pnpm.js.org/) support
-
-`pnpm` is supported OOB, no additional steps required.
 
 ## Privacy policy
 

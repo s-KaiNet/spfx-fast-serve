@@ -6,11 +6,11 @@ There are many libraries and built-in tools, which add convenient multi-packaged
 
 Using this option you just need to scaffold library components, webpart project and add `spfx-fast-serve`.
 
-### How to configure [TODO]
+### How to configure
 
 1. Scaffold two projects - library component inside `spfx-library` folder (I will use `corporate-library` as a library component name) and regular web part project into another folder `spfx-webparts`.
 
-2. Inside `spfx-webparts` run
+2. Both in `spfx-webparts` and `spfx-library` folders run
 
    ```bash
    spfx-fast-serve
@@ -19,10 +19,13 @@ Using this option you just need to scaffold library components, webpart project 
 3. Inside `spfx-library` run
 
    ```bash
-   spfx-fast-serve --library-component --port [port number]
+   npx fast-serve config add
    ```
 
-   `[port number]` is any free TCP port except `4321`, because it's the default for main SPFx web server. For example, you can use `4322`, `4323`, etc. The only rule is that you should use a unique port for every library component project per your SPFx solution. The `port` value is provided without any quotes, i.e. `--port 4323`.
+    And update created config with below `serve` settings:
+
+   - `port` is any free TCP port except `4321`, because it's the default for main SPFx web server. For example, you can use `4322`, `4323`, etc. The only rule is that you should use a unique port for every library component project per your SPFx solution
+   - `isLibraryComponent` - true
 
 4. In both folders run
 
@@ -30,7 +33,7 @@ Using this option you just need to scaffold library components, webpart project 
    npm install
    ```
 
-   to restore dependencies.
+   to restore dependencies (if not did before).
 
 5. Inside `spfx-webparts` add dependency on `corporate-library` by running below command:
 
@@ -40,4 +43,4 @@ Using this option you just need to scaffold library components, webpart project 
 
    That's a special syntax, supported by npm, which installs dependency from parent **folder** name. It searches for `package.json` and adds corresponding dependency using symbolic links.
 
-6. Run `npm run serve` inside `spfx-library` folder, then `npm run serve` inside `spfx-webparts`. The order is important.
+6. Run `npm run serve` inside `spfx-library` folder, wait till the full compilation, then `npm run serve` inside `spfx-webparts`. The order is important.
