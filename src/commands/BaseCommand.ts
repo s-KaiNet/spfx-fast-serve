@@ -1,3 +1,3 @@
 export abstract class BaseCommand {
-  public abstract execute(): void;
+  public abstract  execute(): Promise<void>;
 }

@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "SPFx Fast Serve configuration",
+  "description": "Defines serve configuration structure",
+  "type": "object",
+  "properties": {
+    "serve": {
+      "type": "object",
+      "description": "Contains serve specific properties. You can change these settings and see the immediate effect after running 'npm run serve'",
+      "properties": {
+        "port": {
+          "type": "integer",
+          "description": "HTTP port to use to serve the bundles (default: 4321)"
+        },
+        "memory": {
+          "type": "integer",
+          "description": "Memory limit for the dev server in MB (default: 8192)"
+        },
+        "isLibraryComponent": {
+          "type": "boolean",
+          "description": "Should be true, when running inside library component project type (default:false)"
+        },
+        "locale": {
+          "type": "string",
+          "description": "Local code when running in a multi-language scenario"
+        },
+        "config": {
+          "type": "string",
+          "description": "Serve configuration to run on a startup"
+        },
+        "openUrl": {
+          "type": "string",
+          "description": "Url to open on a startup. If empty, no url will be opened"
+        },
+        "loggingLevel": {
+          "type": "string",
+          "enum": [
+            "minimal",
+            "normal",
+            "detailed"
+          ],
+          "description": "Logging level, 'minimal' notifies about errors and new builds only, 'normal' adds bundle information, 'detailed' displays maximum information about each bundle (default: 'normal')"
+        },
+        "fullScreenErrors": {
+          "type": "boolean",
+          "description": "Whether to show errors with a full-screen overlay on UI or not (only in console)"
+        },
+        "eslint": {
+          "type": "boolean",
+          "description": "ESLint support (default: true)"
+        },
+        "hotRefresh": {
+          "type": "boolean",
+          "description": "When true, enables webpack's Hot Module Replacement (HMR) feature, read more here [TODO]"
+        },
+        "reactProfiling": {
+          "type": "boolean",
+          "description": "When true, enables react profiling mode through React Chrome extension (default: false)"
+        },
+        "containers": {
+          "type": "boolean",
+          "description": "Explicitly enables containerized environment support (default: false)"
+        },
+        "debug": {
+          "type": "boolean",
+          "description": "When true, enables debug mode (default: false)"
+        }
+      }
+    }
+  },
+  "required": [
+    "serve"
+  ]
+}

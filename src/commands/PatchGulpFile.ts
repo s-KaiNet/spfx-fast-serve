@@ -1,22 +1,16 @@
-import * as fs from 'fs';
+import { readFile } from 'fs/promises';
 import * as path from 'path';
 import chalk from 'chalk';
-import replace from 'replace-in-file';
+import replace, { ReplaceInFileConfig } from 'replace-in-file';
 
 import { logger } from '../common/Logger';
 import { BaseCommand } from './BaseCommand';
 import { getTemplatesPath } from '../common/utils';
 
 export class PatchGulpFile extends BaseCommand {
-  public execute(): void {
+  public async execute(): Promise<void> {
     const gulpfilePath = path.join(process.cwd(), 'gulpfile.js');
-    const currentGulpFile = fs.readFileSync(gulpfilePath).toString();
-
-    if (currentGulpFile.indexOf('@microsoft/sp-webpart-workbench/lib/api') !== -1) {
-      logger.success(chalk.blueBright('It looks like your gulpfile.js was patched before, skipping.'));
-      logger.newLine();
-      return;
-    }
+    const currentGulpFile = (await readFile(gulpfilePath)).toString();
 
     if (currentGulpFile.indexOf('spfx-fast-serve-helpers') !== -1) {
       logger.success(chalk.blueBright('It looks like your gulpfile.js was patched before, skipping.'));
@@ -31,15 +25,18 @@ export class PatchGulpFile extends BaseCommand {
       logger.newLine();
     }
 
-    const replaceContent = fs.readFileSync(getTemplatesPath('gulpfile.js')).toString();
+    const replaceContent = (await readFile(getTemplatesPath('gulpfile.js'))).toString();
 
-    const options = {
+    const options: ReplaceInFileConfig = {
       files: gulpfilePath,
       from: /build\.initialize.*;/g,
       to: replaceContent,
+      glob: {
+        windowsPathsNoEscape: true
+      }
     };
 
-    replace.sync(options);
+    await replace(options);
 
     logger.success(chalk.blueBright('Patched gulpfile.js.'));
     logger.newLine();

@@ -7,9 +7,9 @@ export class Pipeline {
     this.commands = commands;
   }
 
-  public execute(): void {
+  public async execute(): Promise<void> {
     for (const command of this.commands) {
-      command.execute();
+      await command.execute();
     }
   }
 }
