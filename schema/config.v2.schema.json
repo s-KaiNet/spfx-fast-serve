@@ -51,7 +51,7 @@
         },
         "hotRefresh": {
           "type": "boolean",
-          "description": "When true, enables webpack's Hot Module Replacement (HMR) feature, read more here [TODO]"
+          "description": "When true, enables webpack's Hot Module Replacement (HMR) feature, read more here - https://github.com/s-KaiNet/spfx-fast-serve/blob/master/docs/HMR.md"
         },
         "reactProfiling": {
           "type": "boolean",

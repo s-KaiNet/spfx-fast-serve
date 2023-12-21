@@ -106,7 +106,7 @@ Version `3.x` supports SPFx 1.4.1 and above. If you need to run the tool for SPF
 npx -p spfx-fast-serve@3.0.7 -- spfx-fast-serve
 ```
 
-You could also use [3.x branch]([TODO tag](https://github.com/s-KaiNet/spfx-fast-serve/tree/3.x)) to see the documentation for `3.x` version.
+You could also use [3.x branch](https://github.com/s-KaiNet/spfx-fast-serve/tree/3.x) to see the documentation for `3.x` version.
 
 SharePoint 2016 is **NOT** supported.
 

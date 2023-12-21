@@ -12,6 +12,6 @@ However, `spfx-fast-serve@4.x` introduced some improvements and simplicity, whic
 
 1. Fix `serve` command in `package.json` scripts.
   
-   Before the command was `"gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve"`, now you could use just `fast-serve`, everything is handled internally.
-2. If don't use `fast-serve/webpack.extend.js` file, now you could delete it.
-3. If you use just default settings inside `fast-serve/config.json` (like `"isLibraryComponent": false`), then you could also delete it.
+   In version 3.x the command was `"gulp bundle --custom-serve --max_old_space_size=4096 && fast-serve"`, now you could use just `fast-serve`, everything is handled internally.
+2. If you don't use `fast-serve/webpack.extend.js` file, you could delete it.
+3. If you use just default settings inside `fast-serve/config.json` (like `"isLibraryComponent": false`), then you could also delete the whole config file.
