@@ -19,7 +19,7 @@ updateNotifier({ pkg }).notify();
 const minorVersion = getSpfxMinorVersion();
 
 if (minorVersion < 17) {
-  logger.warning(chalk.yellowBright(`Your SPFx version 1.${minorVersion} is not supported. Please use SPFx 1.17.0 or higher.`));
+  logger.warning(chalk.yellowBright(`Your SPFx version 1.${minorVersion} is not supported. For SPFx < 1.17 use spfx-fast-serve@3.x. More info https://github.com/s-KaiNet/spfx-fast-serve#which-sharepoint-framework-versions-are-supported`));
   process.exit(1);
 }
 
