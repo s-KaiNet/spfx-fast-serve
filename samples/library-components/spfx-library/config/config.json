@@ -5,7 +5,7 @@
     "my-api-library": {
       "components": [
         {
-          "entrypoint": "./lib/libraries/myApi/MyApiLibrary.js",
+          "entrypoint": "./lib/index.js",
           "manifest": "./src/libraries/myApi/MyApiLibrary.manifest.json"
         }
       ]

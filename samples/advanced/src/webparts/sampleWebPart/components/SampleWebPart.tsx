@@ -29,7 +29,7 @@ export default class SampleWebPart extends React.Component<ISampleWebPartProps, 
               <FontAwesomeIcon icon={faCamera} size="5x" />
               <br />
               <img src={logo} alt="SPFx logo" />
-              <div className={styles.img} title="SPFx logo"></div>
+              <div className={styles.img} title="SPFx logo" />
               <div>{marked('I am using **markdown**.')}</div>
             </div>
           </div>

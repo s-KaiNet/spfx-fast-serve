@@ -2,16 +2,17 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
     "name": "corporate-library-client-side-solution",
-    "id": "48ecaf86-b7ce-40ff-9460-79382fea5c20",
+    "id": "ecba9457-d31a-4d20-a888-be994dd24db4",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
     "isDomainIsolated": false,
     "developer": {
       "name": "",
+      "websiteUrl": "",
       "privacyUrl": "",
       "termsOfUseUrl": "",
-      "websiteUrl": "",
-      "mpnId": "Undefined-1.15.0"
+      "mpnId": "Undefined-1.18.2"
     },
     "metadata": {
       "shortDescription": {
@@ -23,15 +24,7 @@
       "screenshotPaths": [],
       "videoUrl": "",
       "categories": []
-    },
-    "features": [
-      {
-        "title": "corporate-library Feature",
-        "description": "The feature that activates elements of the corporate-library solution.",
-        "id": "c6fa3b90-29d5-4b52-ba81-19259dfe7eb3",
-        "version": "1.0.0.0"
-      }
-    ]
+    }
   },
   "paths": {
     "zippedPackage": "solution/corporate-library.sppkg"

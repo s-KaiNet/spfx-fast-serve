@@ -12,6 +12,7 @@ const ContextInfo: FC<ContextInfoProps> = ({ context }) => {
   const [info, setInfo] = useState<string>();
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const getInfo = async () => {
 
       if (context.sdks.microsoftTeams) {
@@ -35,6 +36,7 @@ const ContextInfo: FC<ContextInfoProps> = ({ context }) => {
       setLoading(false);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getInfo();
   }, []);
 

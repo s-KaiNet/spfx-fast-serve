@@ -1,6 +1,6 @@
 # Advanced sample
 
-![SPFx](https://img.shields.io/badge/SPFx-1.14.0-green.svg)
+![SPFx](https://img.shields.io/badge/SPFx-1.18.2-green.svg)
 
 That's an advanced SharePoint Framework and `spfx-fast-serve` integration, which includes below features:
 
@@ -13,7 +13,6 @@ That's an advanced SharePoint Framework and `spfx-fast-serve` integration, which
 - TypeScript 4+
 - dynamic imports (async imports)
 - adaptive card extension
-- eslint
 
 ## How to run
 
