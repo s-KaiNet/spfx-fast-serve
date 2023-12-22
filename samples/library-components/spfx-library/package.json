@@ -26,7 +26,7 @@
     "ajv": "^6.12.5",
     "eslint": "8.7.0",
     "gulp": "4.0.2",
-    "spfx-fast-serve-helpers": "1.18.5-beta.3",
+    "spfx-fast-serve-helpers": "1.18.6",
     "typescript": "4.7.4"
   }
 }
