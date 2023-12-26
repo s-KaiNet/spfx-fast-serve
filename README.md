@@ -20,7 +20,7 @@ Curious how it works under the hood? Read my [blog post here](https://spblog.net
 
 ## `fast-serve` CLI
 
-The `spfx-fast-serve` command simply adds necessary things to run your `serve` faster. Among them, it installs `spfx-fast-serve-helpers` NodeJS package. The package contains the `fast-serve` CLI, which does all the magic "serve" things. Each CLI option could be provided as a command line parameter or could be stored inside the `fast-serve` configuration file under `<your SPfx project/fast-serve/config.json`. The config file is not created by default, but you could create it using `fast-serve` CLI [commands](#fast-serve-commands).
+The `spfx-fast-serve` command simply adds necessary things to run your `serve` faster. Among them, it installs `spfx-fast-serve-helpers` NodeJS package. The package contains the `fast-serve` CLI, which does all the magic "serve" things. Each CLI option could be provided as a command line parameter or could be stored inside the `fast-serve` configuration file under `<your SPfx project>/fast-serve/config.json`. The config file is not created by default, but you could create it using `fast-serve` CLI [commands](#fast-serve-commands).
 
 ### `fast-serve` CLI options
 
@@ -66,7 +66,7 @@ If you have the same option provided in both file and CLI, the CLI option will t
 `fast-serve` CLI supports below commands:
 
 - `fast-serve webpack extend` - adds fast-serve webpack extensibility file to the project. Read more on webpack extensibility [here](#webpack-extensibility)
-- `fast-serve config add` -adds `fast-serve` configuration file to the project
+- `fast-serve config add` - adds `fast-serve` configuration file to the project
 
 ## Migration between SPFx versions
 
