@@ -22,6 +22,8 @@ Curious how it works under the hood? Read my [blog post here](https://spblog.net
 
 The `spfx-fast-serve` command simply adds necessary things to run your `serve` faster. Among them, it installs `spfx-fast-serve-helpers` NodeJS package. The package contains the `fast-serve` CLI, which does all the magic "serve" things. Each CLI option could be provided as a command line parameter or could be stored inside the `fast-serve` configuration file under `<your SPfx project>/fast-serve/config.json`. The config file is not created by default, but you could create it using `fast-serve` CLI [commands](#fast-serve-commands).
 
+> Since `fast-serve` is not a global CLI, but a part of the `spfx-fast-serve-helpers` module, you should use tools like [npx](https://docs.npmjs.com/cli/v10/commands/npx) to run `fast-serve` from command line. So instead of `fast-serve [options]`, you should run `npx fast-serve [options]`. When running from npm scripts (`package.json`) you don't need `npx`, as everything is resolved internally.
+
 ### `fast-serve` CLI options
 
 | option               | type    | defaults | description                                                                                                                                                                                                                                                                                     |
