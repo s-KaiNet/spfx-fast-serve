@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { spawn } from 'cross-spawn';
 const packagePath = path.join(process.cwd(), 'package.json');
-const dependecyToCheck = '@microsoft/sp-build-web';
+const dependecyToCheck = '@microsoft/sp-core-library';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require(packagePath);
 
@@ -12,7 +12,8 @@ export function getTemplatesPath(fileName: string) {
 }
 
 export function getSpfxMinorVersion() {
-  let version: string = packageJson.devDependencies[dependecyToCheck];
+  let version: string = getSpfxVersionString();
+
   if (version.indexOf('~') === 0 || version.indexOf('^') === 0) {
     version = version.substr(1);
   }
@@ -20,7 +21,7 @@ export function getSpfxMinorVersion() {
 }
 
 export function isBeta() {
-  const version: string = packageJson.devDependencies[dependecyToCheck];
+  const version: string = getSpfxVersionString();
 
   return version.indexOf('-beta') !== -1 || version.indexOf('-rc') !== -1;
 }
@@ -50,4 +51,24 @@ export async function spawnProcess(program: string, args: string[], env?: typeof
       }
     });
   });
+}
+
+function getSpfxVersionString() {
+  let version: string = packageJson.dependencies[dependecyToCheck];
+
+  if (!version) { // try version from yo-rc.json
+    const yoPath = path.join(process.cwd(), '.yo-rc.json');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const yoJson = require(yoPath);
+    version = yoJson['@microsoft/generator-sharepoint']?.version;
+
+    if (!version) {
+      throw new Error('Cannot find SPFx version in package.json or .yo-rc.json');
+    }
+
+    return version;
+
+  } else {
+    return version;
+  }
 }
