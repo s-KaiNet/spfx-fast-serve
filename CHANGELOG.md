@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.0.1] - 02 Apr 2024
+
+### Fixed
+
+- problem with detecting installed SPFx version #127
+
 ## [4.0.0] - 20 Dec 2023
 
 ### BREAKING CHANGES
