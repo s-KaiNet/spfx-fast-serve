@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- problem with detecting installed SPFx version #127
+- problem with detecting installed SPFx version [#127](https://github.com/s-KaiNet/spfx-fast-serve/issues/127)
 
 ## [4.0.0] - 20 Dec 2023
 
