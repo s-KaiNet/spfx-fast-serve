@@ -6,7 +6,7 @@ A command line utility, which modifies your SharePoint Framework solution, so th
 
 Curious how it works under the hood? Read my [blog post here](https://spblog.net/post/2020/03/24/spfx-overclockers-or-how-significantly-speed-up-the-gulp-serve-command).
 
-> **IMPORTANT**
+> [!IMPORTANT]
 >
 > `spfx-fast-serve` version `4.x` (current) supports SPFx starting from version 1.17. Read more [here](#which-sharepoint-framework-versions-are-supported)
 
