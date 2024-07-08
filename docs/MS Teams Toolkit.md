@@ -1,7 +1,7 @@
 # How to integrate fast-serve with MS Teams Toolkit
 
 1. Configure your SPFx solution with `fast-serve` like you normally do.
-2. In the root of your MS Teams Toolkit project, open `.vscode/tasks.json` and new tasks:
+2. In the root of your MS Teams Toolkit project, open `.vscode/tasks.json` and add two tasks:
 
 ```json
   {
@@ -51,7 +51,7 @@ and
 
 By doing this we create fast-serve task config, which will be used by our launch configuration.
 
-3.Open `.vscode/launch.json` and add two more commands under `compounds` array:
+3. Open `.vscode/launch.json` and add two more commands under `compounds` array:
 
 ```json
   {
