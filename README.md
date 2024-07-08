@@ -116,6 +116,10 @@ You could also use [3.x branch](https://github.com/s-KaiNet/spfx-fast-serve/tree
 
 SharePoint 2016 is **NOT** supported.
 
+## MS Teams Toolkit integration
+
+Follow [this guide](./docs/MS%20Teams%20Toolkit.md) to configure MS Teams Toolkit with `fast-serve`. Also checkout the [sample repository](https://github.com/s-KaiNet/fast-serve-teams-tk) where everything is configured.
+
 ## How it works
 
 The tool adds necessary files to run your own webpack based build with webpack dev server. Technically it's a custom webpack build, which produces the same output files as SharePoint Framework build pipeline, but does it a lot faster, because of a number of improvements:
