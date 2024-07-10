@@ -7,7 +7,7 @@
       "@microsoft/microsoft-graph-client": "3.0.2",
       "@microsoft/teams-js": "2.12.0"
     },
-    "version": "1.18.2",
+    "version": "1.19.0",
     "libraryName": "spfx-webparts",
     "libraryId": "a53ade95-227a-47ff-8add-89ef5cf39823",
     "environment": "spo",
