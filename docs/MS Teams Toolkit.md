@@ -1,9 +1,11 @@
 # How to integrate fast-serve with MS Teams Toolkit
 
+The pre-configured sample is available [here](https://github.com/s-KaiNet/fast-serve-teams-tk). You can also see [the commit details](https://github.com/s-KaiNet/fast-serve-teams-tk/commit/d8f50ccedccdfb600be221bbf30c17c4c80a5406) to figure out what was changed. Below is the detailed guide.
+
 1. Configure your SPFx solution with `fast-serve` like you normally do.
 
 > [!NOTE]
-> You should run `spfx-fast-serve` from your SPFx solution folder, not from the root MS Teams Toolkit project. Normally SPFx solution is located inside `src` folder, i.e. `<your root MS Team Toolkit project/src`.
+> You should run `spfx-fast-serve` from your SPFx solution folder, not from the root MS Teams Toolkit project. Normally SPFx solution is located inside `src` folder, i.e. `[your root MS Team Toolkit project]/src`.
 
 2. In the root of your MS Teams Toolkit project, open `.vscode/tasks.json` and add two tasks:
 
