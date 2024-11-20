@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.0.2] - 20 Nov 2024
+
+### Added
+
+- `--force-install` parameter to run dependencies installation automatically [#157](https://github.com/s-KaiNet/spfx-fast-serve/issues/157)
+
 ## [4.0.1] - 02 Apr 2024
 
 ### Fixed
