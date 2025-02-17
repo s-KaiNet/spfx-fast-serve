@@ -1,6 +1,6 @@
 # Basic sample
 
-![SPFx](https://img.shields.io/badge/SPFx-1.19.0-green.svg)
+![SPFx](https://img.shields.io/badge/SPFx-1.20.0-green.svg)
 
 That's just a very simple "hello world" sample which demonstrates how to use `spfx-fast-serve` with SPFx.
 
