@@ -2,7 +2,7 @@
   "@microsoft/generator-sharepoint": {
     "isCreatingSolution": false,
     "environment": "spo",
-    "version": "1.19.0",
+    "version": "1.20.0",
     "libraryName": "fast-serve-advanced-sample",
     "libraryId": "bf8d902b-0414-4a7a-992d-d5632b945ff0",
     "packageManager": "npm",
@@ -12,11 +12,7 @@
     "nodeVersion": "18.17.1",
     "sdkVersions": {
       "@microsoft/microsoft-graph-client": "3.0.2",
-      "@microsoft/teams-js": "2.12.0"
-    },
-    "sdksVersions": {
-      "@microsoft/microsoft-graph-client": "3.0.2",
-      "@microsoft/teams-js": "2.12.0"
+      "@microsoft/teams-js": "2.24.0"
     },
     "componentType": "webpart"
   }

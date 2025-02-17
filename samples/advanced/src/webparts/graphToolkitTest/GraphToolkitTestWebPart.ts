@@ -6,11 +6,10 @@ import {
   PropertyPaneTextField
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-
+import { lazyLoadComponent } from "@microsoft/mgt-spfx-utils";
 import * as strings from 'GraphToolkitTestWebPartStrings';
 import { Providers, customElementHelper } from "@microsoft/mgt-element";
 import { SharePointProvider } from "@microsoft/mgt-sharepoint-provider";
-import { lazyLoadComponent } from './lazyLoadMgtReactComponent';
 
 const MgtDemo = React.lazy(
   () =>

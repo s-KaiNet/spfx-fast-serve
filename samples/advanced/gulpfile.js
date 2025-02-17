@@ -18,25 +18,25 @@ build.configureWebpack.mergeConfig({
     generatedConfiguration.resolve.alias['@src'] = path.resolve(__dirname, 'lib')
 
     // mgt related loaders
-    generatedConfiguration.module.rules.push({
-      test: /\.js$/,
-      // only run on lit packages in the root node_module folder
-      include: [
-        /lit/,
-        /@lit/,
-        /lit-html/
-      ],
-      use: {
-        loader: "babel-loader",
-        options: {
-          plugins: [
-            "@babel/plugin-transform-optional-chaining",
-            "@babel/plugin-transform-nullish-coalescing-operator",
-            "@babel/plugin-transform-logical-assignment-operators"
-          ]
-        }
-      }
-    });
+    // generatedConfiguration.module.rules.push({
+    //   test: /\.js$/,
+    //   // only run on lit packages in the root node_module folder
+    //   include: [
+    //     /lit/,
+    //     /@lit/,
+    //     /lit-html/
+    //   ],
+    //   use: {
+    //     loader: "babel-loader",
+    //     options: {
+    //       plugins: [
+    //         "@babel/plugin-transform-optional-chaining",
+    //         "@babel/plugin-transform-nullish-coalescing-operator",
+    //         "@babel/plugin-transform-logical-assignment-operators"
+    //       ]
+    //     }
+    //   }
+    // });
 
     return generatedConfiguration;
   }

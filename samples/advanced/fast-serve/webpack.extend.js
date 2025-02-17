@@ -14,26 +14,26 @@ const webpackConfig = {
       "@src": path.resolve(__dirname, "..", "src")
     }
   },
-  module: {
-    rules: [{
-      test: /\.js$/,
-      include: [
-        /lit/,
-        /@lit/,
-        /lit-html/
-      ],
-      use: {
-        loader: 'babel-loader',
-        options: {
-          plugins: [
-            '@babel/plugin-transform-optional-chaining',
-            '@babel/plugin-transform-nullish-coalescing-operator',
-            '@babel/plugin-transform-logical-assignment-operators'
-          ]
-        }
-      }
-    }]
-  }
+  // module: {
+  //   rules: [{
+  //     test: /\.js$/,
+  //     include: [
+  //       /lit/,
+  //       /@lit/,
+  //       /lit-html/
+  //     ],
+  //     use: {
+  //       loader: 'babel-loader',
+  //       options: {
+  //         plugins: [
+  //           '@babel/plugin-transform-optional-chaining',
+  //           '@babel/plugin-transform-nullish-coalescing-operator',
+  //           '@babel/plugin-transform-logical-assignment-operators'
+  //         ]
+  //       }
+  //     }
+  //   }]
+  // }
 }
 
 // for even more fine-grained control, you can apply custom webpack settings using below function
