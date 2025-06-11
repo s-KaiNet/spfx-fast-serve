@@ -1,6 +1,6 @@
 # Advanced sample
 
-![SPFx](https://img.shields.io/badge/SPFx-1.20.0-green.svg)
+![SPFx](https://img.shields.io/badge/SPFx-1.21.1-green.svg)
 
 That's an advanced SharePoint Framework and `spfx-fast-serve` integration, which includes below features:
 
