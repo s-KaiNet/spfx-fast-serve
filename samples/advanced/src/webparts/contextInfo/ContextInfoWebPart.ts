@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDom from 'react-dom';
+import { createRoot, type Root } from 'react-dom/client';
 import { Version } from '@microsoft/sp-core-library';
 import {
   IPropertyPaneConfiguration
@@ -15,7 +15,9 @@ export interface IContextInfoWebPartProps {
 
 export default class ContextInfoWebPart extends BaseClientSideWebPart<IContextInfoWebPartProps> {
 
-  private propertyPane: ContextInfoPropertyPane;
+  private _root: Root | undefined;
+
+  private propertyPane: ContextInfoPropertyPane | undefined;
 
   protected async onInit(): Promise<void> {
     await super.onInit();
@@ -26,11 +28,16 @@ export default class ContextInfoWebPart extends BaseClientSideWebPart<IContextIn
       context: this.context
     });
 
-    ReactDom.render(element, this.domElement);
+    if (!this._root) {
+      this._root = createRoot(this.domElement);
+    }
+
+    this._root.render(element);
   }
 
   protected onDispose(): void {
-    ReactDom.unmountComponentAtNode(this.domElement);
+    this._root?.unmount();
+    this._root = undefined;
   }
 
   protected get dataVersion(): Version {
@@ -51,6 +58,6 @@ export default class ContextInfoWebPart extends BaseClientSideWebPart<IContextIn
   }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
-    return this.propertyPane.getPropertyPaneConfiguration();
+    return this.propertyPane!.getPropertyPaneConfiguration();
   }
 }

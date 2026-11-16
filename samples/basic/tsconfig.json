@@ -1,35 +1,10 @@
 {
-  "extends": "./node_modules/@microsoft/rush-stack-compiler-5.3/includes/tsconfig-web.json",
-  "compilerOptions": {
-    "target": "es5",
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "jsx": "react",
-    "declaration": true,
-    "sourceMap": true,
-    "experimentalDecorators": true,
-    "skipLibCheck": true,
-    "outDir": "lib",
-    "inlineSources": false,
-    "strictNullChecks": false,
-    "noUnusedLocals": false,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@microsoft"
-    ],
-    "types": [
-      "webpack-env"
-    ],
-    "lib": [
-      "es5",
-      "dom",
-      "es2015.promise",
-      "es2015.collection"
-    ]
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ]
+  "extends": "./node_modules/@microsoft/spfx-web-build-rig/profiles/default/tsconfig-base.json",
+  "watchOptions": {
+    // Prevent the TypeScript watch program from re-triggering incremental builds
+    // when the copilot-agent task regenerates its outputs (temp/copilot staging
+    // and the teams/<agent>.zip package) on every build, which otherwise causes
+    // an infinite build loop during `heft start` / `heft build-watch`.
+    "excludeDirectories": ["**/teams", "**/temp/copilot"]
+  }
 }

@@ -3,6 +3,7 @@ import { BaseAdaptiveCardExtension } from '@microsoft/sp-adaptive-card-extension
 import { CardView } from './cardView/CardView';
 import { QuickView } from './quickView/QuickView';
 import { MyCardPropertyPane } from './MyCardPropertyPane';
+import sharePointLogo from './assets/SharePointLogo.svg';
 
 export interface IMyCardAdaptiveCardExtensionProps {
   title: string;
@@ -39,7 +40,7 @@ export default class MyCardAdaptiveCardExtension extends BaseAdaptiveCardExtensi
   }
 
   public get iconProperty(): string {
-    return this.properties.iconProperty || require('./assets/SharePointLogo.svg');
+    return this.properties.iconProperty || sharePointLogo;
   }
 
   protected loadPropertyPaneResources(): Promise<void> {
@@ -59,7 +60,6 @@ export default class MyCardAdaptiveCardExtension extends BaseAdaptiveCardExtensi
   }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return this._deferredPropertyPane!.getPropertyPaneConfiguration();
   }
 }

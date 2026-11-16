@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDom from 'react-dom';
+import { createRoot, type Root } from 'react-dom/client';
 import { Version } from '@microsoft/sp-core-library';
 import {
   type IPropertyPaneConfiguration,
@@ -23,12 +23,19 @@ export interface IGraphToolkitTestWebPartProps {
 customElementHelper.withDisambiguation("mgt-demo-client-side-solution");
 
 export default class GraphToolkitTestWebPart extends BaseClientSideWebPart<IGraphToolkitTestWebPartProps> {
+
+  private _root: Root | undefined;
+
   public render(): void {
     const element = lazyLoadComponent(MgtDemo, {
       description: this.properties.description
     });
 
-    ReactDom.render(element, this.domElement);
+    if (!this._root) {
+      this._root = createRoot(this.domElement);
+    }
+
+    this._root.render(element);
   }
 
   protected async onInit(): Promise<void> {
@@ -38,7 +45,8 @@ export default class GraphToolkitTestWebPart extends BaseClientSideWebPart<IGrap
   }
 
   protected onDispose(): void {
-    ReactDom.unmountComponentAtNode(this.domElement);
+    this._root?.unmount();
+    this._root = undefined;
   }
 
   protected get dataVersion(): Version {

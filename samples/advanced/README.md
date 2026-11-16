@@ -1,6 +1,6 @@
 # Advanced sample
 
-![SPFx](https://img.shields.io/badge/SPFx-1.21.1-green.svg)
+![SPFx](https://img.shields.io/badge/SPFx-1.24.1-green.svg)
 
 That's an advanced SharePoint Framework and `spfx-fast-serve` integration, which includes below features:
 
@@ -16,4 +16,4 @@ That's an advanced SharePoint Framework and `spfx-fast-serve` integration, which
 ## How to run
 
 1. Restore dependencies `npm install`
-2. `npm run serve`
+2. `npm run start` (or `npm run start-nl` to serve with the `nl-nl` locale)

@@ -9,9 +9,8 @@ library.add(faCamera);
 
 import styles from './SampleWebPart.module.scss';
 import { ISampleWebPartProps } from './ISampleWebPartProps';
+import logo from '../assets/parker-spfx.png';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const logo: string = require('../assets/parker-spfx.png');
 export default class SampleWebPart extends React.Component<ISampleWebPartProps, unknown> {
   public render(): React.ReactElement<ISampleWebPartProps> {
     return (
