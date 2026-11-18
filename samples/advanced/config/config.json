@@ -29,14 +29,6 @@
           "manifest": "./src/adaptiveCardExtensions/myCard/MyCardAdaptiveCardExtension.manifest.json"
         }
       ]
-    },
-    "graph-toolkit-test-web-part": {
-      "components": [
-        {
-          "entrypoint": "./lib/webparts/graphToolkitTest/GraphToolkitTestWebPart.js",
-          "manifest": "./src/webparts/graphToolkitTest/GraphToolkitTestWebPart.manifest.json"
-        }
-      ]
     }
   },
   "externals": {
@@ -47,7 +39,6 @@
     "HelloWorldWebPartStrings": "lib/webparts/helloWorld/loc/{locale}.js",
     "SampleWebPartWebPartStrings": "lib/webparts/sampleWebPart/loc/{locale}.js",
     "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
-    "MyCardAdaptiveCardExtensionStrings": "lib/adaptiveCardExtensions/myCard/loc/{locale}.js",
-    "GraphToolkitTestWebPartStrings": "lib/webparts/graphToolkitTest/loc/{locale}.js"
+    "MyCardAdaptiveCardExtensionStrings": "lib/adaptiveCardExtensions/myCard/loc/{locale}.js"
   }
 }
