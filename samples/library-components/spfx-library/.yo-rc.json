@@ -2,12 +2,12 @@
   "@microsoft/generator-sharepoint": {
     "plusBeta": false,
     "isCreatingSolution": true,
-    "nodeVersion": "18.17.1",
+    "nodeVersion": "24.20.0",
     "sdksVersions": {
       "@microsoft/microsoft-graph-client": "3.0.2",
-      "@microsoft/teams-js": "2.12.0"
+      "@microsoft/teams-js": "2.24.0"
     },
-    "version": "1.19.0",
+    "version": "1.24.1",
     "libraryName": "corporate-library",
     "libraryId": "ecba9457-d31a-4d20-a888-be994dd24db4",
     "environment": "spo",
@@ -16,6 +16,7 @@
     "solutionShortDescription": "corporate-library description",
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
+    "useGulp": false,
     "componentType": "library"
   }
 }

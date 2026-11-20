@@ -2,4 +2,4 @@
 
 ## Used SharePoint Framework Version
 
-![version](https://img.shields.io/badge/version-1.19.0-green.svg)
+![version](https://img.shields.io/badge/version-1.24.1-green.svg)

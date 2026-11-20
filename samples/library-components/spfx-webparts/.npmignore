@@ -1,16 +1,22 @@
-!dist
-config
+# Ignore everything by default
+**
 
-gulpfile.js
+# Use negative patterns to bring back the specific things we want to publish
+!/bin/**
+!/dist/**
+!/EULA/**
+!/lib/**
+!ThirdPartyNotice.txt
 
-release
-src
-temp
+# Ignore certain files in the above folders
+/dist/*.stats.*
+/dist/**/*.js.map
+/lib/**/*.js.map
+/lib/**/test/**
 
-tsconfig.json
-tslint.json
-
-*.log
-
-.yo-rc.json
-.vscode
+# NOTE: These don't need to be specified, because NPM includes them automatically.
+#
+# package.json
+# README (and its variants)
+# CHANGELOG (and its variants)
+# LICENSE / LICENCE
