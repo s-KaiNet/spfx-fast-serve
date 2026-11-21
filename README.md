@@ -1,158 +1,188 @@
-# :rocket: SPFx Fast Serve Tool  
+# :rocket: SPFx Fast Serve
 
-[![npm version](https://badge.fury.io/js/spfx-fast-serve.svg)](https://badge.fury.io/js/spfx-fast-serve)
-
-A command line utility, which modifies your SharePoint Framework solution, so that it runs continuous `serve` command 10-15x times faster, than the regular `gulp serve`.
-
-Curious how it works under the hood? Read my [blog post here](https://spblog.net/post/2020/03/24/spfx-overclockers-or-how-significantly-speed-up-the-gulp-serve-command).
+A fast dev server for SharePoint Framework **1.24+** projects. Blazingly fast start, lightning-quick incremental updates with HMR and React Fast Refresh (no full page reloads), and a much smaller memory footprint.
 
 > [!IMPORTANT]
 >
-> `spfx-fast-serve` version `4.x` (current) supports SPFx starting from version 1.17. Read more [here](#which-sharepoint-framework-versions-are-supported)
+> **Looking for the previous version?** `spfx-fast-serve` 4.x (the `spfx-fast-serve` CLI for gulp-based SPFx 1.17 - 1.21) is documented in the [4.x branch](https://github.com/s-KaiNet/spfx-fast-serve/tree/4.x).
 
-## How to use
+## Highlights
 
-1. `npm install spfx-fast-serve -g`
-2. Open a command line in a folder with your SharePoint Framework solution you want to speed up.
-3. Run `spfx-fast-serve` and follow instructions. In most cases you shouldn't do anything specific and the CLI "just works".
-4. Run `npm install`
-5. Run `npm run serve` and enjoy the incredible speed of `serve` command!
+- **Fast start:** ready in about 1-2 seconds, where `heft start` needs 13-19 seconds on the same projects.
+- **Fast edits:** a rebuild takes 50-150 ms, and the change is on the page 0.1-0.3 s after you save. React components keep their state (Fast Refresh), styles are swapped without a reload. No full page reloads!
+- **Zero config:** one dev dependency and one npm script. No global CLI, no changes to your build. Works in development mode only: production builds, packaging and deployment stay on Heft.
+- **Less memory:** 2x-3x less memory usage in development.
 
-## `fast-serve` CLI
+## Quick start
 
-The `spfx-fast-serve` command simply adds necessary things to run your `serve` faster. Among them, it installs `spfx-fast-serve-helpers` NodeJS package. The package contains the `fast-serve` CLI, which does all the magic "serve" things. Each CLI option could be provided as a command line parameter or could be stored inside the `fast-serve` configuration file under `<your SPfx project>/fast-serve/config.json`. The config file is not created by default, but you could create it using `fast-serve` CLI [commands](#fast-serve-commands).
+Install the package in your SPFx project and run it:
 
-> Since `fast-serve` is not a global CLI, but a part of the `spfx-fast-serve-helpers` module, you should use tools like [npx](https://docs.npmjs.com/cli/v10/commands/npx) to run `fast-serve` from command line. So instead of `fast-serve [options]`, you should run `npx fast-serve [options]`. When running from npm scripts (`package.json`) you don't need `npx`, as everything is resolved internally.
+```bash
+npm install --save-dev spfx-fast-serve-helpers@beta
+npx fast-serve
+```
 
-### `fast-serve` CLI options
-
-| option               | type    | defaults | description                                                                                                                                                                                                                                                                                     |
-|----------------------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `port`               | integer | 4321     | HTTP port to use to serve the bundles                                                                                                                                                                                                                                                           |
-| `memory`             | integer | 8192     | Memory limits for the dev server in MB                                                                                                                                                                                                                                                          |
-| `locale`             | string  | -        | Local code when running in a multi-language scenario, i.e. `--locale=nl-nl`                                                                                                                                                                                                                     |
-| `config`             | string  | -        | Serve configuration to run on a startup. It works exactly the same as the OOB `gulp serve --config=[config-name]`                                                                                                                                                                               |
-| `openUrl`            | string  | -        | URL to open on a startup. If empty, no URL will be opened. Supports SPFx {tenantDomain} placeholder                                                                                                                                                                                             |
-| `loggingLevel`       | enum    | normal   | Logging level, 'minimal' notifies about errors and new builds only, 'normal' adds bundle information, 'detailed' displays maximum information about each bundle                                                                                                                                 |
-| `fullScreenErrors`   | boolean | true     | Whether to show errors with a full-screen overlay on UI or not (only in console)                                                                                                                                                                                                                |
-| `isLibraryComponent` | boolean | false    | Should be true, when running inside library component project type                                                                                                                                                                                                                              |
-| `eslint`             | boolean | true     | When `true`, adds [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) to lint your code with `lintDirtyModulesOnly:true` option for performance                                                                                                                   |
-| `hotRefresh`         | boolean | false    | Enables webpack's [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) (HMR). This feature is considered as experimental, meaning that you can try and use it if it works well for your project. Read [more here](/docs/HMR.md)                                    |
-| `reactProfiling`     | boolean | false    | When `true`, enables react profiling mode through [React Chrome extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en). By default profiling doesn't work in SPFx solutions (even in dev mode).                                     |
-| `containers`         | boolean | false    | Explicitly enables containerized environment support. By default, `fast-serve` automatically detects a containerized environment (like Docker) and applies needed configuration. But if it doesn't work for you, you can explicitly disable or enable support for containers using this option. |
-| `debug`              | boolean | false    | Enables debug mode for `fast-serve`                                                                                                                                                                                                                                                             |
-
-Here is a sample configuration:
+Optionally, add a script to `package.json` and run `npm run serve`:
 
 ```json
-{
-  "$schema": "https://raw.githubusercontent.com/s-KaiNet/spfx-fast-serve/master/schema/config.v2.schema.json",
-  "serve": {
-    "config": "my-config",
-    "fullScreenErrors": false,
-    "debug": true
-  }
+"scripts": {
+  "serve": "fast-serve"
 }
 ```
 
-If you call `fast-serve` with the above configuration file, it will be the equivalent of calling the CLI with the below parameters (taken from file):
+> [!TIP]
+>
+> **`ERESOLVE` error mentioning `css-loader` during `npm install`?** Update `css-loader` in the same command: `npm install --save-dev css-loader@^7.1.4 spfx-fast-serve-helpers@beta`.
 
-```bash
-fast-serve --config=my-config --fullScreenErrors=false --debug
+## Configuration
+
+`fast-serve` works without any configuration: it reads `config/serve.json` like `heft start` does. Every option can be set as a command-line flag or in the optional `fast-serve/config.json` file.
+
+| Option               | Flag                | Default   | Description                                                                                                                     |
+| -------------------- | ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `port`               | `-p, --port <port>` | `4321`    | HTTPS port on `localhost`. Falls back to `port` from `config/serve.json`                                                        |
+| `pageUrl`            | `--page-url <url>`  | -         | SharePoint page to open with the debug query. Supports the `{tenantDomain}` placeholder                                         |
+| `locale`             | `--locale <locale>` | `en-us`   | Locale of the localized strings, for example `nl-nl`. Missing resources fall back to `en-us`                                    |
+| `serveConfiguration` | `--config <name>`   | `default` | Serve configuration from `config/serve.json` to use (`--serve-config` works too)                                                |
+| `overlay`            | `--no-overlay`      | `true`    | Show compile and runtime errors in an overlay over the page. Errors always go to the terminal and the browser console           |
+| `deployedLibraries`  | (config file only)  | `[]`      | Package names of [linked library components](#library-components) to load from SharePoint instead of compiling them from source |
+
+Other flags: `-h, --help` prints the help, `-v, --version` prints the version.
+
+### `fast-serve/config.json`
+
+```jsonc
+// fast-serve/config.json (optional, comments are allowed)
+{
+  "port": 4321,
+  "pageUrl": "https://{tenantDomain}/sites/dev/SitePages/test.aspx",
+  "locale": "en-us",
+  "serveConfiguration": "default",
+  "overlay": true,
+  "deployedLibraries": [],
+}
 ```
 
-If you have the same option provided in both file and CLI, the CLI option will take the precedence.
+An unknown key or a wrong value type stops `fast-serve` with the list of supported keys. Editing the file restarts the server.
 
-### `fast-serve` commands
+### `{tenantDomain}`
 
-`fast-serve` CLI supports below commands:
-
-- `fast-serve webpack extend` - adds fast-serve webpack extensibility file to the project. Read more on webpack extensibility [here](#webpack-extensibility)
-- `fast-serve config add` - adds `fast-serve` configuration file to the project
-
-## Migration between SPFx versions
-
-The migration is as easy as just changing the version of `spfx-fast-serve-helpers` in your `package.json` to match the corresponding SPFx **minor** version (**do not** change the patch version).
-
-For example, if your project is based on SPFx 1.17, then you have the below dependency:
- > "spfx-fast-serve-helpers": "~1.17.0"
-
- To migrate `fast-serve` to SPFx 1.18 you just need to change it like this (patch version should be `0`, we change only minor version):
-> "spfx-fast-serve-helpers": "~1.18.0"
-
-Reinstall all dependencies and that's it!
-
-## Webpack extensibility
-
-If you use custom webpack loaders or other webpack modifications via `build.configureWebpack.mergeConfig` feature, you should manually apply them to `webpack.extend.js` file created by the CLI to make everything work. Apply only those webpack modifications, which work on a regular `gulp serve` command, since `spfx-fast-serve` works only in development mode.  
-
-By default, you don't have `webpack.extend.js` file. Run
+`{tenantDomain}` in the page URL is replaced with the `SPFX_SERVE_TENANT_DOMAIN` environment variable, the same variable `heft start` uses:
 
 ```bash
-npx fast-serve webpack extend
+# PowerShell
+$env:SPFX_SERVE_TENANT_DOMAIN="contoso.sharepoint.com"
+# bash
+export SPFX_SERVE_TENANT_DOMAIN=contoso.sharepoint.com
 ```
 
-to create it. In this file you can put your own logic for webpack, it will not be overwritten by the subsequent `spfx-fast-serve` calls.
+## Customizing the Rspack config
 
-You can either provide custom `webpackConfig` object, which will be merged using [webpack-merge](https://github.com/survivejs/webpack-merge) module, or use `transformConfig` to even better control over configuration.
+`fast-serve` doesn't run heft's webpack config, so heft customizations (`config/spfx-customize-webpack.js`, `config/webpack-patch.json`) don't apply to it. Mirror what development needs in **`fast-serve/rspack.extend.mjs`** (`.mts`, `.js`, `.ts`, `.cjs` and `.cts` work too):
 
-Check out [this sample](https://github.com/s-KaiNet/spfx-fast-serve/blob/master/samples/advanced/fast-serve/webpack.extend.js) to see how it works. The sample configures custom path aliases for SPFx.
+```js
+import path from "node:path";
+import { defineConfig, rspack } from "spfx-fast-serve-helpers";
 
-## Which SharePoint Framework versions are supported
-
-The latest `spfx-fast-serve@4.x` version supports SPFx 1.17 and onwards.
-
-Version `3.x` supports SPFx 1.4.1 and above. If you need to run the tool for SPFx < 1.17, you could use `npx` tool for `npm` or `dlx` for `pnpm`:
-
-```bash
-npx -p spfx-fast-serve@3.0.7 -- spfx-fast-serve
+export default defineConfig(({ root, port }) => ({
+  plugins: [
+    new rspack.DefinePlugin({
+      CONTOSO_API: JSON.stringify("https://api.contoso.com"),
+    }),
+  ],
+  resolve: {
+    alias: { "@src": path.join(root, "src") },
+  },
+  devServer: {
+    headers: { "X-Contoso": "dev" },
+  },
+}));
 ```
 
-```bash
-pnpm --package=spfx-fast-serve@3.0.7 dlx spfx-fast-serve
-```
-
-You could also use [3.x branch](https://github.com/s-KaiNet/spfx-fast-serve/tree/3.x) to see the documentation for `3.x` version.
-
-SharePoint 2016 is **NOT** supported.
-
-## MS Teams Toolkit integration
-
-Follow [this guide](./docs/MS%20Teams%20Toolkit.md) to configure MS Teams Toolkit with `fast-serve`. Also checkout the [sample repository](https://github.com/s-KaiNet/fast-serve-teams-tk) where everything is configured.
-
-## `spfx-fast-serve` command options
-
-- `--force-install` - installs dependencies without asking for a confirmation
-
-## How it works
-
-The tool adds necessary files to run your own webpack based build with webpack dev server. Technically it's a custom webpack build, which produces the same output files as SharePoint Framework build pipeline, but does it a lot faster, because of a number of improvements:
-
-- all compilation are done in a memory with webpack, no additional "copy", "prepare", "typescript", "whatever" tasks.
-- incremental TypeScript compilation when a file is being changed. It means only necessary files are compiled, not everything.
-- asynchronous type checking and linting.
-
-Also
-
-- live reloading for hosted workbench, MS Teams host, mobile devices (with ngrok serve)
-- debugging from VSCode with Chrome Debugger extension
-- supports WSL2
-- Hot Module Replacement (HMR) - experimental support
-- doesn't mess up your default SPFx build. If you have troubles, simply switch back to regular `gulp serve`
-- supports all major node package managers
-
-## NGROK serve plugin
-
-`spfx-fast-serve` supports ngrok as a proxy between webpack dev server and SharePoint. This is possible through the *NgrokServePlugin* webpack plugin. This option allows you to test your SPFx solution live on mobile devices in development mode.
-
-Read more [here](/docs/NgrokServe.md) on how you can configure it.
+> [!TIP]
+>
+> **Using a coding agent?** The package ships a skill that translates a heft webpack customization into `rspack.extend.mjs`: `node_modules/spfx-fast-serve-helpers/skills/fast-serve-rspack-config/SKILL.md`.
 
 ## Library components
 
-Please use [this guide](/docs/LibraryComponents.md) to configure `spfx-fast-serve` with library components.
+A library component project that your project depends on **through a link** is compiled from its `src` into your bundles, with hot updates. You run one command in the consumer project; nothing to build or start in the library.
 
-## Privacy policy
+```bash
+cd corp-lib && npm install
+cd ../my-web-parts
+npm install ../corp-lib    # or npm link, pnpm "link:" / "workspace:", npm / yarn workspaces
+npm run serve
+```
 
-`spfx-fast-serve` tracks every run using "fast serve" option. The "run" data includes time, when you run `npm run serve` and irreversible hash of computer name (to track unique computers). It **does NOT** collect nor store any personal, computer, network or project information. "Run" data needed to analyze, how many runs using "fast serve" scenario we have per day\month\year and what is the trend. Based on the data I can make a decision whether to further invest time into this project or not.
+## Serving through a tunnel
 
-## Having troubles? Please try to find the answer under [FAQs](/docs/FAQ.md) or raise an issue
+The debug query works on `localhost` only. For Teams and Viva Connections on mobile, or bugs you can only reproduce on a device, `fast-serve` can serve a **deployed development package** through a tunnel you run yourself.
+
+1. Start a tunnel with a fixed host name that forwards to `https://localhost:4321` without verifying the certificate, for example [Microsoft Dev Tunnels](https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/) (`devtunnel host -p 4321 --protocol https --allow-anonymous`), a named Cloudflare Tunnel, or ngrok with a paid fixed domain.
+2. In `config/serve.json` set `"hostname": "<tunnel host>"` and `"port": 443`.
+3. Build and deploy a development package once: `heft build` and `heft package-solution` **without** `--production`, then upload `sharepoint/solution/*.sppkg` to the app catalog.
+4. Add the plugin to `fast-serve/rspack.extend.mjs`:
+
+   ```js
+   import { defineConfig, TunnelServePlugin } from "spfx-fast-serve-helpers";
+
+   export default defineConfig(() => ({
+     plugins: [new TunnelServePlugin({ host: "my-tunnel.example.com" })],
+   }));
+   ```
+
+5. Run `fast-serve` and open the page **without** the debug query, in a new tab.
+
+HMR, the error overlay and terminal error forwarding work through the tunnel. Rebuild and redeploy the package when the tunnel host or the manifests change (new components, new externals); code edits don't need it.
+
+> [!WARNING]
+>
+> - Free ngrok doesn't work: its warning page answers script requests with HTML.
+> - Your dev server is public while the tunnel runs. Stop the tunnel when you're done and never deploy the development package to a production app catalog.
+> - The development package replaces the deployed app with the same id.
+
+## HMR
+
+| You edit                                                                                        | Result                                                     |
+| ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| A `.tsx` / `.ts` module that exports only React components                                      | Hot update, state kept (Fast Refresh)                      |
+| `.module.scss`, `.scss`, `.css`                                                                 | Styles swapped without a reload                            |
+| Localized strings used only by components                                                       | Hot update                                                 |
+| A web part, extension or ACE class                                                              | Page reload                                                |
+| A new import of an SPFx library or a `config/config.json` external                              | Page reload                                                |
+| `package.json`, `config/*.json`, `fast-serve/config.json`, tsconfig, manifests, the extend file | `fast-serve` restarts in under a second, open pages reload |
+
+Several bundles on one page all hot-update. Keep one-time setup (icons, PnPjs, listeners) in `onInit`, not at module level: module code runs again on every hot update.
+
+## Versioning
+
+The `spfx-fast-serve-helpers` version follows the SPFx **minor** version: SPFx 1.24 projects use `spfx-fast-serve-helpers` 1.24.x. For SPFx 1.21 and earlier, see the [4.x branch](https://github.com/s-KaiNet/spfx-fast-serve/tree/4.x).
+
+## Performance
+
+Measured on Linux, Node 24, Rspack 2.3:
+
+|                                 | Small project (5 bundles, 7 components) | Large project (1000 modules, 2 bundles) |
+| ------------------------------- | --------------------------------------- | --------------------------------------- |
+| Start, no cache                 | ≈1.2 s                                  | ≈2.5 s                                  |
+| Start with the persistent cache | ≈0.6 s                                  | ≈0.95 s                                 |
+| Rebuild after an edit           | 50-110 ms                               | 65-140 ms                               |
+| Save → change on the page       | 120-170 ms                              | 180-270 ms                              |
+
+The persistent cache lives in `temp/fast-serve/cache` and is invalidated automatically when dependencies, configuration files or the extend file change. Delete the folder to reset it, or set `cache: false` in the extend file to turn it off.
+
+## How it works
+
+`fast-serve` doesn't use heft or webpack at development time. It builds its own Rspack configuration from your project (`config/config.json` bundles, manifests, `config/serve.json`, tsconfig, Sass settings) and produces what SharePoint expects from `heft start`: one AMD bundle per bundle in `config/config.json`, served from memory, plus a debug `manifests.js`.
+
+- TypeScript is compiled per file with SWC, Sass with your project's Sass and `@microsoft/sp-css-loader`, so CSS module class names and theme tokens match heft's.
+- SPFx libraries (`@microsoft/sp-*`) and `config/config.json` externals stay external and are loaded by SharePoint, at the tenant's version.
+- All bundles share one compilation, so HMR and Fast Refresh work across several web parts on the same page.
+
+## Privacy
+
+`fast-serve` doesn't collect any usage data.
+
+## License
+
+MIT
