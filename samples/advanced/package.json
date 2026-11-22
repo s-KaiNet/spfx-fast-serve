@@ -12,7 +12,8 @@
     "eject-webpack": "heft eject-webpack",
     "start": "heft start --clean",
     "start-nl": "heft start --clean --locales nl-nl",
-    "start-loc": "cross-env-shell heft start --clean --locales $SPFX_LOCALE"
+    "start-loc": "cross-env-shell heft start --clean --locales $SPFX_LOCALE",
+    "serve": "fast-serve"
   },
   "dependencies": {
     "@fluentui/react": "^8.119.1",
@@ -51,7 +52,7 @@
     "eslint": "9.37.0",
     "eslint-plugin-react": "^7.34.3",
     "eslint-plugin-react-hooks": "5.2.0",
-    "spfx-fast-serve-helpers": "1.24.0-beta.0",
+    "spfx-fast-serve-helpers": "1.24.0-beta.8",
     "typescript": "~5.8.0"
   },
   "overrides": {

@@ -32,11 +32,11 @@ Optionally, add a script to `package.json` and run `npm run serve`:
 
 > [!TIP]
 >
-> **`ERESOLVE` error mentioning `css-loader` during `npm install`?** Update `css-loader` in the same command: `npm install --save-dev css-loader@^7.1.4 spfx-fast-serve-helpers@beta`.
+> **`ERESOLVE` error mentioning `css-loader` during `npm install`?** Update `css-loader` in the same command: `npm install --save-dev css-loader@^7.1.4 spfx-fast-serve-helpers@beta`, or install with `--legacy-peer-deps`: `npm install --save-dev spfx-fast-serve-helpers@beta --legacy-peer-deps`.
 
 ## Configuration
 
-`fast-serve` works without any configuration: it reads `config/serve.json` like `heft start` does. Every option can be set as a command-line flag or in the optional `fast-serve/config.json` file.
+Every option can be set as a command-line flag or in the optional `fast-serve/config.json` file.
 
 | Option               | Flag                | Default   | Description                                                                                                                     |
 | -------------------- | ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
@@ -52,7 +52,6 @@ Other flags: `-h, --help` prints the help, `-v, --version` prints the version.
 ### `fast-serve/config.json`
 
 ```jsonc
-// fast-serve/config.json (optional, comments are allowed)
 {
   "port": 4321,
   "pageUrl": "https://{tenantDomain}/sites/dev/SitePages/test.aspx",
@@ -78,7 +77,7 @@ export SPFX_SERVE_TENANT_DOMAIN=contoso.sharepoint.com
 
 ## Customizing the Rspack config
 
-`fast-serve` doesn't run heft's webpack config, so heft customizations (`config/spfx-customize-webpack.js`, `config/webpack-patch.json`) don't apply to it. Mirror what development needs in **`fast-serve/rspack.extend.mjs`** (`.mts`, `.js`, `.ts`, `.cjs` and `.cts` work too):
+`fast-serve` doesn't run heft's webpack config, so heft customizations (`config/spfx-customize-webpack.js`, `config/webpack-patch.json`) don't apply to it. Mirror what development needs in **`fast-serve/rspack.extend.mjs`**:
 
 ```js
 import path from "node:path";

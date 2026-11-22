@@ -10,7 +10,8 @@
     "build": "heft test --clean --production && heft package-solution --production",
     "clean": "heft clean",
     "eject-webpack": "heft eject-webpack",
-    "start": "heft start --clean"
+    "start": "heft start --clean",
+    "serve": "fast-serve"
   },
   "dependencies": {
     "@fluentui/react": "^8.106.4",
@@ -39,7 +40,7 @@
     "css-loader": "~7.1.2",
     "eslint": "9.37.0",
     "eslint-plugin-react-hooks": "5.2.0",
-    "spfx-fast-serve-helpers": "1.24.0-beta.0",
+    "spfx-fast-serve-helpers": "1.24.0-beta.8",
     "typescript": "~5.8.0"
   },
   "overrides": {
