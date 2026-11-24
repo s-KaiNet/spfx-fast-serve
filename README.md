@@ -1,6 +1,6 @@
 # :rocket: SPFx Fast Serve
 
-A fast dev server for SharePoint Framework **1.24+** projects. Blazingly fast start, lightning-quick incremental updates with HMR and React Fast Refresh (no full page reloads), and a much smaller memory footprint.
+A fast dev server for SharePoint Framework **1.23+** projects. Blazingly fast start, lightning-quick incremental updates with HMR and React Fast Refresh (no full page reloads), and a much smaller memory footprint.
 
 > [!IMPORTANT]
 >
