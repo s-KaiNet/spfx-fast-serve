@@ -11,7 +11,8 @@ A fast dev server for SharePoint Framework **1.24+** projects. Blazingly fast st
 - **Fast start:** ready in about 1-2 seconds, where `heft start` needs 13-19 seconds on the same projects.
 - **Fast edits:** a rebuild takes 50-150 ms, and the change is on the page 0.1-0.3 s after you save. React components keep their state (Fast Refresh), styles are swapped without a reload. No full page reloads!
 - **Zero config:** one dev dependency and one npm script. No global CLI, no changes to your build. Works in development mode only: production builds, packaging and deployment stay on Heft.
-- **Less memory:** 2x-3x less memory usage in development.
+- **Type checking and linting** in the background, without slowing down hot updates.
+- **Less memory:** up to 2x-3x less memory usage in development.
 
 ## Quick start
 
@@ -38,31 +39,36 @@ Optionally, add a script to `package.json` and run `npm run serve`:
 
 Every option can be set as a command-line flag or in the optional `fast-serve/config.json` file.
 
-| Option               | Flag                | Default   | Description                                                                                                                     |
-| -------------------- | ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `port`               | `-p, --port <port>` | `4321`    | HTTPS port on `localhost`. Falls back to `port` from `config/serve.json`                                                        |
-| `pageUrl`            | `--page-url <url>`  | -         | SharePoint page to open with the debug query. Supports the `{tenantDomain}` placeholder                                         |
-| `locale`             | `--locale <locale>` | `en-us`   | Locale of the localized strings, for example `nl-nl`. Missing resources fall back to `en-us`                                    |
-| `serveConfiguration` | `--config <name>`   | `default` | Serve configuration from `config/serve.json` to use (`--serve-config` works too)                                                |
-| `overlay`            | `--no-overlay`      | `true`    | Show compile and runtime errors in an overlay over the page. Errors always go to the terminal and the browser console           |
-| `deployedLibraries`  | (config file only)  | `[]`      | Package names of [linked library components](#library-components) to load from SharePoint instead of compiling them from source |
+| Option               | Flag                                 | Default   | Description                                                                                                                     |
+| -------------------- | ------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `port`               | `-p, --port <port>`                  | `4321`    | HTTPS port on `localhost`. Falls back to `port` from `config/serve.json`                                                        |
+| `pageUrl`            | `--page-url <url>`                   | -         | SharePoint page to open with the debug query. Supports the `{tenantDomain}` placeholder                                         |
+| `locale`             | `--locale <locale>`                  | `en-us`   | Locale of the localized strings, for example `nl-nl`. Missing resources fall back to `en-us`                                    |
+| `serveConfiguration` | `--config <name>`                    | `default` | Serve configuration from `config/serve.json` to use (`--serve-config` works too)                                                |
+| `overlay`            | `--no-overlay`                       | `true`    | Show compile, runtime and type errors in an overlay over the page. Errors always go to the terminal and the browser console     |
+| `typeCheck`          | `--no-type-check`, `--type-check`    | `true`    | Type check the project in the background with its own TypeScript. See [Type checking and linting](#type-checking-and-linting)   |
+| `lint`               | `--lint`, `--lint full`, `--no-lint` | `true`    | Lint the files you save with the project's ESLint: `true` without type-aware rules, `"full"` with them, `false` off             |
+| `deployedLibraries`  | (config file only)                   | `[]`      | Package names of [linked library components](#library-components) to load from SharePoint instead of compiling them from source |
 
 Other flags: `-h, --help` prints the help, `-v, --version` prints the version.
 
 ### `fast-serve/config.json`
 
-```jsonc
+```json
 {
+  "$schema": "../node_modules/spfx-fast-serve-helpers/schema/config.schema.json",
   "port": 4321,
   "pageUrl": "https://{tenantDomain}/sites/dev/SitePages/test.aspx",
   "locale": "en-us",
   "serveConfiguration": "default",
   "overlay": true,
-  "deployedLibraries": [],
+  "typeCheck": true,
+  "lint": true,
+  "deployedLibraries": []
 }
 ```
 
-An unknown key or a wrong value type stops `fast-serve` with the list of supported keys. Editing the file restarts the server.
+The `$schema` line gives completion and validation in your editor; the schema ships with the package. An unknown key or a wrong value type stops `fast-serve` with the list of supported keys. Editing the file restarts the server.
 
 ### `{tenantDomain}`
 
@@ -74,6 +80,20 @@ $env:SPFX_SERVE_TENANT_DOMAIN="contoso.sharepoint.com"
 # bash
 export SPFX_SERVE_TENANT_DOMAIN=contoso.sharepoint.com
 ```
+
+## Type checking and linting
+
+`fast-serve` compiles TypeScript file by file, without type information. Type checking and linting run in the background with your project's own TypeScript and ESLint, and never block a rebuild or a hot update. Type errors are shown in the terminal and in the error overlay on the page; lint results are shown in the terminal, for the files you save. Both are on by default:
+
+```bash
+npx fast-serve --no-type-check           # no type checking
+npx fast-serve --lint full               # lint with type-aware rules, like heft build
+npx fast-serve --no-lint                 # no linting
+```
+
+> [!NOTE]
+>
+> By default, lint rules that need type information are off. In the SPFx config these are `@typescript-eslint/no-floating-promises` and `@typescript-eslint/no-for-in-array`, so `heft build` can still fail on them. Use `"lint": "full"` to match `heft build` exactly.
 
 ## Customizing the Rspack config
 
@@ -115,7 +135,7 @@ npm run serve
 
 ## Serving through a tunnel
 
-The debug query works on `localhost` only. For Teams and Viva Connections on mobile, or bugs you can only reproduce on a device, `fast-serve` can serve a **deployed development package** through a tunnel you run yourself.
+The debug query works on `localhost` only. When running on mobile, or bugs you can only reproduce on a device, `fast-serve` can serve a **deployed development package** through a tunnel you run yourself.
 
 1. Start a tunnel with a fixed host name that forwards to `https://localhost:4321` without verifying the certificate, for example [Microsoft Dev Tunnels](https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/) (`devtunnel host -p 4321 --protocol https --allow-anonymous`), a named Cloudflare Tunnel, or ngrok with a paid fixed domain.
 2. In `config/serve.json` set `"hostname": "<tunnel host>"` and `"port": 443`.
@@ -133,12 +153,6 @@ The debug query works on `localhost` only. For Teams and Viva Connections on mob
 5. Run `fast-serve` and open the page **without** the debug query, in a new tab.
 
 HMR, the error overlay and terminal error forwarding work through the tunnel. Rebuild and redeploy the package when the tunnel host or the manifests change (new components, new externals); code edits don't need it.
-
-> [!WARNING]
->
-> - Free ngrok doesn't work: its warning page answers script requests with HTML.
-> - Your dev server is public while the tunnel runs. Stop the tunnel when you're done and never deploy the development package to a production app catalog.
-> - The development package replaces the deployed app with the same id.
 
 ## HMR
 
@@ -177,6 +191,7 @@ The persistent cache lives in `temp/fast-serve/cache` and is invalidated automat
 - TypeScript is compiled per file with SWC, Sass with your project's Sass and `@microsoft/sp-css-loader`, so CSS module class names and theme tokens match heft's.
 - SPFx libraries (`@microsoft/sp-*`) and `config/config.json` externals stay external and are loaded by SharePoint, at the tenant's version.
 - All bundles share one compilation, so HMR and Fast Refresh work across several web parts on the same page.
+- Type checking and linting run in separate background processes with your project's own TypeScript and ESLint.
 
 ## Privacy
 
