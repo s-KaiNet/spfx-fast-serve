@@ -9,9 +9,9 @@ A fast dev server for SharePoint Framework **1.24+** projects. Blazingly fast st
 ## Highlights
 
 - **Fast start:** ready in about 1-2 seconds, where `heft start` needs 13-19 seconds on the same projects.
-- **Fast edits:** a rebuild takes 50-150 ms, and the change is on the page 0.1-0.3 s after you save. React components keep their state (Fast Refresh), styles are swapped without a reload. No full page reloads!
-- **Zero config:** one dev dependency and one npm script. No global CLI, no changes to your build. Works in development mode only: production builds, packaging and deployment stay on Heft.
-- **Type checking and linting** in the background, without slowing down hot updates.
+- **Fast edits:** a rebuild takes 50-150 ms, and the change is on the page 0.1-0.3 s after you save. React components keep their state (Fast Refresh), styles are swapped, all without a full page reload.
+- **Zero config:** one dev dependency. No global CLI, no changes to your build. Works in development mode only: production builds, packaging and deployment stay on Heft.
+- **Type checking and linting** in the background, without slowing down incremental rebuilds and hmr updates.
 - **Less memory:** up to 2x-3x less memory usage in development.
 
 ## Quick start
