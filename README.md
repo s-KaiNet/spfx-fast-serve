@@ -16,12 +16,22 @@ A fast dev server for SharePoint Framework **1.24+** projects. Blazingly fast st
 
 ## Quick start
 
-Install the package in your SPFx project and run it:
+Install the version that matches your project's SPFx version, then run it:
 
 ```bash
-npm install --save-dev spfx-fast-serve-helpers@beta
+npm install --save-dev spfx-fast-serve-helpers@~1.24.0
 npx fast-serve
 ```
+
+> [!IMPORTANT]
+>
+> **Match the version to your SPFx version.** The `spfx-fast-serve-helpers` minor version equals the SPFx minor version: use `~1.24.0` for SPFx 1.24, `~1.25.0` for SPFx 1.25, and so on. Always keep the `~` (tilde) and the `.0` patch, so your `package.json` contains:
+>
+> ```json
+> "spfx-fast-serve-helpers": "~1.24.0"
+> ```
+>
+> The tilde installs the latest fixes for your SPFx version (`1.24.1`, `1.24.2`, ...) but never moves to the next SPFx version. Don't use `^` or `latest`: they can install a version built for a newer SPFx. When you upgrade SPFx, change this line to the new version (for example `~1.25.0`) and run `npm install`.
 
 Optionally, add a script to `package.json` and run `npm run serve`:
 
@@ -33,7 +43,7 @@ Optionally, add a script to `package.json` and run `npm run serve`:
 
 > [!TIP]
 >
-> **`ERESOLVE` error mentioning `css-loader` during `npm install`?** Update `css-loader` in the same command: `npm install --save-dev css-loader@^7.1.4 spfx-fast-serve-helpers@beta`, or install with `--legacy-peer-deps`: `npm install --save-dev spfx-fast-serve-helpers@beta --legacy-peer-deps`.
+> **`ERESOLVE` error mentioning `css-loader` during `npm install`?** Update `css-loader` in the same command: `npm install --save-dev css-loader@^7.1.4 spfx-fast-serve-helpers@~1.24.0`, or install with `--legacy-peer-deps`: `npm install --save-dev spfx-fast-serve-helpers@~1.24.0 --legacy-peer-deps`.
 
 ## Configuration
 
@@ -166,10 +176,6 @@ HMR, the error overlay and terminal error forwarding work through the tunnel. Re
 | `package.json`, `config/*.json`, `fast-serve/config.json`, tsconfig, manifests, the extend file | `fast-serve` restarts in under a second, open pages reload |
 
 Several bundles on one page all hot-update. Keep one-time setup (icons, PnPjs, listeners) in `onInit`, not at module level: module code runs again on every hot update.
-
-## Versioning
-
-The `spfx-fast-serve-helpers` version follows the SPFx **minor** version: SPFx 1.24 projects use `spfx-fast-serve-helpers` 1.24.x. For SPFx 1.21 and earlier, see the [4.x branch](https://github.com/s-KaiNet/spfx-fast-serve/tree/4.x).
 
 ## Performance
 
